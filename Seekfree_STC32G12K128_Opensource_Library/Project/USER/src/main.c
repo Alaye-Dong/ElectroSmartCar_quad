@@ -38,37 +38,32 @@ void main()
 //	   	 printf("imu660ra init try again.\r\n");
 //    	}
 
+				dl1a_init();	// ³õÊ¼»¯DL1A(TOF)
 
-
-
-        dl1a_init();
-
-
-
-
-         pit_timer_ms(TIM_4, 5);
+				pit_timer_ms(TIM_4, 5);
    
     while(1)
     {
 			
 		key_scan();
-lcd_showfloat(5,0,g_ValueOfAD[2],4,2);  //ÓÒºá
- lcd_showfloat(65,0,g_ValueOfAD[3],4,2);  //×óºá
-			 lcd_showfloat(5,1,g_ValueOfAD[5],4,2);//ÓÒ 
- lcd_showfloat(65,1,g_ValueOfAD[0],4,2);   //zuoshu
- lcd_showfloat(65,2,g_ValueOfAD[1],4,2);  //×óÐ±
- 
- lcd_showfloat(5,2,g_ValueOfAD[4],4,2);//ÓÒÐ±
-  
+		lcd_showfloat(5,0,g_ValueOfAD[2],4,2);  //ÓÒºá
+		lcd_showfloat(65,0,g_ValueOfAD[3],4,2);  //×óºá
+		lcd_showfloat(5,1,g_ValueOfAD[5],4,2);	//ÓÒÊú£¿
+		lcd_showfloat(65,1,g_ValueOfAD[0],4,2);   //×óÊú
+		lcd_showfloat(65,2,g_ValueOfAD[1],4,2);  //×óÐ±
+		lcd_showfloat(5,2,g_ValueOfAD[4],4,2);	//ÓÒÐ±
 
- lcd_showfloat(5,4,roundcount2,4,2);   //
- lcd_showfloat(65,3,Target_speed1,4,2);  //
- lcd_showfloat(5,3,Target_speed2,4,2);//
- lcd_showfloat(5,8,v_angle,4,2);//
- lcd_showfloat(5,6,e_r2,4,2);//
- lcd_showfloat(65,6,e_r1,4,2);//
- lcd_showfloat(5,7,dl1a_distance_mm,4,2);
- lcd_showfloat(65,7,CK_count2,4,2);
+
+		lcd_showfloat(5,4,roundcount2,4,2);   //
+		lcd_showfloat(65,3,Target_speed1,4,2);  //
+		lcd_showfloat(5,3,Target_speed2,4,2);//
+		lcd_showfloat(5,8,v_angle,4,2);//
+		lcd_showfloat(5,6,e_r2,4,2);//
+		lcd_showfloat(65,6,e_r1,4,2);//
+		lcd_showfloat(5,7,dl1a_distance_mm,4,2);
+		lcd_showfloat(65,7,CK_count2,4,2);
+		
+		lcd_showfloat(5,9,HALL_PIN,4,2);
     }
 }
 

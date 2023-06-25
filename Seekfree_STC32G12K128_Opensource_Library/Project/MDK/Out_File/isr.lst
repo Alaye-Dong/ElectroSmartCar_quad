@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  isr                                                                25/06/23  13:59:36  PAGE 1   
+C251 COMPILER V5.60.0,  isr                                                                25/06/23  17:39:52  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE isr
@@ -66,7 +66,7 @@ stmt  level    source
    53   1        {
    54   2              UART2_CLEAR_TX_FLAG;
    55   2          busy[2] = 0;
-C251 COMPILER V5.60.0,  isr                                                                25/06/23  13:59:36  PAGE 2   
+C251 COMPILER V5.60.0,  isr                                                                25/06/23  17:39:52  PAGE 2   
 
    56   2        }
    57   1          if(UART2_GET_RX_FLAG)
@@ -134,7 +134,7 @@ stmt  level    source
   119   1      }
   120          void INT2_Isr() interrupt 10
   121          {
-C251 COMPILER V5.60.0,  isr                                                                25/06/23  13:59:36  PAGE 3   
+C251 COMPILER V5.60.0,  isr                                                                25/06/23  17:39:52  PAGE 3   
 
   122   1        INT2_CLEAR_FLAG;  //清除中断标志
   123   1      }
@@ -188,7 +188,7 @@ stmt  level    source
   171   2        if(dl1a_distance_mm<=650&&g_ValueOfAD[2]>=40&&g_ValueOfAD[3]>=40&&dl1a_distance_mm>=100&&flag_hd_Z ==2)
   172   2          {
   173   3           HD=1;
-  174   3          
+  174   3          BEEP = 1;
   175   3          }
   176   2        if(P26==0)
   177   2        {
@@ -202,13 +202,13 @@ stmt  level    source
   185   2         else if(HD==1)
   186   2         {
   187   3         
-C251 COMPILER V5.60.0,  isr                                                                25/06/23  13:59:36  PAGE 4   
+C251 COMPILER V5.60.0,  isr                                                                25/06/23  17:39:52  PAGE 4   
 
   188   3         obstacle();
   189   3         } 
   190   2        else
   191   2        {
-  192   3         if(flag_r_hd==1)
+  192   3         if(flag_in_round==1)
   193   3         {
   194   4           Huan_Dao_R();
   195   4         }
@@ -270,8 +270,8 @@ stmt  level    source
 Module Information          Static   Overlayable
 ------------------------------------------------
   code size            =        56     ------
-  ecode size           =       720     ------
-C251 COMPILER V5.60.0,  isr                                                                25/06/23  13:59:36  PAGE 5   
+  ecode size           =       722     ------
+C251 COMPILER V5.60.0,  isr                                                                25/06/23  17:39:52  PAGE 5   
 
   data size            =    ------     ------
   idata size           =    ------     ------

@@ -52,7 +52,7 @@ void key_scan()
 //    key6_status = KEY6_PIN;
     //检测到按键按下之后  并放开置位标志位
 
-    if(key1_status == 0)                      key1_flag = 1;
+    if(key1_status == 0)                   key1_flag = 1;
     if(key2_status && !key2_last_status)    key2_flag = 1;
     if(key3_status && !key3_last_status)    key3_flag = 1;
     if(key4_status && !key4_last_status)    key4_flag = 1;

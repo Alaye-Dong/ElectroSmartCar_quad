@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  round                                                              25/06/23  13:59:36  PAGE 1   
+C251 COMPILER V5.60.0,  round                                                              25/06/23  16:42:07  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE round
@@ -14,8 +14,8 @@ stmt  level    source
     3          
     4          int e_r1, e_r2;
     5          int cd_time_1 = 0;
-    6          int flag_r_hd = 0; //入环岛预测
-    7          int flag_c_hd = 0; //出环岛标志位
+    6          int flag_in_round = 0; //入环岛预测
+    7          int flag_out_round = 0; //出环岛标志位
     8          int flag_hding1 = 0; //环岛内循迹标志位
     9          int flag_hding2 = 0; //出环岛辅助标志位
    10          int flag_hd_Z = 0; //左环岛
@@ -43,10 +43,11 @@ stmt  level    source
    31   1          e_r2 = pow(100 - g_ValueOfAD[2], 2) + pow(100 - g_ValueOfAD[3], 2) + pow(100 - g_ValueOfAD[1], 2) + pow
              -(100 - g_ValueOfAD[4], 2)+pow(8 - g_ValueOfAD[5], 2)+pow(8 - g_ValueOfAD[0], 2);
    32   1          
-   33   1         if(e_r1<=450&&flag_r_hd==0&&g_ValueOfAD[2]>=75&&g_ValueOfAD[3]>=75&&g_ValueOfAD[1]>=80&&flag_hd_R==0)
+   33   1         if(e_r1<=450&&flag_in_round==0&&g_ValueOfAD[2]>=75&&g_ValueOfAD[3]>=75&&g_ValueOfAD[1]>=80&&flag_hd_R==
+             -0)
    34   1         {
    35   2           flag_hd_R = 1;
-   36   2           flag_r_hd = 1;
+   36   2           flag_in_round = 1;
    37   2           
    38   2         }
    39   1        if(e_r2<1000&&g_ValueOfAD[2]>=75&&g_ValueOfAD[3]>=75&&flag_hd_Z==0&&flag_hd_R==2) 
@@ -65,9 +66,9 @@ stmt  level    source
    51   1      
    52   1           roundcount =(ctimer_count_read(CTIM0_P34)+ctimer_count_read(CTIM3_P04))*0.1;
    53   1           roundcount2 = roundcount2 + roundcount;
-   54   1        if(roundcount2>=0&&roundcount2<=1000)
-C251 COMPILER V5.60.0,  round                                                              25/06/23  13:59:36  PAGE 2   
+C251 COMPILER V5.60.0,  round                                                              25/06/23  16:42:07  PAGE 2   
 
+   54   1        if(roundcount2>=0&&roundcount2<=1000)
    55   1        {
    56   2        
    57   2        
@@ -130,12 +131,12 @@ stmt  level    source
   112   2          else if(roundcount2>6000)
   113   2         {
   114   3         flag_hd_Z = 2;
-  115   3         flag_r_hd = 0;
+  115   3         flag_in_round = 0;
   116   3         roundcount2 = 0;
   117   3      
-  118   3         }
-C251 COMPILER V5.60.0,  round                                                              25/06/23  13:59:36  PAGE 3   
+C251 COMPILER V5.60.0,  round                                                              25/06/23  16:42:07  PAGE 3   
 
+  118   3         }
   119   2         }
   120   1      
   121   1         
@@ -175,7 +176,7 @@ stmt  level    source
   153   2         else if(roundcount2>7000)
   154   2         {
   155   3         flag_hd_R = 2;
-  156   3         flag_r_hd = 0;
+  156   3         flag_in_round = 0;
   157   3         roundcount2 = 0;
   158   3         }
   159   2         }
@@ -201,9 +202,9 @@ stmt  level    source
   179   2         cha_err1 = 56;
   180   2        }
   181   1        else if(roundcount2<6000&&roundcount2>2500)
-  182   1          
-C251 COMPILER V5.60.0,  round                                                              25/06/23  13:59:36  PAGE 4   
+C251 COMPILER V5.60.0,  round                                                              25/06/23  16:42:07  PAGE 4   
 
+  182   1          
   183   1        {
   184   2         Target_speed1 =50;
   185   2         Target_speed2 =50;

@@ -3,8 +3,8 @@
 #ifndef __ROUND_H
 #define __ROUND_H
 
-extern int flag_r_hd;  //入环岛预测
-extern int flag_c_hd;  //出环岛标志位
+extern int flag_in_round;  //入环岛预测
+extern int flag_out_round;  //出环岛标志位
 extern int flag_hding1, flag_hding2; //环岛内循迹标志位
 extern int flag_hd_Z;  //左环岛
 extern int flag_hd_R;  //右环岛

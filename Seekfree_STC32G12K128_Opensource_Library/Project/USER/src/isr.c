@@ -171,7 +171,7 @@ void TM4_Isr() interrupt 20
 	if(dl1a_distance_mm<=650&&g_ValueOfAD[2]>=40&&g_ValueOfAD[3]>=40&&dl1a_distance_mm>=100&&flag_hd_Z ==2)
 		{
 		 HD=1;
-		
+		BEEP = 1;
 		}
 	if(P26==0)
 	{
@@ -189,7 +189,7 @@ void TM4_Isr() interrupt 20
 	 } 
 	else
 	{
-	 if(flag_r_hd==1)
+	 if(flag_in_round==1)
 	 {
 		 Huan_Dao_R();
 	 }

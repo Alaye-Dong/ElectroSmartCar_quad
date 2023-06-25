@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  control                                                            25/06/23  13:59:35  PAGE 1   
+C251 COMPILER V5.60.0,  control                                                            25/06/23  16:42:06  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE control
@@ -67,7 +67,7 @@ Module Information          Static   Overlayable
   far data size        =    ------     ------
   huge data size       =    ------     ------
   const size           =    ------     ------
-C251 COMPILER V5.60.0,  control                                                            25/06/23  13:59:35  PAGE 2   
+C251 COMPILER V5.60.0,  control                                                            25/06/23  16:42:06  PAGE 2   
 
   hconst size          =        20     ------
 End of Module Information.

@@ -3,8 +3,8 @@
 
 int e_r1, e_r2;
 int cd_time_1 = 0;
-int flag_r_hd = 0; //入环岛预测
-int flag_c_hd = 0; //出环岛标志位
+int flag_in_round = 0; //入环岛预测
+int flag_out_round = 0; //出环岛标志位
 int flag_hding1 = 0; //环岛内循迹标志位
 int flag_hding2 = 0; //出环岛辅助标志位
 int flag_hd_Z = 0; //左环岛
@@ -30,10 +30,10 @@ void knn(void)
     e_r1 = pow(mask[0][0] - g_ValueOfAD[2], 2) + pow(mask[0][1] - g_ValueOfAD[3], 2) + pow(mask[0][2] - g_ValueOfAD[1], 2) + pow(mask[0][3] - g_ValueOfAD[4], 2);
 		e_r2 = pow(100 - g_ValueOfAD[2], 2) + pow(100 - g_ValueOfAD[3], 2) + pow(100 - g_ValueOfAD[1], 2) + pow(100 - g_ValueOfAD[4], 2)+pow(8 - g_ValueOfAD[5], 2)+pow(8 - g_ValueOfAD[0], 2);
 		
-	 if(e_r1<=450&&flag_r_hd==0&&g_ValueOfAD[2]>=75&&g_ValueOfAD[3]>=75&&g_ValueOfAD[1]>=80&&flag_hd_R==0)
+	 if(e_r1<=450&&flag_in_round==0&&g_ValueOfAD[2]>=75&&g_ValueOfAD[3]>=75&&g_ValueOfAD[1]>=80&&flag_hd_R==0)
 	 {
 	   flag_hd_R = 1;
-	   flag_r_hd = 1;
+	   flag_in_round = 1;
 	   
 	 }
 	if(e_r2<1000&&g_ValueOfAD[2]>=75&&g_ValueOfAD[3]>=75&&flag_hd_Z==0&&flag_hd_R==2)	
@@ -112,7 +112,7 @@ void Huan_Dao_Z()
 	  else if(roundcount2>6000)
 	 {
 	 flag_hd_Z = 2;
-	 flag_r_hd = 0;
+	 flag_in_round = 0;
 	 roundcount2 = 0;
 
 	 }
@@ -153,7 +153,7 @@ void Huan_Dao_R()
 	 else if(roundcount2>7000)
 	 {
 	 flag_hd_R = 2;
-	 flag_r_hd = 0;
+	 flag_in_round = 0;
 	 roundcount2 = 0;
 	 }
 	 }

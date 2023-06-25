@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  main                                                               25/06/23  13:59:33  PAGE 1   
+C251 COMPILER V5.60.0,  main                                                               25/06/23  17:37:29  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE main
@@ -49,48 +49,43 @@ stmt  level    source
    38   1      //       printf("imu660ra init try again.\r\n");
    39   1      //      }
    40   1      
-   41   1      
+   41   1              dl1a_init();  // ³õÊ¼»¯DL1A(TOF)
    42   1      
-   43   1      
-   44   1              dl1a_init();
-   45   1      
-   46   1      
-   47   1      
-   48   1      
-   49   1               pit_timer_ms(TIM_4, 5);
-   50   1         
-   51   1          while(1)
-   52   1          {
-   53   2            
-   54   2          key_scan();
-   55   2      lcd_showfloat(5,0,g_ValueOfAD[2],4,2);  //ÓÒºá
-   56   2       lcd_showfloat(65,0,g_ValueOfAD[3],4,2);  //×óºá
-   57   2             lcd_showfloat(5,1,g_ValueOfAD[5],4,2);//ÓÒ 
-C251 COMPILER V5.60.0,  main                                                               25/06/23  13:59:33  PAGE 2   
+   43   1              pit_timer_ms(TIM_4, 5);
+   44   1         
+   45   1          while(1)
+   46   1          {
+   47   2            
+   48   2          key_scan();
+   49   2          lcd_showfloat(5,0,g_ValueOfAD[2],4,2);  //ÓÒºá
+   50   2          lcd_showfloat(65,0,g_ValueOfAD[3],4,2);  //×óºá
+   51   2          lcd_showfloat(5,1,g_ValueOfAD[5],4,2);  //ÓÒÊú£¿
+   52   2          lcd_showfloat(65,1,g_ValueOfAD[0],4,2);   //×óÊú
+   53   2          lcd_showfloat(65,2,g_ValueOfAD[1],4,2);  //×óÐ±
+   54   2          lcd_showfloat(5,2,g_ValueOfAD[4],4,2);  //ÓÒÐ±
+   55   2      
+   56   2      
+   57   2          lcd_showfloat(5,4,roundcount2,4,2);   //
+C251 COMPILER V5.60.0,  main                                                               25/06/23  17:37:29  PAGE 2   
 
-   58   2       lcd_showfloat(65,1,g_ValueOfAD[0],4,2);   //zuoshu
-   59   2       lcd_showfloat(65,2,g_ValueOfAD[1],4,2);  //×óÐ±
-   60   2       
-   61   2       lcd_showfloat(5,2,g_ValueOfAD[4],4,2);//ÓÒÐ±
-   62   2        
-   63   2      
-   64   2       lcd_showfloat(5,4,roundcount2,4,2);   //
-   65   2       lcd_showfloat(65,3,Target_speed1,4,2);  //
-   66   2       lcd_showfloat(5,3,Target_speed2,4,2);//
-   67   2       lcd_showfloat(5,8,v_angle,4,2);//
-   68   2       lcd_showfloat(5,6,e_r2,4,2);//
-   69   2       lcd_showfloat(65,6,e_r1,4,2);//
-   70   2       lcd_showfloat(5,7,dl1a_distance_mm,4,2);
-   71   2       lcd_showfloat(65,7,CK_count2,4,2);
-   72   2          }
-   73   1      }
-   74          
+   58   2          lcd_showfloat(65,3,Target_speed1,4,2);  //
+   59   2          lcd_showfloat(5,3,Target_speed2,4,2);//
+   60   2          lcd_showfloat(5,8,v_angle,4,2);//
+   61   2          lcd_showfloat(5,6,e_r2,4,2);//
+   62   2          lcd_showfloat(65,6,e_r1,4,2);//
+   63   2          lcd_showfloat(5,7,dl1a_distance_mm,4,2);
+   64   2          lcd_showfloat(65,7,CK_count2,4,2);
+   65   2          
+   66   2          lcd_showfloat(5,9,HALL_PIN,4,2);
+   67   2          }
+   68   1      }
+   69          
 
 
 Module Information          Static   Overlayable
 ------------------------------------------------
   code size            =    ------     ------
-  ecode size           =       768     ------
+  ecode size           =       797     ------
   data size            =    ------     ------
   idata size           =    ------     ------
   pdata size           =    ------     ------
