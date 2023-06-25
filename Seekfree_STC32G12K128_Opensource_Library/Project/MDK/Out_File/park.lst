@@ -1,0 +1,44 @@
+C251 COMPILER V5.60.0,  park                                                               17/06/23  17:43:43  PAGE 1   
+
+
+C251 COMPILER V5.60.0, COMPILATION OF MODULE park
+OBJECT MODULE PLACED IN .\Out_File\park.obj
+COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE park.c LARGE INTR2 ROM(HUGE) WARNINGLEVEL(3) BROWSE INCDIR(..\..\Libra
+                    -ries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_peripheral;..\CODE;..\USER\inc;..\USER\src) D
+                    -EBUG PRINT(.\Out_File\park.lst) TABS(2) OBJECT(.\Out_File\park.obj) 
+
+stmt  level    source
+
+    1          #include "headfile.h"
+    2          #include "park.h"
+    3          int rk_time1 = 0;
+    4          int rk_time2 = 0;
+    5          int rk_time3 = 0;
+    6          int ruku = 0;
+    7          int park1 = 0;
+    8          int park2 = 0;
+    9          int park3 = 0;
+
+
+Module Information          Static   Overlayable
+------------------------------------------------
+  code size            =    ------     ------
+  ecode size           =    ------     ------
+  data size            =    ------     ------
+  idata size           =    ------     ------
+  pdata size           =    ------     ------
+  xdata size           =        14     ------
+  xdata-const size     =    ------     ------
+  edata size           =    ------     ------
+  bit size             =    ------     ------
+  ebit size            =    ------     ------
+  bitaddressable size  =    ------     ------
+  ebitaddressable size =    ------     ------
+  far data size        =    ------     ------
+  huge data size       =    ------     ------
+  const size           =    ------     ------
+  hconst size          =        49     ------
+End of Module Information.
+
+
+C251 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

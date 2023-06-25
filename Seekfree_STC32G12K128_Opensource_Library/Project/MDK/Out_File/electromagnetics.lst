@@ -1,0 +1,285 @@
+C251 COMPILER V5.60.0,  electromagnetics                                                   19/05/23  19:07:33  PAGE 1   
+
+
+C251 COMPILER V5.60.0, COMPILATION OF MODULE electromagnetics
+OBJECT MODULE PLACED IN .\Out_File\electromagnetics.obj
+COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE electromagnetics.c XSMALL INTR2 WARNINGLEVEL(3) BROWSE INCDIR(..\..\Li
+                    -braries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_peripheral;..\CODE;..\USER\inc;..\USER\src
+                    -) DEBUG PRINT(.\Out_File\electromagnetics.lst) TABS(2) OBJECT(.\Out_File\electromagnetics.obj) 
+
+stmt  level    source
+
+    1          #include "headfile.h"
+*** WARNING C317 IN LINE 3 OF direction.h: attempt to redefine macro 'BEEP'
+*** WARNING C317 IN LINE 8 OF direction.h: attempt to redefine macro 'DIRL'
+*** WARNING C317 IN LINE 9 OF direction.h: attempt to redefine macro 'DIRR'
+    2          #include "electromagnetics.h"
+    3          #include "math.h"
+    4          
+    5          
+    6          /**********舵机打角相关变量***************************/
+    7          /************************ 模糊运算引擎 ************************/
+    8          #define PMAX  100
+    9          #define PMIN -100
+   10          #define DMAX  100
+   11          #define DMIN -100
+   12          #define FMAX  100       //语言值的满幅值
+   13          int dir_pwm_max=665 ;
+   14          int dir_pwm_min=529  ;
+   15          int direction_pwm;
+   16          int mhpid;
+   17          int daoche=0;
+   18          int flag_r_hd=0;
+   19          int flag_c_hd=0;
+   20          int flag_hding=0;
+   21          int flag_hd_Z=0;
+   22          int flag_hd_R=0;
+   23          
+   24          int flag_sc_y=0;
+   25          int c_flag_sc=0;
+   26          int flag_sc_z=0;
+   27          int r_flag_sc=0;
+   28          int flag_scing=0;
+   29          int ruku=0;int rk;
+   30          int16 zhuansu_R=1600;
+   31          int16 zhuansu_L=1600;
+   32          
+   33          int16 cd_time_1=0;
+   34          int16 cd_time_2=0;
+   35          int16 cd_time_3=0;
+   36          int16 cd_time_4=0;
+   37          int16 cd_time_5=0;
+   38          int16 sancha=0;
+   39          int16 Rsancha=0;
+   40          int16 CD=0;
+   41          int16 js=0;
+   42          
+   43          
+   44          
+   45          int fuzzy_txt[10];
+   46          int PFF[4] = { 10,40,70,100};
+   47          /*输入量D语言值特征点*/
+   48          int DFF[4] = { 0,30,45,60};
+   49          /*输出量U语言值特征点*/
+   50          int UFF[7] = { 0,10,25,40,55,70,85};
+   51          float U;                //偏差,偏差微分以及输出值的精确量
+   52          float PF[2], DF[2], UF[4];//偏差,偏差微分以及输出值的隶属度
+   53          int Pn,Dn,Un[4];
+   54          float temp1, temp2;
+C251 COMPILER V5.60.0,  electromagnetics                                                   19/05/23  19:07:33  PAGE 2   
+
+   55          int rule[7][7]={//误差变化率 -3,-2,-1, 0, 1, 2, 3                //   误差
+   56                          {-6,-6,-6,-6,-5,-5,-4,},                        //   -3      0
+   57                          {-5,-5,-5,-4,-4,-3,-1,},                        //   -2      1
+   58                          {-4,-4,-3,-1, 0, 1, 2,},                        //   -1      2
+   59                          {-4,-3,-1, 0, 1, 3, 4,},                        //    0      3
+   60                          {-2,-1, 0, 1, 3, 4, 4,},                        //    1      4
+   61                          { 1, 3, 4, 4, 5, 5, 5,},                        //    2      5
+   62                          { 4, 5, 5, 6, 6, 6, 6} };                        //    3     6  5.94
+   63          
+   64          float Fuzzy(float P, float D)
+   65          {
+   66   1      //    float U;                //偏差,偏差微分以及输出值的精确量
+   67   1      //    float PF[2], DF[2], UF[4];//偏差,偏差微分以及输出值的隶属度
+   68   1      //    int Pn,Dn,Un[4];
+   69   1      //    float temp1, temp2;
+   70   1      
+   71   1          /*隶属度的确定*/
+   72   1          /*根据PD的指定语言值获得有效隶属度*/
+   73   1          if (P > -PFF[3] && P < PFF[3])
+   74   1          {
+   75   2              if (P <= -PFF[2])
+   76   2              {
+   77   3                  Pn = -2;
+   78   3                  PF[0] = FMAX * ((float)(-PFF[2] - P) / (PFF[3] - PFF[2]));
+   79   3              }
+   80   2              else if (P <= -PFF[1])
+   81   2              {
+   82   3                  Pn = -1;
+   83   3                  PF[0] = FMAX * ((float)(-PFF[1] - P) / (PFF[2] - PFF[1]));
+   84   3              }
+   85   2              else if (P <= PFF[0])
+   86   2              {
+   87   3                  Pn = 0;
+   88   3                  PF[0] = FMAX * ((float)(-PFF[0] - P) / (PFF[1] - PFF[0]));
+   89   3              }
+   90   2              else if (P <= PFF[1])
+   91   2              {
+   92   3                  Pn = 1; PF[0] = FMAX * ((float)(PFF[1] - P) / (PFF[1] - PFF[0]));
+   93   3              }
+   94   2              else if (P <= PFF[2])
+   95   2              {
+   96   3                  Pn = 2; PF[0] = FMAX * ((float)(PFF[2] - P) / (PFF[2] - PFF[1]));
+   97   3              }
+   98   2              else if (P <= PFF[3])
+   99   2              {
+  100   3                  Pn = 3; PF[0] = FMAX * ((float)(PFF[3] - P) / (PFF[3] - PFF[2]));
+  101   3              }
+  102   2          }
+  103   1          else if (P <= -PFF[3])
+  104   1          {
+  105   2              Pn = -2; PF[0] = FMAX;
+  106   2          }
+  107   1          else if (P >= PFF[3])
+  108   1          {
+  109   2              Pn = 3; PF[0] = 0;
+  110   2          }
+  111   1          PF[1] = FMAX - PF[0];
+  112   1      
+  113   1          if (D > -DFF[3] && D < DFF[3])
+  114   1          {
+  115   2              if (D <= -DFF[2])
+  116   2              {
+  117   3                  Dn = -2; DF[0] = FMAX * ((float)(-DFF[2] - D) / (DFF[3] - DFF[2]));
+  118   3              }
+  119   2              else if (D <= -DFF[1])
+  120   2              {
+C251 COMPILER V5.60.0,  electromagnetics                                                   19/05/23  19:07:33  PAGE 3   
+
+  121   3                  Dn = -1;
+  122   3                  DF[0] = FMAX * ((float)(-DFF[1] - D) / (DFF[2] - DFF[1]));
+  123   3              }
+  124   2              else if (D <= DFF[0])
+  125   2              {
+  126   3                  Dn = 0;
+  127   3                  DF[0] = FMAX * ((float)(-DFF[0] - D) / (DFF[1] - DFF[0]));
+  128   3              }
+  129   2              else if (D <= DFF[1])
+  130   2              {
+  131   3                  Dn = 1;
+  132   3                  DF[0] = FMAX * ((float)(DFF[1] - D) / (DFF[1] - DFF[0]));
+  133   3              }
+  134   2              else if (D <= DFF[2])
+  135   2              {
+  136   3                  Dn = 2; DF[0] = FMAX * ((float)(DFF[2] - D) / (DFF[2] - DFF[1]));
+  137   3              }
+  138   2              else if (D <= DFF[3])
+  139   2              {
+  140   3                  Dn = 3; DF[0] = FMAX * ((float)(DFF[3] - D) / (DFF[3] - DFF[2]));
+  141   3              }
+  142   2          }
+  143   1          else if (D <= -DFF[3])
+  144   1          {
+  145   2              Dn = -2;
+  146   2              DF[0] = FMAX;
+  147   2          }
+  148   1          else if (D >= DFF[3])
+  149   1          {
+  150   2              Dn = 3;
+  151   2              DF[0] = 0;
+  152   2          }
+  153   1          DF[1] = FMAX - DF[0];
+  154   1      
+  155   1          /*使用误差范围优化后的规则表rule[7][7]*/
+  156   1          /*输出值使用13个隶属函数,中心值由UFF[7]指定*/
+  157   1          /*一般都是四个规则有效*/
+  158   1          fuzzy_txt[0]=Pn - 1 + 3;
+  159   1          fuzzy_txt[1]=Dn - 1 + 3;
+  160   1          fuzzy_txt[2]=Pn + 3;
+  161   1          fuzzy_txt[3]=Dn - 1 + 3;
+  162   1          fuzzy_txt[4]=Pn - 1 + 3;
+  163   1          fuzzy_txt[5]=Dn + 3;
+  164   1          fuzzy_txt[6]=Pn + 3;
+  165   1          fuzzy_txt[7]=Dn + 3;
+  166   1          
+  167   1          Un[0] = rule[Pn - 1 + 3][Dn - 1 + 3];
+  168   1          Un[1] = rule[Pn + 3][Dn - 1 + 3];
+  169   1          Un[2] = rule[Pn - 1 + 3][Dn + 3];
+  170   1          Un[3] = rule[Pn + 3][Dn + 3];
+  171   1          if (PF[0] <= DF[0]) UF[0] = PF[0];
+  172   1          else  UF[0] = DF[0];
+  173   1          if (PF[1] <= DF[0]) UF[1] = PF[1];
+  174   1          else  UF[1] = DF[0];
+  175   1          if (PF[0] <= DF[1]) UF[2] = PF[0];
+  176   1          else  UF[2] = DF[1];
+  177   1          if (PF[1] <= DF[1]) UF[3] = PF[1];
+  178   1          else  UF[3] = DF[1];
+  179   1      
+  180   1          /*同隶属函数输出语言值求大*/
+  181   1          if (Un[0] == Un[1])
+  182   1          {
+  183   2              if (UF[0] > UF[1])  UF[1] = 0;
+  184   2              else  UF[0] = 0;
+  185   2          }
+  186   1          if (Un[0] == Un[2])
+C251 COMPILER V5.60.0,  electromagnetics                                                   19/05/23  19:07:33  PAGE 4   
+
+  187   1          {
+  188   2              if (UF[0] > UF[2])  UF[2] = 0;
+  189   2              else  UF[0] = 0;
+  190   2          }
+  191   1          if (Un[0] == Un[3])
+  192   1          {
+  193   2              if (UF[0] > UF[3])  UF[3] = 0;
+  194   2              else  UF[0] = 0;
+  195   2          }
+  196   1          if (Un[1] == Un[2])
+  197   1          {
+  198   2              if (UF[1] > UF[2])  UF[2] = 0;
+  199   2              else  UF[1] = 0;
+  200   2          }
+  201   1          if (Un[1] == Un[3])
+  202   1          {
+  203   2              if (UF[1] > UF[3])  UF[3] = 0;
+  204   2              else  UF[1] = 0;
+  205   2          }
+  206   1          if (Un[2] == Un[3])
+  207   1          {
+  208   2              if (UF[2] > UF[3])  UF[3] = 0;
+  209   2              else  UF[2] = 0;
+  210   2          }
+  211   1      //
+  212   1          /*重心法反模糊*/
+  213   1          /*Un[]原值为输出隶属函数标号，转换为隶属函数值*/
+  214   1          if (Un[0] >= 0) Un[0] = UFF[Un[0]];
+  215   1          else      Un[0] = -UFF[-Un[0]];
+  216   1          if (Un[1] >= 0) Un[1] = UFF[Un[1]];
+  217   1          else      Un[1] = -UFF[-Un[1]];
+  218   1          if (Un[2] >= 0) Un[2] = UFF[Un[2]];
+  219   1          else      Un[2] = -UFF[-Un[2]];
+  220   1          if (Un[3] >= 0) Un[3] = UFF[Un[3]];
+  221   1          else      Un[3] = -UFF[-Un[3]];
+  222   1      
+  223   1          temp1 = UF[0] * Un[0] + UF[1] * Un[1] + UF[2] * Un[2] + UF[3] * Un[3];
+  224   1          temp2 = UF[0] + UF[1] + UF[2] + UF[3];
+  225   1          U = temp1 / temp2;
+  226   1      
+  227   1          return U;
+  228   1      }
+  229          
+  230          
+  231          
+  232          
+  233          /******************************************************
+  234          * 电磁控制输出--计算得出舵机转向占空比
+  235          *******************************************************/
+  236          void Elect_Control_Out()
+  237          {  
+  238   1           mhpid =Fuzzy( (g_fDirectionError[0]*g_dirControl_P) , (g_fDirectionError_dot[0]*g_dirControl_D) );  
+  239   1      }
+
+
+Module Information          Static   Overlayable
+------------------------------------------------
+  code size            =      1479     ------
+  ecode size           =    ------     ------
+  data size            =    ------     ------
+  idata size           =    ------     ------
+  pdata size           =    ------     ------
+  xdata size           =    ------     ------
+  xdata-const size     =    ------     ------
+  edata size           =       260     ------
+  bit size             =    ------     ------
+  ebit size            =    ------     ------
+C251 COMPILER V5.60.0,  electromagnetics                                                   19/05/23  19:07:33  PAGE 5   
+
+  bitaddressable size  =    ------     ------
+  ebitaddressable size =    ------     ------
+  far data size        =    ------     ------
+  huge data size       =    ------     ------
+  const size           =    ------     ------
+  hconst size          =       294     ------
+End of Module Information.
+
+
+C251 COMPILATION COMPLETE.  3 WARNING(S),  0 ERROR(S)

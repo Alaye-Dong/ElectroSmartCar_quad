@@ -1,0 +1,126 @@
+C251 COMPILER V5.60.0,  key                                                                17/06/23  17:43:41  PAGE 1   
+
+
+C251 COMPILER V5.60.0, COMPILATION OF MODULE key
+OBJECT MODULE PLACED IN .\Out_File\key.obj
+COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE key.c LARGE INTR2 ROM(HUGE) WARNINGLEVEL(3) BROWSE INCDIR(..\..\Librar
+                    -ies\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_peripheral;..\CODE;..\USER\inc;..\USER\src) DE
+                    -BUG PRINT(.\Out_File\key.lst) TABS(2) OBJECT(.\Out_File\key.obj) 
+
+stmt  level    source
+
+    1          #include "headfile.h"
+    2          #include "key.h"
+    3          
+    4          //拨码开关状态变量
+    5          uint8 sw1_status;
+    6          uint8 sw2_status;
+    7          uint8 sw3_status;
+    8          
+    9          //开关状态变量
+   10          uint8 key1_status = 1;
+   11          uint8 key2_status = 1;
+   12          uint8 key3_status = 1;
+   13          uint8 key4_status = 1;
+   14          uint8 key5_status = 1;
+   15          uint8 key6_status = 1;
+   16          //上一次开关状态变量
+   17          uint8 key1_last_status;
+   18          uint8 key2_last_status;
+   19          uint8 key3_last_status;
+   20          uint8 key4_last_status;
+   21          uint8 key5_last_status;
+   22          uint8 key6_last_status;
+   23          
+   24          //开关标志位
+   25          uint8 key1_flag;
+   26          uint8 key2_flag;
+   27          uint8 key3_flag;
+   28          uint8 key4_flag;
+   29          uint8 key5_flag;
+   30          uint8 key6_flag;
+   31          uint8 test1 = 0, test2 = 0, test3 = 0, test4 = 0, test5 = 0, test6 = 0;
+   32          
+   33          void key_scan()
+   34          {
+   35   1          sw1_status = SW1_PIN;
+   36   1          sw2_status = SW2_PIN;
+   37   1      //    sw3_status = SW3_PIN;
+   38   1          //使用此方法优点在于，不需要使用while(1) 等待，避免处理器资源浪费
+   39   1          //保存按键状态
+   40   1          key1_last_status = key1_status;
+   41   1          key2_last_status = key2_status;
+   42   1          key3_last_status = key3_status;
+   43   1          key4_last_status = key4_status;
+   44   1      //    key5_last_status = key5_status;
+   45   1      //    key6_last_status = key6_status;
+   46   1          //读取当前按键状态
+   47   1          key1_status = KEY1_PIN;
+   48   1          key2_status = KEY2_PIN;
+   49   1          key3_status = KEY3_PIN;
+   50   1          key4_status = KEY4_PIN;
+   51   1      //    key5_status = KEY5_PIN;
+   52   1      //    key6_status = KEY6_PIN;
+   53   1          //检测到按键按下之后  并放开置位标志位
+   54   1      
+   55   1          if(key1_status == 0)                      key1_flag = 1;
+   56   1          if(key2_status && !key2_last_status)    key2_flag = 1;
+   57   1          if(key3_status && !key3_last_status)    key3_flag = 1;
+C251 COMPILER V5.60.0,  key                                                                17/06/23  17:43:41  PAGE 2   
+
+   58   1          if(key4_status && !key4_last_status)    key4_flag = 1;
+   59   1      //    if(key5_status && !key5_last_status)    key5_flag = 1;
+   60   1      //    if(key6_status && !key6_last_status)    key6_flag = 1;
+   61   1          //标志位置位之后，可以使用标志位执行自己想要做的事件
+   62   1          if(key1_flag)
+   63   1          {
+   64   2              key1_flag = 0;//使用按键之后，应该清除标志位
+   65   2              test1++;
+   66   2            g_dirControl_P = g_dirControl_P +0.05;
+   67   2          }
+   68   1      
+   69   1          if(key2_flag)
+   70   1          {
+   71   2              key2_flag = 0;//使用按键之后，应该清除标志位
+   72   2              test2++;
+   73   2            g_dirControl_P = g_dirControl_P - 0.05;
+   74   2          }
+   75   1      
+   76   1          if(key3_flag)
+   77   1          {
+   78   2              key3_flag = 0;//使用按键之后，应该清除标志位
+   79   2              test3++;
+   80   2            g_dirControl_D = g_dirControl_D + 0.05;
+   81   2          }
+   82   1      
+   83   1          if(key4_flag)
+   84   1          {
+   85   2              key4_flag = 0;//使用按键之后，应该清除标志位
+   86   2              test4++;
+   87   2            g_dirControl_D = g_dirControl_D - 0.05;
+   88   2          }
+   89   1        }
+
+
+Module Information          Static   Overlayable
+------------------------------------------------
+  code size            =    ------     ------
+  ecode size           =       343     ------
+  data size            =    ------     ------
+  idata size           =    ------     ------
+  pdata size           =    ------     ------
+  xdata size           =        27     ------
+  xdata-const size     =    ------     ------
+  edata size           =    ------     ------
+  bit size             =    ------     ------
+  ebit size            =    ------     ------
+  bitaddressable size  =    ------     ------
+  ebitaddressable size =    ------     ------
+  far data size        =    ------     ------
+  huge data size       =    ------     ------
+  const size           =    ------     ------
+  hconst size          =        72     ------
+End of Module Information.
+
+
+C251 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

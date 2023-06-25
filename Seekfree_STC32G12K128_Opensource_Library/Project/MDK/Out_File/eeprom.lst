@@ -1,0 +1,115 @@
+C251 COMPILER V5.60.0,  eeprom                                                             17/06/23  17:43:42  PAGE 1   
+
+
+C251 COMPILER V5.60.0, COMPILATION OF MODULE eeprom
+OBJECT MODULE PLACED IN .\Out_File\eeprom.obj
+COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE eeprom.c LARGE INTR2 ROM(HUGE) WARNINGLEVEL(3) BROWSE INCDIR(..\..\Lib
+                    -raries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_peripheral;..\CODE;..\USER\inc;..\USER\src)
+                    - DEBUG PRINT(.\Out_File\eeprom.lst) TABS(2) OBJECT(.\Out_File\eeprom.obj) 
+
+stmt  level    source
+
+    1          #include "headfile.h"
+    2          
+    3          uint8 date_buff[100]; //eeprom数据数组
+    4          void eeprom_init()
+    5          {
+    6   1          iap_init();                 //初始化EEPROM;
+    7   1      
+    8   1          iap_read_bytes(0x00, date_buff, 100);   //从EEPROM中读取数据
+    9   1      
+   10   1      /****不用eeprom直接赋值****/
+   11   1          g_dirControl_P    = 16.7;//read_float(0);
+   12   1          g_dirControl_D    = 15;//read_float(1);
+   13   1          angle_kp1         = 0.425;//read_float(2);
+   14   1      
+   15   1          Motor_Kp_L        = 45;//read_float(3);
+   16   1          Motor_Ki_L        = 5.7;//read_float(4);
+   17   1        
+   18   1          Motor_Kp_R        = 45;//read_float(5);
+   19   1          Motor_Ki_R        = 5.7;//read_float(6);
+   20   1        
+   21   1      /****用eeprom赋值****/  
+   22   1      //    g_dirControl_P    = read_float(0);
+   23   1      //    g_dirControl_D    = read_float(1);
+   24   1      //    angle_kp1         = read_float(2);
+   25   1      //    Motor_Kp_L        = read_float(3);
+   26   1      //    Motor_Ki_L        = read_float(4);
+   27   1      //    Motor_Kp_R        = read_float(5);
+   28   1      //    Motor_Ki_R        = read_float(6);
+   29   1        
+   30   1      }
+   31          void save_int(int32 input, uint8 value_bit)
+   32          {
+   33   1          uint8 i;
+   34   1          uint8 begin = value_bit * 4;
+   35   1          uint8* p = (uint8*)&input;
+   36   1          for(i = 0; i < 4; i++)
+   37   1          {
+   38   2              date_buff[begin++] = *(p + i);
+   39   2          }
+   40   1          extern_iap_write_bytes(0x00, date_buff, 100);
+   41   1      }
+   42          
+   43          int32 read_int(uint8 value_bit)
+   44          {
+   45   1          uint8 i;
+   46   1          uint8 begin = value_bit * 4;
+   47   1          int32 output;
+   48   1          uint8* p = (uint8*)&output;;
+   49   1          for(i = 0; i < 4; i++)
+   50   1          {
+   51   2              *(p + i) = date_buff[begin++];
+   52   2          }
+   53   1          return output;
+   54   1      }
+   55          
+   56          void save_float(float input, uint8 value_bit)
+   57          {
+C251 COMPILER V5.60.0,  eeprom                                                             17/06/23  17:43:42  PAGE 2   
+
+   58   1          uint8 i;
+   59   1          uint8 begin = value_bit * 4;
+   60   1          uint8* p = (uint8*)&input;
+   61   1          for(i = 0; i < 4; i++)
+   62   1          {
+   63   2              date_buff[begin++] = *(p + i);
+   64   2          }
+   65   1          extern_iap_write_bytes(0x00, date_buff, 100);
+   66   1      }
+   67          float read_float(uint8 value_bit)
+   68          {
+   69   1          uint8 i;
+   70   1          uint8 begin = value_bit * 4;
+   71   1          float output;
+   72   1          uint8* p = (uint8*)&output;;
+   73   1          for(i = 0; i < 4; i++)
+   74   1          {
+   75   2              *(p + i) = date_buff[begin++];
+   76   2          }
+   77   1          return output;
+   78   1      }
+
+
+Module Information          Static   Overlayable
+------------------------------------------------
+  code size            =    ------     ------
+  ecode size           =       411     ------
+  data size            =    ------     ------
+  idata size           =    ------     ------
+  pdata size           =    ------     ------
+  xdata size           =       100         16
+  xdata-const size     =    ------     ------
+  edata size           =    ------     ------
+  bit size             =    ------     ------
+  ebit size            =    ------     ------
+  bitaddressable size  =    ------     ------
+  ebitaddressable size =    ------     ------
+  far data size        =    ------     ------
+  huge data size       =    ------     ------
+  const size           =    ------     ------
+  hconst size          =    ------     ------
+End of Module Information.
+
+
+C251 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

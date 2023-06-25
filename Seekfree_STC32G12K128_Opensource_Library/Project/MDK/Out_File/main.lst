@@ -1,0 +1,111 @@
+C251 COMPILER V5.60.0,  main                                                               17/06/23  17:44:24  PAGE 1   
+
+
+C251 COMPILER V5.60.0, COMPILATION OF MODULE main
+OBJECT MODULE PLACED IN .\Out_File\main.obj
+COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE ..\USER\src\main.c LARGE INTR2 ROM(HUGE) WARNINGLEVEL(3) BROWSE INCDIR
+                    -(..\..\Libraries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_peripheral;..\CODE;..\USER\inc;..
+                    -\USER\src) DEBUG PRINT(.\Out_File\main.lst) TABS(2) OBJECT(.\Out_File\main.obj) 
+
+stmt  level    source
+
+    1          #include "headfile.h"
+    2          
+    3          
+    4          /*
+    5           * 系统频率，可查看board.h中的 FOSC 宏定义修改。
+    6           * board.h文件中FOSC的值设置为0,则程序自动设置系统频率为33.1776MHZ
+    7           * 在board_init中,已经将P54引脚设置为复位
+    8           * 如果需要使用P54引脚,可以在board.c文件中的board_init()函数中删除SET_P54_RESRT即可
+    9           */
+   10          
+   11          int d = 0;
+   12          int servo = 0;
+   13          void main()
+   14          {
+   15   1          board_init();     // 初始化寄存器,勿删除此句代码。
+   16   1      
+   17   1              adc_init(ADC_P00,ADC_SYSclk_DIV_2);    //ADC初始化
+   18   1              adc_init(ADC_P01,ADC_SYSclk_DIV_2);
+   19   1              adc_init(ADC_P05,ADC_SYSclk_DIV_2);
+   20   1              adc_init(ADC_P06,ADC_SYSclk_DIV_2);
+   21   1              adc_init(ADC_P11,ADC_SYSclk_DIV_2);
+   22   1              adc_init(ADC_P13,ADC_SYSclk_DIV_2);
+   23   1              pwm_init(PWM1, 17000, 0);
+   24   1              pwm_init(PWM2, 17000, 0);
+   25   1              gpio_mode(P7_4, GPO_PP); //蜂鸣器
+   26   1              BEEP = 0;
+   27   1              lcd_init();
+   28   1              gpio_mode(P6_4, GPO_PP);//电机
+   29   1              gpio_mode(P6_0, GPO_PP);//电机
+   30   1              EnableGlobalIRQ();    //开启总中断
+   31   1              pwm_init(PWMB_CH1_P74, 50, 692);//最大765   最小625
+   32   1              ctimer_count_init(CTIM0_P34);
+   33   1              ctimer_count_init(CTIM3_P04);
+   34   1                
+   35   1      //    while(imu660ra_init())        //六轴陀螺仪初始化
+   36   1      //    {
+   37   1      //       delay_ms(500);
+   38   1      //       printf("imu660ra init try again.\r\n");
+   39   1      //      }
+   40   1      
+   41   1      
+   42   1      
+   43   1      
+   44   1              dl1a_init();
+   45   1      
+   46   1      
+   47   1      
+   48   1      
+   49   1               pit_timer_ms(TIM_4, 5);
+   50   1         
+   51   1          while(1)
+   52   1          {
+   53   2            
+   54   2          key_scan();
+   55   2      lcd_showfloat(5,0,g_ValueOfAD[2],4,2);  //右横
+   56   2       lcd_showfloat(65,0,g_ValueOfAD[3],4,2);  //左横
+   57   2             lcd_showfloat(5,1,g_ValueOfAD[5],4,2);//右 
+C251 COMPILER V5.60.0,  main                                                               17/06/23  17:44:24  PAGE 2   
+
+   58   2       lcd_showfloat(65,1,g_ValueOfAD[0],4,2);   //zuoshu
+   59   2       lcd_showfloat(65,2,g_ValueOfAD[1],4,2);  //左斜
+   60   2       
+   61   2       lcd_showfloat(5,2,g_ValueOfAD[4],4,2);//右斜
+   62   2        
+   63   2      
+   64   2       lcd_showfloat(5,4,roundcount2,4,2);   //
+   65   2       lcd_showfloat(65,3,Target_speed1,4,2);  //
+   66   2       lcd_showfloat(5,3,Target_speed2,4,2);//
+   67   2       lcd_showfloat(5,8,v_angle,4,2);//
+   68   2       lcd_showfloat(5,6,e_r2,4,2);//
+   69   2       lcd_showfloat(65,6,e_r1,4,2);//
+   70   2       lcd_showfloat(5,7,dl1a_distance_mm,4,2);
+   71   2       lcd_showfloat(65,7,CK_count2,4,2);
+   72   2          }
+   73   1      }
+   74          
+
+
+Module Information          Static   Overlayable
+------------------------------------------------
+  code size            =    ------     ------
+  ecode size           =       768     ------
+  data size            =    ------     ------
+  idata size           =    ------     ------
+  pdata size           =    ------     ------
+  xdata size           =         4     ------
+  xdata-const size     =    ------     ------
+  edata size           =    ------     ------
+  bit size             =    ------     ------
+  ebit size            =    ------     ------
+  bitaddressable size  =    ------     ------
+  ebitaddressable size =    ------     ------
+  far data size        =    ------     ------
+  huge data size       =    ------     ------
+  const size           =    ------     ------
+  hconst size          =        14     ------
+End of Module Information.
+
+
+C251 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

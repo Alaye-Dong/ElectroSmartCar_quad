@@ -1,0 +1,194 @@
+C251 COMPILER V5.60.0,  anotc                                                              17/06/23  17:43:42  PAGE 1   
+
+
+C251 COMPILER V5.60.0, COMPILATION OF MODULE anotc
+OBJECT MODULE PLACED IN .\Out_File\anotc.obj
+COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE anotc.c LARGE INTR2 ROM(HUGE) WARNINGLEVEL(3) BROWSE INCDIR(..\..\Libr
+                    -aries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_peripheral;..\CODE;..\USER\inc;..\USER\src) 
+                    -DEBUG PRINT(.\Out_File\anotc.lst) TABS(2) OBJECT(.\Out_File\anotc.obj) 
+
+stmt  level    source
+
+    1          #include "headfile.h"
+    2          
+    3          #include "anotc.h"
+    4          
+    5          // cpu为小端模式存储，也就是在存储的时候，低位被存在0字节，高位在1字节
+    6          #define BYTE0(dwTemp) (*((char *)(&dwTemp) + 3))       // 取出int型变量的低字节
+    7          #define BYTE1(dwTemp) (*((char *)(&dwTemp) + 2)) // 取存储在此变量下一内存字节的内容，高字节
+    8          #define BYTE2(dwTemp) (*((char *)(&dwTemp) + 1))
+    9          #define BYTE3(dwTemp) (*((char *)(&dwTemp) + 0))
+   10          
+   11          uint8 BUFF[30];
+   12          
+   13          uint8 _cnt = 0;
+   14          
+   15          //static uint8 ANO_CalCheck(uint8 *packet)
+   16          //{
+   17          //    int i;
+   18          //    uint8 sumcheck = 0;
+   19          //    uint8 addcheck = 0;
+   20          
+   21          //    for (i = 0; i < packet[3] + 4; i++)
+   22          //    {
+   23          //        sumcheck += packet[i];
+   24          //        addcheck += sumcheck;
+   25          //    }
+   26          
+   27          //    if (sumcheck == packet[packet[3] + 4] && addcheck == packet[packet[3] + 5])
+   28          //        return 1; // 校验通过
+   29          //    else
+   30          //        return 0; // 校验失败
+   31          //}
+   32          
+   33          void ANO_SendData(int32 target, int32 present)
+   34          {
+   35   1          int i;
+   36   1          uint8 sumcheck = 0;
+   37   1          uint8 addcheck = 0;
+   38   1          _cnt = 0;
+   39   1          BUFF[_cnt++] = 0xAA;          // 帧头
+   40   1          BUFF[_cnt++] = 0xAF;          // 目标地址
+   41   1          BUFF[_cnt++] = 0XF1;          // 功能码
+   42   1          BUFF[_cnt++] = 0x08;          // 数据长度
+   43   1          BUFF[_cnt++] = BYTE0(target); // 数据内容,小段模式，低位在前
+   44   1          BUFF[_cnt++] = BYTE1(target); // 需要将字节进行拆分，调用上面的宏定义即可。
+   45   1          BUFF[_cnt++] = BYTE2(target);
+   46   1          BUFF[_cnt++] = BYTE3(target);
+   47   1          BUFF[_cnt++] = BYTE0(present);
+   48   1          BUFF[_cnt++] = BYTE1(present);
+   49   1          BUFF[_cnt++] = BYTE2(present);
+   50   1          BUFF[_cnt++] = BYTE3(present);
+   51   1      
+   52   1          for(i = 0; i < BUFF[3] + 4; i++)
+   53   1          {
+   54   2              sumcheck += BUFF[i];
+   55   2              addcheck += sumcheck;
+   56   2          }
+   57   1          BUFF[_cnt++] = sumcheck;
+C251 COMPILER V5.60.0,  anotc                                                              17/06/23  17:43:42  PAGE 2   
+
+   58   1          BUFF[_cnt++] = addcheck;
+   59   1      
+   60   1          wireless_uart_send_buff(BUFF, (uint16)_cnt);
+   61   1      //    uart_write_buffer(WIRELESS_UART_INDEX, BUFF, _cnt);
+   62   1          // uart_write_buffer(DEBUG_UART_INDEX, BUFF, _cnt);
+   63   1      }
+   64          
+   65          //void ANO_SendDataMore(int32 target, int32 present_1, int32 present_2)
+   66          //{
+   67          //    int i;
+   68          //    uint8 sumcheck = 0;
+   69          //    uint8 addcheck = 0;
+   70          //    uint8 _cnt = 0;
+   71          
+   72          //    BUFF[_cnt++] = 0xAA;          // 帧头
+   73          //    BUFF[_cnt++] = 0xAF;          // 目标地址
+   74          //    BUFF[_cnt++] = 0XF1;          // 功能码
+   75          //    BUFF[_cnt++] = 0x0C;          // 数据长度
+   76          //    BUFF[_cnt++] = BYTE0(target); // 数据内容,小段模式，低位在前
+   77          //    BUFF[_cnt++] = BYTE1(target); // 需要将字节进行拆分，调用上面的宏定义即可。
+   78          //    BUFF[_cnt++] = BYTE2(target);
+   79          //    BUFF[_cnt++] = BYTE3(target);
+   80          //    BUFF[_cnt++] = BYTE0(present_1);
+   81          //    BUFF[_cnt++] = BYTE1(present_1);
+   82          //    BUFF[_cnt++] = BYTE2(present_1);
+   83          //    BUFF[_cnt++] = BYTE3(present_1);
+   84          //    BUFF[_cnt++] = BYTE0(present_2);
+   85          //    BUFF[_cnt++] = BYTE1(present_2);
+   86          //    BUFF[_cnt++] = BYTE2(present_2);
+   87          //    BUFF[_cnt++] = BYTE3(present_2);
+   88          
+   89          //    for (i = 0; i < BUFF[3] + 4; i++)
+   90          //    {
+   91          //        sumcheck += BUFF[i];
+   92          //        addcheck += sumcheck;
+   93          //    }
+   94          //    BUFF[_cnt++] = sumcheck;
+   95          //    BUFF[_cnt++] = addcheck;
+   96          
+   97          ////    uart_write_buffer(WIRELESS_UART_INDEX , BUFF, _cnt);
+   98          //    // uart_write_buffer(DEBUG_UART_INDEX , BUFF, _cnt);
+   99          //}
+  100          
+  101          //uint8 ANO_ParseParam(uint8 *packet, uint8 *param_id, int32 *param_value)
+  102          //{
+  103          //    uint8 index = 0;
+  104          //    if (packet[0] == 0xAA)
+  105          //    {
+  106          //        if (packet[1] == 0xff)
+  107          //        {
+  108          //            if (packet[2] == 0xe2)
+  109          //            {
+  110          //                if (packet[3] == 0x06)
+  111          //                {
+  112          //                    *param_id = *((uint16 *)(packet + 4));
+  113          //                    *param_value = *((int32 *)(packet + 6));
+  114          //                    if(ANO_CalCheck(packet))
+  115          //                    {
+  116          //                        if((*((uint16 *)(packet + 4))) == 0x00)
+  117          //                        {
+  118          ////                            Flag_CmdStop = 1;
+  119          //                        }
+  120          //                        return 1;
+  121          //                    }
+  122          //                }
+  123          //            }
+C251 COMPILER V5.60.0,  anotc                                                              17/06/23  17:43:42  PAGE 3   
+
+  124          //        }
+  125          //    }
+  126          
+  127          //    return 0;
+  128          //}
+  129          
+  130          //void ANO_SendCheckFrame(uint8 *packet, uint8 sum_check, uint8 add_check)
+  131          //{
+  132          //    int i;
+  133          //    uint8 sumcheck = 0;
+  134          //    uint8 addcheck = 0;
+  135          //    uint8 _cnt = 0;
+  136          
+  137          //    packet[_cnt++] = 0xAA;          // 帧头
+  138          //    packet[_cnt++] = 0xFF;          // 目标地址
+  139          //    packet[_cnt++] = 0X00;          // 功能码
+  140          //    packet[_cnt++] = 0x03;          // 数据长度
+  141          //    packet[_cnt++] = 0xE2; // 数据内容,小段模式，低位在前
+  142          //    packet[_cnt++] = sum_check; // 需要将字节进行拆分，调用上面的宏定义即可。
+  143          //    packet[_cnt++] = add_check;
+  144          
+  145          //    for (i = 0; i < packet[3] + 4; i++)
+  146          //    {
+  147          //        sumcheck += packet[i];
+  148          //        addcheck += sumcheck;
+  149          //    }
+  150          //    packet[_cnt++] = sumcheck;
+  151          //    packet[_cnt++] = addcheck;
+  152          
+  153          ////   uart_write_buffer(WIRELESS_UART_INDEX , packet, _cnt);
+  154          //    // uart_write_buffer(DEBUG_UART_INDEX , packet, _cnt);
+  155          //}
+
+
+Module Information          Static   Overlayable
+------------------------------------------------
+  code size            =    ------     ------
+  ecode size           =       348     ------
+  data size            =    ------     ------
+  idata size           =    ------     ------
+  pdata size           =    ------     ------
+  xdata size           =        31          8
+  xdata-const size     =    ------     ------
+  edata size           =    ------     ------
+  bit size             =    ------     ------
+  ebit size            =    ------     ------
+  bitaddressable size  =    ------     ------
+  ebitaddressable size =    ------     ------
+  far data size        =    ------     ------
+  huge data size       =    ------     ------
+  const size           =    ------     ------
+  hconst size          =         6     ------
+End of Module Information.
+
+
+C251 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

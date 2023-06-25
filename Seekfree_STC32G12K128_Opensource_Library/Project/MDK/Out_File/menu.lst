@@ -1,0 +1,439 @@
+C251 COMPILER V5.60.0,  menu                                                               17/06/23  17:43:42  PAGE 1   
+
+
+C251 COMPILER V5.60.0, COMPILATION OF MODULE menu
+OBJECT MODULE PLACED IN .\Out_File\menu.obj
+COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE menu.c LARGE INTR2 ROM(HUGE) WARNINGLEVEL(3) BROWSE INCDIR(..\..\Libra
+                    -ries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_peripheral;..\CODE;..\USER\inc;..\USER\src) D
+                    -EBUG PRINT(.\Out_File\menu.lst) TABS(2) OBJECT(.\Out_File\menu.obj) 
+
+stmt  level    source
+
+    1          #include "headfile.h"
+    2          uint8 menu_flag = 0;
+    3          uint8 function = 1;
+    4          uint8 function1 = 0;
+    5          uint8 function2 = 0;
+    6          uint8 function3 = 0;
+    7          
+    8          float dir_kp = 0.0;
+    9          float dir_kd = 0.0;
+   10          float angle_kp = 0.0;
+   11          float angle_kd = 0.0;
+   12          float speed_p = 0.0;
+   13          float speed_i = 0.0;
+   14          float speed_d = 0.0;
+   15          //float speed_e=0.0;
+   16          
+   17          
+   18          void LCDLight_adc()
+   19          {
+   20   1          //原始电感值
+   21   1          ips114_showstr_simspi(0, 0, "aLL");
+   22   1          ips114_showint16_simspi(40, 0, g_ValueOfAD[0]);
+   23   1          ips114_showstr_simspi(100, 0, "aL");
+   24   1          ips114_showint16_simspi(150, 0, g_ValueOfAD[1]);
+   25   1          ips114_showstr_simspi(0, 1, "mid");
+   26   1          ips114_showint16_simspi(40, 1, g_ValueOfAD[2]);
+   27   1          ips114_showstr_simspi(100, 1, "aR");
+   28   1          ips114_showint16_simspi(150, 1, g_ValueOfAD[3]);
+   29   1          ips114_showstr_simspi(0, 2, "aRR");
+   30   1          ips114_showint16_simspi(40, 2, g_ValueOfAD[4]);
+   31   1          //归一化后电感值
+   32   1          ips114_showstr_simspi(0, 3, "aLL");
+   33   1          ips114_showint16_simspi(40, 3, all);
+   34   1          ips114_showstr_simspi(100, 3, "aL");
+   35   1          ips114_showint16_simspi(150, 3, al);
+   36   1          ips114_showstr_simspi(0, 4, "mid");
+   37   1          ips114_showint16_simspi(40, 4, mid);
+   38   1          ips114_showstr_simspi(100, 4, "aR");
+   39   1          ips114_showint16_simspi(150, 4, ar);
+   40   1          ips114_showstr_simspi(0, 5, "aRR");
+   41   1          ips114_showint16_simspi(40, 5, arr);
+   42   1      }
+   43          
+   44          void LCDLight_star2()
+   45          {
+   46   1      //  ips114_showstr_simspi(7,0,"adc0");ips114_showint32_simspi(77,0,ADC_valu[0]);
+   47   1      //  ips114_showstr_simspi(7,1,"adc1");ips114_showint32_simspi(77,1,ADC_valu[1]);
+   48   1      //  ips114_showstr_simspi(7,2,"adc2");ips114_showint32_simspi(77,2,ADC_valu[2]);
+   49   1      //  ips114_showstr_simspi(7,3,"adc3");ips114_showint32_simspi(77,3,ADC_valu[3]);
+   50   1      //  ips114_showstr_simspi(7,4,"final0");ips114_showint32_simspi(77,4,ADC_Final[0]);
+   51   1      //  ips114_showstr_simspi(7,5,"final1");ips114_showint32_simspi(77,5,ADC_Final[1]);
+   52   1      //  ips114_showstr_simspi(7,6,"final2");ips114_showint32_simspi(77,6,ADC_Final[2]);
+   53   1      //  ips114_showstr_simspi(7,7,"final3");ips114_showint32_simspi(77,7,ADC_Final[3]);
+   54   1      //  ips114_showstr_simspi(7,8,"chabi");ips114_showint32_simspi(77,8,Parameter_EM.ADC_ALL);
+   55   1      
+   56   1      }
+   57          
+C251 COMPILER V5.60.0,  menu                                                               17/06/23  17:43:42  PAGE 2   
+
+   58          //uint8 get_key(void)
+   59          //{
+   60          //    uint8 s1 = 0;
+   61          //    if(KEY1_PIN == 1 || KEY2_PIN == 1 || KEY3_PIN == 1 || KEY4_PIN == 1)// || KEY5_PIN == 1) //检测五向
+             -开关
+   62          //    {
+   63          //        delay_ms(100);
+   64          //        if(KEY1_PIN == 0)
+   65          //        {
+   66          //            s1 = 1;
+   67          //        }
+   68          //        else if(KEY2_PIN == 0)
+   69          //        {
+   70          //            s1 = 2;
+   71          //        }
+   72          //        else if(KEY3_PIN == 0)
+   73          //        {
+   74          //            s1 = 3;
+   75          //        }
+   76          //        else if(KEY4_PIN == 0)
+   77          //        {
+   78          //            s1 = 4;
+   79          //        }
+   80          ////        else if(KEY5_PIN == 0)
+   81          ////        {
+   82          ////            s1 = 5;
+   83          ////        }
+   84          ////        else if(KEY6_PIN == 0)
+   85          ////        {
+   86          ////            s1 = 6;
+   87          ////        }
+   88          //    }
+   89          //    while(key1_status == 0 || key2_status == 0 || key3_status == 0 || key4_status == 0 )//|| key5_statu
+             -s == 0 || key6_status == 0) ;
+   90          //    return s1;
+   91          //}
+   92          
+   93          //void menu1(void)
+   94          //{
+   95          //    if(menu_flag == 0)
+   96          //    {
+   97          //        if(function == 1)
+   98          //        {
+   99          //            int8 static s1 = 0, s2 = 0;
+  100          //            s1 = get_key();
+  101          //            if(s1 != 0)
+  102          //            {
+  103          //                if(s1 == down)
+  104          //                {
+  105          //                    s2 += 1;
+  106          //                    if(s2 >= 8)
+  107          //                        s2 = 8;
+  108          //                    ips114_showstr_simspi(0, s2 - 1, "   ");
+  109          //                }
+  110          //                else if(s1 == up)
+  111          //                {
+  112          //                    s2 -= 1;
+  113          //                    if(s2 <= 0)
+  114          //                        s2 = 0;
+  115          //                    ips114_showstr_simspi(0, s2 + 1, "   ");
+  116          //                }
+  117          //            }
+  118          //            ips114_showstr_simspi(0, s2, "-->");
+  119          //            ips114_showstr_simspi(30, 0, "adc_display");
+  120          //            ips114_showstr_simspi(30, 1, "adc_display");
+  121          //            ips114_showstr_simspi(30, 2, "sports_pid");
+C251 COMPILER V5.60.0,  menu                                                               17/06/23  17:43:42  PAGE 3   
+
+  122          //            ips114_showstr_simspi(30, 3, "speed_pid");
+  123          //            ips114_showstr_simspi(30, 4, "angle_pid");
+  124          //            if(s1 == certain)
+  125          //            {
+  126          //                switch(s2) //次界面功能号
+  127          //                {
+  128          //                case 0:
+  129          //                    function1 = 1; //tft_display界面
+  130          //                    ips114_clear_simspi(BLACK);
+  131          //                    break;
+  132          //                case 1:
+  133          //                    function1 = 2;
+  134          //                    ips114_clear_simspi(BLACK);
+  135          //                    break;
+  136          //                case 2:
+  137          //                    function1 = 3; //dir_pid界面
+  138          //                    ips114_clear_simspi(BLACK);
+  139          //                    break;
+  140          //                case 3:
+  141          //                    function1 = 4;
+  142          //                    ips114_clear_simspi(BLACK);
+  143          //                    break;
+  144          //                default:
+  145          //                    break;
+  146          //                }
+  147          //                s1 = 0;
+  148          //                s2 = 0;
+  149          //                function = 2;
+  150          //                lcd_clear_simspi(BLACK);
+  151          //            }
+  152          //        }
+  153          //        if(function1 != 0)
+  154          //        {
+  155          //            switch(function1) //次页面功能号
+  156          //            {
+  157          //            case 1:
+  158          //                adc_display();
+  159          //                break;
+  160          //            case 2:
+  161          //                ;
+  162          //                break;
+  163          //            case 3:
+  164          //                sports_param();
+  165          //                break;
+  166          
+  167          
+  168          //            }
+  169          //        }
+  170          
+  171          
+  172          
+  173          //    }
+  174          //}
+  175          
+  176          //void adc_display(void)
+  177          //{
+  178          //    static uint8 s1 = 0;
+  179          //    if(function1 == 1)
+  180          //    {
+  181          //        LCDLight_adc(); //显示函数
+  182          //        s1 = get_key();
+  183          //        if(s1 == back)
+  184          //        {
+  185          //            s1 = 0;
+  186          //            function = 1;
+  187          //            function1 = 0;
+C251 COMPILER V5.60.0,  menu                                                               17/06/23  17:43:42  PAGE 4   
+
+  188          //            ips114_clear_simspi(BLACK);
+  189          //        }
+  190          //    }
+  191          //}
+  192          
+  193          //void sports_param()
+  194          //{
+  195          //    static int16 s1 = 0, s2 = 0;
+  196          //    if(function1 == 3 && function2 == 0)
+  197          //    {
+  198          //        s1 = get_key();
+  199          //        if(s1 != 0)
+  200          //        {
+  201          //            if(s1 == down)
+  202          //            {
+  203          //                s2 += 1;
+  204          //                if(s2 >= 9)s2 = 9;
+  205          //                ips114_showstr_simspi(0, s2 - 1, "   ");
+  206          //            }
+  207          //            else if(s1 == up)
+  208          //            {
+  209          //                s2 -= 1;
+  210          //                if(s2 <= 0)s2 = 0;
+  211          //                ips114_showstr_simspi(0, s2 + 1, "   ");
+  212          //            }
+  213          //        }
+  214          //        ips114_showstr_simspi(0, s2, "-->");
+  215          //        ips114_showstr_simspi(30, 0, "g_dirControl_P");
+  216          //        ips114_showstr_simspi(30, 1, "g_dirControl_d");
+  217          //        ips114_showstr_simspi(30, 2, "angle_kp");
+  218          //        ips114_showstr_simspi(30, 3, "Motor_Kp_L");
+  219          //        ips114_showstr_simspi(30, 4, "Motor_Ki_L");
+  220          //        ips114_showstr_simspi(30, 5, "Motor_Kp_R");
+  221          //        ips114_showstr_simspi(30, 6, "Motor_Ki_R");
+  222          //        if(function == 2 && s1 == back)
+  223          //        {
+  224          //            ips114_clear_simspi(BLACK);
+  225          //            function = 1;
+  226          //            function1 = 0;
+  227          //        }
+  228          //        else if(s1 == certain)
+  229          //        {
+  230          //            switch(s2)//次页面功能号
+  231          //            {
+  232          //            case 0 :
+  233          //                function2 = 1;
+  234          //                break;
+  235          //            case 1 :
+  236          //                function2 = 2;
+  237          //                break;
+  238          //            case 2 :
+  239          //                function2 = 3;
+  240          //                break;
+  241          //            case 3 :
+  242          //                function2 = 4;
+  243          //                break;
+  244          //            case 4 :
+  245          //                function2 = 5;
+  246          //                break;
+  247          //            case 5 :
+  248          //                function2 = 6;
+  249          //                break;
+  250          //            case 6 :
+  251          //                function2 = 7;
+  252          //                break;
+  253          //            default:
+C251 COMPILER V5.60.0,  menu                                                               17/06/23  17:43:42  PAGE 5   
+
+  254          //                break;
+  255          //            }
+  256          //            s1 = 0;
+  257          //            s2 = 0;
+  258          //            ips114_clear_simspi(BLACK);
+  259          //        }
+  260          //    }
+  261          //    else if(function1 == 3 && function2 != 0)
+  262          //    {
+  263          //        static float num = 0.0;
+  264          //        s1 = get_key();
+  265          //        if(s1 != 0)
+  266          //        {
+  267          //            if(s2 == 0)
+  268          //                num = 0.01;
+  269          //            else if(s2 == 1)
+  270          //                num = 0.1;
+  271          //            else if(s2 == 2)
+  272          //                num = 1;
+  273          //            else if(s2 == 3)
+  274          //                num = 10;
+  275          //            if(s1 == down)
+  276          //            {
+  277          //                switch(function2)
+  278          //                {
+  279          //                case 1 :
+  280          //                    g_dirControl_P = g_dirControl_P - num;
+  281          //                    break;
+  282          //                case 2 :
+  283          //                    g_dirControl_D = g_dirControl_D - num;
+  284          //                    break;
+  285          //                case 3 :
+  286          //                    angle_kp1 = angle_kp1 - num;
+  287          //                    break;
+  288          //                case 4 :
+  289          //                    Motor_Kp_L = Motor_Kp_L - num;
+  290          //                    break;
+  291          //                case 5 :
+  292          //                    Motor_Ki_L = Motor_Ki_L - num;
+  293          //                    break;
+  294          //                case 6 :
+  295          //                    Motor_Kp_R = Motor_Kp_R - num;
+  296          //                    break;
+  297          //                case 7 :
+  298          //                    Motor_Ki_R = Motor_Ki_R - num;
+  299          //                    break;
+  300          //                default :
+  301          //                    break;
+  302          //                }
+  303          //            }
+  304          //            else if(s1 == up)
+  305          //            {
+  306          //                switch(function2)
+  307          //                {
+  308          //                 case 1 :
+  309          //                    g_dirControl_P = g_dirControl_P + num;
+  310          //                    break;
+  311          //                case 2 :
+  312          //                    g_dirControl_D = g_dirControl_D + num;
+  313          //                    break;
+  314          //                case 3 :
+  315          //                    angle_kp1 = angle_kp1 + num;
+  316          //                    break;
+  317          //                case 4 :
+  318          //                    Motor_Kp_L = Motor_Kp_L + num;
+  319          //                    break;
+C251 COMPILER V5.60.0,  menu                                                               17/06/23  17:43:42  PAGE 6   
+
+  320          //                case 5 :
+  321          //                    Motor_Ki_L = Motor_Ki_L + num;
+  322          //                    break;
+  323          //                case 6 :
+  324          //                    Motor_Kp_R = Motor_Kp_R + num;
+  325          //                    break;
+  326          //                case 7 :
+  327          //                    Motor_Ki_R = Motor_Ki_R + num;
+  328          //                    break;
+  329          //                default :
+  330          //                    break;
+  331          //                }
+  332          //            }
+  333          //            else if(s1 == expand)
+  334          //            {
+  335          //                s2++;
+  336          //                if(s2 > 4)s2 = 4;
+  337          //            }
+  338          //            else if(s1 == cut)
+  339          //            {
+  340          //                s2--;
+  341          //                if(s2 < 0)s2 = 0;
+  342          //            }
+  343          //        }
+  344          //        switch(function2)
+  345          //        {
+  346          //        case 1 :
+  347          //            ips114_showfloat_simspi(20, 0, g_dirControl_P, 3, 3);
+  348          //            break;
+  349          //        case 2 :
+  350          //            ips114_showfloat_simspi(20, 0, g_dirControl_D, 3, 3);
+  351          //            break;
+  352          //        case 3 :
+  353          //            ips114_showfloat_simspi(20, 0, angle_kp1, 3, 3);
+  354          //            break;
+  355          //        case 4 :
+  356          //            ips114_showfloat_simspi(20, 0, Motor_Kp_L, 3, 3);
+  357          //            break;
+  358          //        case 5 :
+  359          //            ips114_showfloat_simspi(20, 0, Motor_Ki_L, 3, 3);
+  360          //            break;
+  361          //        case 6 :
+  362          //            ips114_showfloat_simspi(20, 0, Motor_Kp_R, 3, 3);
+  363          //            break;
+  364          //        case 7 :
+  365          //            ips114_showfloat_simspi(20, 0, Motor_Ki_R, 3, 3);
+  366          //            break;        
+  367          //        default :
+  368          //            break;
+  369          //        }
+  370          //        if(s1 == back)
+  371          //        {
+  372          //            s1 = 0, s2 = 0;
+  373          //            function2 = 0;
+  374          //            ips114_clear_simspi(BLACK);
+  375          //        }
+  376          //        else if(s1 == certain) //读取记忆存储
+  377          //        {
+  378          //        save_float(g_dirControl_P,0);
+  379          //        save_float(g_dirControl_D,1);
+  380          //        save_float(angle_kp1,2);
+  381          //        save_float(Motor_Kp_L,3);
+  382          //        save_float(Motor_Ki_L,4);
+  383          //        save_float(Motor_Kp_R,5);
+  384          //        save_float(Motor_Ki_R,6);
+  385          //        ips114_clear_simspi(BLACK);
+C251 COMPILER V5.60.0,  menu                                                               17/06/23  17:43:42  PAGE 7   
+
+  386          //        }
+  387          //    }
+  388          //}
+  389          
+  390          
+
+
+Module Information          Static   Overlayable
+------------------------------------------------
+  code size            =    ------     ------
+  ecode size           =       451     ------
+  data size            =    ------     ------
+  idata size           =    ------     ------
+  pdata size           =    ------     ------
+  xdata size           =        33     ------
+  xdata-const size     =    ------     ------
+  edata size           =    ------     ------
+  bit size             =    ------     ------
+  ebit size            =    ------     ------
+  bitaddressable size  =    ------     ------
+  ebitaddressable size =    ------     ------
+  far data size        =    ------     ------
+  huge data size       =    ------     ------
+  const size           =    ------     ------
+  hconst size          =       111     ------
+End of Module Information.
+
+
+C251 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

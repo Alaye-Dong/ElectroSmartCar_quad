@@ -1,0 +1,69 @@
+C251 COMPILER V5.60.0,  encoder                                                            17/06/23  17:43:43  PAGE 1   
+
+
+C251 COMPILER V5.60.0, COMPILATION OF MODULE encoder
+OBJECT MODULE PLACED IN .\Out_File\encoder.obj
+COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE encoder.c LARGE INTR2 ROM(HUGE) WARNINGLEVEL(3) BROWSE INCDIR(..\..\Li
+                    -braries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_peripheral;..\CODE;..\USER\inc;..\USER\src
+                    -) DEBUG PRINT(.\Out_File\encoder.lst) TABS(2) OBJECT(.\Out_File\encoder.obj) 
+
+stmt  level    source
+
+    1          #include "headfile.h"
+    2          #include "encoder.h"
+    3          int16 speed1;//编码器读取脉冲
+    4          int16 speed2;
+    5          float encoder_integral = 0;
+    6          float encoder = 0;
+    7          int16 count_flag = 0;
+    8            
+    9          void read_encoder()
+   10          {
+   11   1        if(DIRR == 1)//右轮
+   12   1          {
+   13   2            speed1 = ctimer_count_read(CTIM0_P34)*-1;
+   14   2          }
+   15   1          else
+   16   1          {
+   17   2            speed1 = ctimer_count_read(CTIM0_P34) ;
+   18   2          }
+   19   1          
+   20   1          if(DIRL == 1)  //输出高电平，正转
+   21   1          {
+   22   2            speed2 = ctimer_count_read(CTIM3_P04) ;
+   23   2          }
+   24   1          else        //输出低电平，反转
+   25   1          {
+   26   2            speed2 = ctimer_count_read(CTIM3_P04)*-1 ;
+   27   2            
+   28   2          }
+   29   1          ctimer_count_clean(CTIM0_P34);
+   30   1          ctimer_count_clean(CTIM3_P04);//清除积累
+   31   1        
+   32   1            
+   33   1          
+   34   1      }
+
+
+Module Information          Static   Overlayable
+------------------------------------------------
+  code size            =    ------     ------
+  ecode size           =        84     ------
+  data size            =    ------     ------
+  idata size           =    ------     ------
+  pdata size           =    ------     ------
+  xdata size           =        14     ------
+  xdata-const size     =    ------     ------
+  edata size           =    ------     ------
+  bit size             =    ------     ------
+  ebit size            =    ------     ------
+  bitaddressable size  =    ------     ------
+  ebitaddressable size =    ------     ------
+  far data size        =    ------     ------
+  huge data size       =    ------     ------
+  const size           =    ------     ------
+  hconst size          =        25     ------
+End of Module Information.
+
+
+C251 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
