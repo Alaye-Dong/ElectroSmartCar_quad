@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  SEEKFREE_OLED                                                      17/06/23  16:38:38  PAGE 1   
+C251 COMPILER V5.60.0,  SEEKFREE_OLED                                                      25/06/23  13:59:32  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE SEEKFREE_OLED
@@ -66,7 +66,7 @@ stmt  level    source
    48          {
    49   1        uint8 i=8;
    50   1        
-C251 COMPILER V5.60.0,  SEEKFREE_OLED                                                      17/06/23  16:38:38  PAGE 2   
+C251 COMPILER V5.60.0,  SEEKFREE_OLED                                                      25/06/23  13:59:32  PAGE 2   
 
    51   1          OLED_CS(0); //使能信号端，拉低时正常使用
    52   1        OLED_DC(1);
@@ -134,7 +134,7 @@ stmt  level    source
   110   2          OLED_SCL(1);
   111   2          
   112   2          OLED_SCL(0);
-C251 COMPILER V5.60.0,  SEEKFREE_OLED                                                      17/06/23  16:38:38  PAGE 3   
+C251 COMPILER V5.60.0,  SEEKFREE_OLED                                                      25/06/23  13:59:32  PAGE 3   
 
   113   2          cmd<<=1;
   114   2        }
@@ -202,7 +202,7 @@ stmt  level    source
   172   1          
   173   1        oled_wrcmd(0xa6);//--set normal display
   174   1        oled_wrcmd(0xa8);//--set multiplex ratio(1 to 64)
-C251 COMPILER V5.60.0,  SEEKFREE_OLED                                                      17/06/23  16:38:38  PAGE 4   
+C251 COMPILER V5.60.0,  SEEKFREE_OLED                                                      25/06/23  13:59:32  PAGE 4   
 
   175   1        oled_wrcmd(0x3f);//--1/64 duty
   176   1        oled_wrcmd(0xd3);//-set display offset  Shift Mapping RAM Counter (0x00~0x3F)
@@ -270,7 +270,7 @@ stmt  level    source
              -------------
   234          //  @brief      OLED控制一个坐标下8个像素的点亮与熄灭
   235          //  @param      x     x轴坐标设置0-127
-C251 COMPILER V5.60.0,  SEEKFREE_OLED                                                      17/06/23  16:38:38  PAGE 5   
+C251 COMPILER V5.60.0,  SEEKFREE_OLED                                                      25/06/23  13:59:32  PAGE 5   
 
   236          //  @param      y           y轴坐标设置0-7
   237          //  @return     void
@@ -338,7 +338,7 @@ stmt  level    source
              -------------
   294          //  @brief      OLED显示字符串(8*16字体)
   295          //  @param      x     x轴坐标设置0-127
-C251 COMPILER V5.60.0,  SEEKFREE_OLED                                                      17/06/23  16:38:38  PAGE 6   
+C251 COMPILER V5.60.0,  SEEKFREE_OLED                                                      25/06/23  13:59:32  PAGE 6   
 
   296          //  @param      y           y轴坐标设置0-7
   297          //  @param      ch[]        字符串
@@ -406,7 +406,7 @@ stmt  level    source
   354   1        else         oled_p6x8str(x, y, " ");
   355   1        x+=6;       
   356   1          
-C251 COMPILER V5.60.0,  SEEKFREE_OLED                                                      17/06/23  16:38:38  PAGE 7   
+C251 COMPILER V5.60.0,  SEEKFREE_OLED                                                      25/06/23  13:59:32  PAGE 7   
 
   357   1        oled_hexascii(num,ch);
   358   1          oled_p6x8str(x, y, &ch[1]);     //显示数字  6*8字体
@@ -474,7 +474,7 @@ stmt  level    source
   416   1        int8    start,end,point;
   417   1      
   418   1        if(6<pointnum)  pointnum = 6;
-C251 COMPILER V5.60.0,  SEEKFREE_OLED                                                      17/06/23  16:38:38  PAGE 8   
+C251 COMPILER V5.60.0,  SEEKFREE_OLED                                                      25/06/23  13:59:32  PAGE 8   
 
   419   1          if(10<num)      num = 10;
   420   1              
@@ -542,7 +542,7 @@ stmt  level    source
   480   3                  if( (i<(temp-1)) || !temp1 || (temp1>=3))dat |= (*(p+i*8*width+j+width*2) > value? 1: 0)<<2;
   481   3                  if( (i<(temp-1)) || !temp1 || (temp1>=4))dat |= (*(p+i*8*width+j+width*3) > value? 1: 0)<<3;
   482   3                  if( (i<(temp-1)) || !temp1 || (temp1>=5))dat |= (*(p+i*8*width+j+width*4) > value? 1: 0)<<4;
-C251 COMPILER V5.60.0,  SEEKFREE_OLED                                                      17/06/23  16:38:38  PAGE 9   
+C251 COMPILER V5.60.0,  SEEKFREE_OLED                                                      25/06/23  13:59:32  PAGE 9   
 
   483   3                  if( (i<(temp-1)) || !temp1 || (temp1>=6))dat |= (*(p+i*8*width+j+width*5) > value? 1: 0)<<5;
   484   3                  if( (i<(temp-1)) || !temp1 || (temp1>=7))dat |= (*(p+i*8*width+j+width*6) > value? 1: 0)<<6;
@@ -610,7 +610,7 @@ stmt  level    source
   539   1          OLED_SPI_CS(1); //使能信号端，拉低时正常使用
   540   1      
   541   1        
-C251 COMPILER V5.60.0,  SEEKFREE_OLED                                                      17/06/23  16:38:38  PAGE 10  
+C251 COMPILER V5.60.0,  SEEKFREE_OLED                                                      25/06/23  13:59:32  PAGE 10  
 
   542   1      }
   543          
@@ -678,7 +678,7 @@ stmt  level    source
   599   2            TEMP -- ;
   600   2            hexcheck  =  hex%10 ;
   601   2            hex   /=10 ;
-C251 COMPILER V5.60.0,  SEEKFREE_OLED                                                      17/06/23  16:38:38  PAGE 11  
+C251 COMPILER V5.60.0,  SEEKFREE_OLED                                                      25/06/23  13:59:32  PAGE 11  
 
   602   2            Print[TEMP ]  = hexcheck + 0x30 ;
   603   2        }
@@ -746,7 +746,7 @@ stmt  level    source
   662   1      }
   663          
   664          //-------------------------------------------------------------------------------------------------------
-C251 COMPILER V5.60.0,  SEEKFREE_OLED                                                      17/06/23  16:38:38  PAGE 12  
+C251 COMPILER V5.60.0,  SEEKFREE_OLED                                                      25/06/23  13:59:32  PAGE 12  
 
              -------------
   665          //  @brief      OLED显示坐标设置
@@ -814,7 +814,7 @@ stmt  level    source
              -------------
   722          //  @brief      OLED关闭一个坐标所有亮点
   723          //  @param      x     x轴坐标设置0-127
-C251 COMPILER V5.60.0,  SEEKFREE_OLED                                                      17/06/23  16:38:38  PAGE 13  
+C251 COMPILER V5.60.0,  SEEKFREE_OLED                                                      25/06/23  13:59:32  PAGE 13  
 
   724          //  @param      y           y轴坐标设置0-7
   725          //  @return     void
@@ -882,7 +882,7 @@ stmt  level    source
   782   2              
   783   2            oled_set_pos_spi((uint8)x,(uint8)(y+1));
   784   2            for(i=0;i<8;i++)  oled_wrdat_spi(oled_8x16[c*16+i+8]);
-C251 COMPILER V5.60.0,  SEEKFREE_OLED                                                      17/06/23  16:38:38  PAGE 14  
+C251 COMPILER V5.60.0,  SEEKFREE_OLED                                                      25/06/23  13:59:32  PAGE 14  
 
   785   2              
   786   2            x+=8;
@@ -950,7 +950,7 @@ stmt  level    source
   842          {
   843   1          int8    buff[34];
   844   1          uint8   length;
-C251 COMPILER V5.60.0,  SEEKFREE_OLED                                                      17/06/23  16:38:38  PAGE 15  
+C251 COMPILER V5.60.0,  SEEKFREE_OLED                                                      25/06/23  13:59:32  PAGE 15  
 
   845   1          
   846   1          if(10<num)      num = 10;
@@ -1018,7 +1018,7 @@ stmt  level    source
   906   1          if(0>dat)   buff[start] = '-';
   907   1          else        buff[start] = ' ';
   908   1          
-C251 COMPILER V5.60.0,  SEEKFREE_OLED                                                      17/06/23  16:38:38  PAGE 16  
+C251 COMPILER V5.60.0,  SEEKFREE_OLED                                                      25/06/23  13:59:32  PAGE 16  
 
   909   1          buff[end] = '\0';
   910   1          
@@ -1086,7 +1086,7 @@ stmt  level    source
   968          //  Sample usage:   
   969          //  @Note       使用PCtoLCD2002软件取模       阴码、逐行式、顺向   16*16
   970          //-------------------------------------------------------------------------------------------------------
-C251 COMPILER V5.60.0,  SEEKFREE_OLED                                                      17/06/23  16:38:38  PAGE 17  
+C251 COMPILER V5.60.0,  SEEKFREE_OLED                                                      25/06/23  13:59:32  PAGE 17  
 
              -------------
   971          void oled_print_chinese_spi(uint8 x, uint8 y, uint8 size, const uint8 *p, uint8 len)

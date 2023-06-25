@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     17/06/23  16:38:36  PAGE 1   
+C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     25/06/23  13:59:30  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE SEEKFREE_18TFT
@@ -66,7 +66,7 @@ stmt  level    source
    50          
    51          
    52          
-C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     17/06/23  16:38:36  PAGE 2   
+C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     25/06/23  13:59:30  PAGE 2   
 
    53          //-------------------------------------------------------------------------------------------------------
              -------------
@@ -134,7 +134,7 @@ stmt  level    source
   111          //  Sample usage:               
   112          //-------------------------------------------------------------------------------------------------------
              -------------
-C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     17/06/23  16:38:36  PAGE 3   
+C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     25/06/23  13:59:30  PAGE 3   
 
   113          void lcd_writeData_16bit_simspi(uint16 dat) //向液晶屏写一个16位数据
   114          {
@@ -202,7 +202,7 @@ stmt  level    source
                  lcd_writeData_simspi((uint8)(y_end+2)); 
                
                #endif
-C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     17/06/23  16:38:36  PAGE 4   
+C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     25/06/23  13:59:30  PAGE 4   
 
   176   1          
   177   1          lcd_writeIndex_simspi(0x2c);
@@ -270,7 +270,7 @@ stmt  level    source
   235   1          lcd_writeIndex_simspi(0xC0); 
   236   1          lcd_writeData_simspi(0xA2); 
   237   1          lcd_writeData_simspi(0x02); 
-C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     17/06/23  16:38:36  PAGE 5   
+C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     25/06/23  13:59:30  PAGE 5   
 
   238   1          lcd_writeData_simspi(0x84); 
   239   1          lcd_writeIndex_simspi(0xC1); 
@@ -338,7 +338,7 @@ stmt  level    source
   301   1          lcd_writeIndex_simspi(0x2a);
   302   1          lcd_writeData_simspi(0x00);
   303   1          lcd_writeData_simspi(0x00+2);
-C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     17/06/23  16:38:36  PAGE 6   
+C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     25/06/23  13:59:30  PAGE 6   
 
   304   1          lcd_writeData_simspi(0x00);
   305   1          lcd_writeData_simspi(0x80+2);
@@ -406,7 +406,7 @@ stmt  level    source
   363   3            else      lcd_writeData_16bit_simspi(TFT_BGCOLOR);
   364   3            temp>>=1;
   365   3          }
-C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     17/06/23  16:38:36  PAGE 7   
+C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     25/06/23  13:59:30  PAGE 7   
 
   366   2        }
   367   1      }
@@ -474,7 +474,7 @@ stmt  level    source
   424          //  @param      y               坐标y方向的起点 参数范围 0 -（TFT_Y_MAX/16-1）
   425          //  @param      dat             需要显示的变量，数据类型uint8
   426          //  @return     void
-C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     17/06/23  16:38:36  PAGE 8   
+C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     25/06/23  13:59:30  PAGE 8   
 
   427          //  @since      v1.0
   428          //  Sample usage:               lcd_showuint8(0,0,x);//x为uint8类型
@@ -542,7 +542,7 @@ stmt  level    source
   486          //  @return     void
   487          //  @since      v1.0
   488          //  Sample usage:               lcd_showuint16(0,0,x);//x为uint16类型
-C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     17/06/23  16:38:36  PAGE 9   
+C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     25/06/23  13:59:30  PAGE 9   
 
   489          //-------------------------------------------------------------------------------------------------------
              -------------
@@ -610,7 +610,7 @@ stmt  level    source
   548          //  @param      x               坐标x方向的起点 参数范围 0 -（TFT_X_MAX-1）
   549          //  @param      y               坐标y方向的起点 参数范围 0 -（TFT_Y_MAX/16-1）
   550          //  @param      dat             需要显示的变量，数据类型float或double
-C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     17/06/23  16:38:36  PAGE 10  
+C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     25/06/23  13:59:30  PAGE 10  
 
   551          //  @param      num             整数位显示长度   最高10位  
   552          //  @param      pointnum        小数位显示长度   最高6位
@@ -678,7 +678,7 @@ stmt  level    source
   609   1        
   610   1          TFT_CS(0);
   611   1        TFT_DC(0);
-C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     17/06/23  16:38:36  PAGE 11  
+C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     25/06/23  13:59:30  PAGE 11  
 
   612   1        spi_mosi(dat);
   613   1          TFT_CS(1);
@@ -746,7 +746,7 @@ stmt  level    source
   669   1        lcd_writeData(0x00);
   670   1        lcd_writeData((uint8)(x_start+2));
   671   1        lcd_writeData(0x00);
-C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     17/06/23  16:38:36  PAGE 12  
+C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     25/06/23  13:59:30  PAGE 12  
 
   672   1        lcd_writeData((uint8)(x_end+2));
   673   1      
@@ -814,7 +814,7 @@ stmt  level    source
   731   1      
   732   1          lcd_writeIndex(0xB1); 
   733   1          lcd_writeData(0x01); 
-C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     17/06/23  16:38:36  PAGE 13  
+C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     25/06/23  13:59:30  PAGE 13  
 
   734   1          lcd_writeData(0x2C); 
   735   1          lcd_writeData(0x2D); 
@@ -882,7 +882,7 @@ stmt  level    source
   797   1          lcd_writeData(0x23); 
   798   1          lcd_writeData(0x37); 
   799   1          lcd_writeData(0x00);  
-C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     17/06/23  16:38:36  PAGE 14  
+C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     25/06/23  13:59:30  PAGE 14  
 
   800   1          lcd_writeData(0x07); 
   801   1          lcd_writeData(0x02); 
@@ -950,7 +950,7 @@ stmt  level    source
   861          
   862          
   863          //-------------------------------------------------------------------------------------------------------
-C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     17/06/23  16:38:36  PAGE 15  
+C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     25/06/23  13:59:30  PAGE 15  
 
              -------------
   864          //  @brief      液晶显示字符
@@ -1018,7 +1018,7 @@ stmt  level    source
   921          {
   922   1        uint8 a[3];
   923   1        uint8 i;
-C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     17/06/23  16:38:36  PAGE 16  
+C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     25/06/23  13:59:30  PAGE 16  
 
   924   1        if(dat<0)
   925   1        {
@@ -1086,7 +1086,7 @@ stmt  level    source
   983   2          lcd_showchar(x,y*16,'-');
   984   2          dat = -dat;
   985   2        }
-C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     17/06/23  16:38:36  PAGE 17  
+C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     25/06/23  13:59:30  PAGE 17  
 
   986   1        else  lcd_showchar(x,y*16,' ');
   987   1      
@@ -1154,7 +1154,7 @@ stmt  level    source
  1045   1          
  1046   1          if(10<num)      num = 10;
  1047   1          
-C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     17/06/23  16:38:36  PAGE 18  
+C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     25/06/23  13:59:30  PAGE 18  
 
  1048   1          num++;
  1049   1          if(0>dat)   length = zf_sprintf( &buff[0],"%d",dat);//负数
@@ -1222,7 +1222,7 @@ stmt  level    source
  1109   1          
  1110   1          buff[end] = '\0';
  1111   1      
-C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     17/06/23  16:38:36  PAGE 19  
+C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     25/06/23  13:59:30  PAGE 19  
 
  1112   1          lcd_showstr(x, y, buff);  //显示数字
  1113   1      }

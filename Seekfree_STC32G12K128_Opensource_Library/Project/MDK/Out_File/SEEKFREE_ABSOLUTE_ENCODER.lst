@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  SEEKFREE_ABSOLUTE_ENCODER                                          17/06/23  16:38:36  PAGE 1   
+C251 COMPILER V5.60.0,  SEEKFREE_ABSOLUTE_ENCODER                                          25/06/23  13:59:31  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE SEEKFREE_ABSOLUTE_ENCODER
@@ -66,7 +66,7 @@ stmt  level    source
              -------------
    50          //  @brief      通过SPI写一个byte,同时读取一个byte
    51          //  @param      byte        发送的数据    
-C251 COMPILER V5.60.0,  SEEKFREE_ABSOLUTE_ENCODER                                          17/06/23  16:38:36  PAGE 2   
+C251 COMPILER V5.60.0,  SEEKFREE_ABSOLUTE_ENCODER                                          25/06/23  13:59:31  PAGE 2   
 
    52          //  @return     uint8       return 返回status状态
    53          //  @since      v1.0
@@ -134,7 +134,7 @@ stmt  level    source
   109          //  @since      v1.0
   110          //  Sample usage:
   111          //-------------------------------------------------------------------------------------------------------
-C251 COMPILER V5.60.0,  SEEKFREE_ABSOLUTE_ENCODER                                          17/06/23  16:38:36  PAGE 3   
+C251 COMPILER V5.60.0,  SEEKFREE_ABSOLUTE_ENCODER                                          25/06/23  13:59:31  PAGE 3   
 
              -------------
   112          uint8 encoder_simspi_w_reg_byte(uint8 cmd, uint8 val)
@@ -202,7 +202,7 @@ stmt  level    source
   169          //  @brief      写入一个数据到编码器的寄存器
   170          //  @param      void
   171          //  @return     uint16       返回角度值0-4096 对应0-360°
-C251 COMPILER V5.60.0,  SEEKFREE_ABSOLUTE_ENCODER                                          17/06/23  16:38:36  PAGE 4   
+C251 COMPILER V5.60.0,  SEEKFREE_ABSOLUTE_ENCODER                                          25/06/23  13:59:31  PAGE 4   
 
   172          //  @since      v1.0
   173          //  Sample usage:
@@ -270,7 +270,7 @@ stmt  level    source
   230          
   231          
   232          //-------------------------以下为硬件SPI--------------------------//
-C251 COMPILER V5.60.0,  SEEKFREE_ABSOLUTE_ENCODER                                          17/06/23  16:38:36  PAGE 5   
+C251 COMPILER V5.60.0,  SEEKFREE_ABSOLUTE_ENCODER                                          25/06/23  13:59:31  PAGE 5   
 
   233          //-------------------------以下为硬件SPI--------------------------//
   234          //-------------------------以下为硬件SPI--------------------------//
@@ -338,7 +338,7 @@ stmt  level    source
   289          //-------------------------------------------------------------------------------------------------------
              -------------
   290          uint8 encoder_spi_w_reg_byte(uint8 cmd, uint8 val)
-C251 COMPILER V5.60.0,  SEEKFREE_ABSOLUTE_ENCODER                                          17/06/23  16:38:36  PAGE 6   
+C251 COMPILER V5.60.0,  SEEKFREE_ABSOLUTE_ENCODER                                          25/06/23  13:59:31  PAGE 6   
 
   291          {
   292   1          uint8 dat;
@@ -406,7 +406,7 @@ stmt  level    source
   349          //  @return     uint16       返回角度值0-4096 对应0-360°
   350          //  @since      v1.0
   351          //  Sample usage:
-C251 COMPILER V5.60.0,  SEEKFREE_ABSOLUTE_ENCODER                                          17/06/23  16:38:36  PAGE 7   
+C251 COMPILER V5.60.0,  SEEKFREE_ABSOLUTE_ENCODER                                          25/06/23  13:59:31  PAGE 7   
 
   352          //-------------------------------------------------------------------------------------------------------
              -------------
@@ -475,7 +475,7 @@ Module Information          Static   Overlayable
   ecode size           =       649     ------
   data size            =    ------     ------
   idata size           =    ------     ------
-C251 COMPILER V5.60.0,  SEEKFREE_ABSOLUTE_ENCODER                                          17/06/23  16:38:36  PAGE 8   
+C251 COMPILER V5.60.0,  SEEKFREE_ABSOLUTE_ENCODER                                          25/06/23  13:59:31  PAGE 8   
 
   pdata size           =    ------     ------
   xdata size           =    ------          2

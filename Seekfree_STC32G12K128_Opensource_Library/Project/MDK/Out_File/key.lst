@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  key                                                                17/06/23  17:43:41  PAGE 1   
+C251 COMPILER V5.60.0,  key                                                                25/06/23  13:59:34  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE key
@@ -66,7 +66,7 @@ stmt  level    source
    55   1          if(key1_status == 0)                      key1_flag = 1;
    56   1          if(key2_status && !key2_last_status)    key2_flag = 1;
    57   1          if(key3_status && !key3_last_status)    key3_flag = 1;
-C251 COMPILER V5.60.0,  key                                                                17/06/23  17:43:41  PAGE 2   
+C251 COMPILER V5.60.0,  key                                                                25/06/23  13:59:34  PAGE 2   
 
    58   1          if(key4_status && !key4_last_status)    key4_flag = 1;
    59   1      //    if(key5_status && !key5_last_status)    key5_flag = 1;
