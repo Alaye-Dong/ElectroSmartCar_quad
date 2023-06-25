@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  round                                                              25/06/23  16:42:07  PAGE 1   
+C251 COMPILER V5.60.0,  round                                                              25/06/23  18:45:45  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE round
@@ -66,7 +66,7 @@ stmt  level    source
    51   1      
    52   1           roundcount =(ctimer_count_read(CTIM0_P34)+ctimer_count_read(CTIM3_P04))*0.1;
    53   1           roundcount2 = roundcount2 + roundcount;
-C251 COMPILER V5.60.0,  round                                                              25/06/23  16:42:07  PAGE 2   
+C251 COMPILER V5.60.0,  round                                                              25/06/23  18:45:45  PAGE 2   
 
    54   1        if(roundcount2>=0&&roundcount2<=1000)
    55   1        {
@@ -82,7 +82,7 @@ stmt  level    source
    65   2        Target_speed1 = -120;
    66   2         Target_speed2 = -120;
    67   2        
-   68   2        cha_err1 = 70;
+   68   2        cha_err1 = -70; //×óÈë¿â-70 ÓÒÍ¼¿â+70
    69   2          
    70   2          }
    71   1        else if(roundcount2>=3800)
@@ -134,7 +134,7 @@ stmt  level    source
   115   3         flag_in_round = 0;
   116   3         roundcount2 = 0;
   117   3      
-C251 COMPILER V5.60.0,  round                                                              25/06/23  16:42:07  PAGE 3   
+C251 COMPILER V5.60.0,  round                                                              25/06/23  18:45:45  PAGE 3   
 
   118   3         }
   119   2         }
@@ -202,7 +202,7 @@ stmt  level    source
   179   2         cha_err1 = 56;
   180   2        }
   181   1        else if(roundcount2<6000&&roundcount2>2500)
-C251 COMPILER V5.60.0,  round                                                              25/06/23  16:42:07  PAGE 4   
+C251 COMPILER V5.60.0,  round                                                              25/06/23  18:45:45  PAGE 4   
 
   182   1          
   183   1        {
@@ -222,7 +222,7 @@ stmt  level    source
   197          { 
   198   1        if(CK_count2>=0&&CK_count2<=1000)
   199   1        {
-  200   2          cha_err1 = +60;
+  200   2          cha_err1 = -60; //60ÓÒ³ö¿â -60×ó³ö¿â
   201   2         Target_speed1 =100;
   202   2         Target_speed2 =100;
   203   2        }

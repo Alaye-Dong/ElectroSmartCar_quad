@@ -65,7 +65,7 @@ void RuKu()
 	Target_speed1 = -120;
    Target_speed2 = -120;
 	
-	cha_err1 = 70;
+	cha_err1 = 70; //×óÈë¿â-70 ÓÒÍ¼¿â+70
 		
 		}
 	else if(roundcount2>=3800)
@@ -197,7 +197,7 @@ void CHUKU()
 {	
 	if(CK_count2>=0&&CK_count2<=1000)
 	{
-  	cha_err1 = +60;
+  	cha_err1 = 60; //60ÓÒ³ö¿â -60×ó³ö¿â
    Target_speed1 =100;
    Target_speed2 =100;
 	}

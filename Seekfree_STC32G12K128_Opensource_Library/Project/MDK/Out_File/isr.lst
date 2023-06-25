@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  isr                                                                25/06/23  17:39:52  PAGE 1   
+C251 COMPILER V5.60.0,  isr                                                                25/06/23  18:42:18  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE isr
@@ -66,7 +66,7 @@ stmt  level    source
    53   1        {
    54   2              UART2_CLEAR_TX_FLAG;
    55   2          busy[2] = 0;
-C251 COMPILER V5.60.0,  isr                                                                25/06/23  17:39:52  PAGE 2   
+C251 COMPILER V5.60.0,  isr                                                                25/06/23  18:42:18  PAGE 2   
 
    56   2        }
    57   1          if(UART2_GET_RX_FLAG)
@@ -134,7 +134,7 @@ stmt  level    source
   119   1      }
   120          void INT2_Isr() interrupt 10
   121          {
-C251 COMPILER V5.60.0,  isr                                                                25/06/23  17:39:52  PAGE 3   
+C251 COMPILER V5.60.0,  isr                                                                25/06/23  18:42:18  PAGE 3   
 
   122   1        INT2_CLEAR_FLAG;  //清除中断标志
   123   1      }
@@ -185,95 +185,94 @@ stmt  level    source
   168   1        if(XJ==1)
   169   1        {
   170   2        
-  171   2        if(dl1a_distance_mm<=650&&g_ValueOfAD[2]>=40&&g_ValueOfAD[3]>=40&&dl1a_distance_mm>=100&&flag_hd_Z ==2)
+  171   2        if(dl1a_distance_mm<=400&&g_ValueOfAD[2]>=40&&g_ValueOfAD[3]>=40&&dl1a_distance_mm>=100&&flag_hd_Z ==2)
   172   2          {
   173   3           HD=1;
-  174   3          BEEP = 1;
-  175   3          }
-  176   2        if(P26==0)
-  177   2        {
-  178   3        Hall=1;
-  179   3        
-  180   3        } 
-  181   2        else if(Hall==1)
-  182   2         {
-  183   3          RuKu();
-  184   3         } 
-  185   2         else if(HD==1)
-  186   2         {
-  187   3         
-C251 COMPILER V5.60.0,  isr                                                                25/06/23  17:39:52  PAGE 4   
+  174   3          }
+  175   2        if(P26==0)
+  176   2        {
+  177   3        Hall=1;
+  178   3        
+  179   3        } 
+  180   2        else if(Hall==1)
+  181   2         {
+  182   3          RuKu();
+  183   3         } 
+  184   2         else if(HD==1)
+  185   2         {
+  186   3         
+  187   3         obstacle();
+C251 COMPILER V5.60.0,  isr                                                                25/06/23  18:42:18  PAGE 4   
 
-  188   3         obstacle();
-  189   3         } 
-  190   2        else
-  191   2        {
-  192   3         if(flag_in_round==1)
-  193   3         {
-  194   4           Huan_Dao_R();
-  195   4         }
-  196   3          else if(flag_hd_Z==1)
-  197   3          {
-  198   4         Huan_Dao_Z();
-  199   4          }
-  200   3         else
-  201   3           
-  202   3        {
-  203   4          Huan_Dao_Z();
-  204   4        dir_pid();
-  205   4       }
-  206   3        }
-  207   2      }
-  208   1        read_encoder();
-  209   1        Target_speed();
-  210   1        speedR_pid();
-  211   1        speedL_pid();
-  212   1        Control();
-  213   1        servo  = 692 - cha_err1;
-  214   1        if(servo>=765) servo=765;
-  215   1        if(servo<=621) servo=621;
-  216   1        pwm_duty(PWMB_CH1_P74, servo); 
+  188   3         } 
+  189   2        else
+  190   2        {
+  191   3         if(flag_in_round==1)
+  192   3         {
+  193   4           Huan_Dao_R();
+  194   4         }
+  195   3          else if(flag_hd_Z==1)
+  196   3          {
+  197   4         Huan_Dao_Z();
+  198   4          }
+  199   3         else
+  200   3           
+  201   3        {
+  202   4          Huan_Dao_Z();
+  203   4        dir_pid();
+  204   4       }
+  205   3        }
+  206   2      }
+  207   1        read_encoder();
+  208   1        Target_speed();
+  209   1        speedR_pid();
+  210   1        speedL_pid();
+  211   1        Control();
+  212   1        servo  = 692 - cha_err1;
+  213   1        if(servo>=765) servo=765;
+  214   1        if(servo<=621) servo=621;
+  215   1        pwm_duty(PWMB_CH1_P74, servo); 
+  216   1        
   217   1        
-  218   1        
-  219   1      
-  220   1        }
+  218   1      
+  219   1        }
+  220          
   221          
   222          
   223          
   224          
-  225          
-  226          //void  INT0_Isr()  interrupt 0;
-  227          //void  TM0_Isr()   interrupt 1;
-  228          //void  INT1_Isr()  interrupt 2;
-  229          //void  TM1_Isr()   interrupt 3;
-  230          //void  UART1_Isr() interrupt 4;
-  231          //void  ADC_Isr()   interrupt 5;
-  232          //void  LVD_Isr()   interrupt 6;
-  233          //void  PCA_Isr()   interrupt 7;
-  234          //void  UART2_Isr() interrupt 8;
-  235          //void  SPI_Isr()   interrupt 9;
-  236          //void  INT2_Isr()  interrupt 10;
-  237          //void  INT3_Isr()  interrupt 11;
-  238          //void  TM2_Isr()   interrupt 12;
-  239          //void  INT4_Isr()  interrupt 16;
-  240          //void  UART3_Isr() interrupt 17;
-  241          //void  UART4_Isr() interrupt 18;
-  242          //void  TM3_Isr()   interrupt 19;
-  243          //void  TM4_Isr()   interrupt 20;
-  244          //void  CMP_Isr()   interrupt 21;
-  245          //void  I2C_Isr()   interrupt 24;
-  246          //void  USB_Isr()   interrupt 25;
-  247          //void  PWM1_Isr()  interrupt 26;
-  248          //void  PWM2_Isr()  interrupt 27;
+  225          //void  INT0_Isr()  interrupt 0;
+  226          //void  TM0_Isr()   interrupt 1;
+  227          //void  INT1_Isr()  interrupt 2;
+  228          //void  TM1_Isr()   interrupt 3;
+  229          //void  UART1_Isr() interrupt 4;
+  230          //void  ADC_Isr()   interrupt 5;
+  231          //void  LVD_Isr()   interrupt 6;
+  232          //void  PCA_Isr()   interrupt 7;
+  233          //void  UART2_Isr() interrupt 8;
+  234          //void  SPI_Isr()   interrupt 9;
+  235          //void  INT2_Isr()  interrupt 10;
+  236          //void  INT3_Isr()  interrupt 11;
+  237          //void  TM2_Isr()   interrupt 12;
+  238          //void  INT4_Isr()  interrupt 16;
+  239          //void  UART3_Isr() interrupt 17;
+  240          //void  UART4_Isr() interrupt 18;
+  241          //void  TM3_Isr()   interrupt 19;
+  242          //void  TM4_Isr()   interrupt 20;
+  243          //void  CMP_Isr()   interrupt 21;
+  244          //void  I2C_Isr()   interrupt 24;
+  245          //void  USB_Isr()   interrupt 25;
+  246          //void  PWM1_Isr()  interrupt 26;
+  247          //void  PWM2_Isr()  interrupt 27;
 
 
 Module Information          Static   Overlayable
 ------------------------------------------------
   code size            =        56     ------
-  ecode size           =       722     ------
-C251 COMPILER V5.60.0,  isr                                                                25/06/23  17:39:52  PAGE 5   
-
+  ecode size           =       720     ------
   data size            =    ------     ------
+C251 COMPILER V5.60.0,  isr                                                                25/06/23  18:42:18  PAGE 5   
+
   idata size           =    ------     ------
   pdata size           =    ------     ------
   xdata size           =         7     ------
