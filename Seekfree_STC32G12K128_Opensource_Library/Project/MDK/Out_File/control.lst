@@ -1,11 +1,11 @@
-C251 COMPILER V5.60.0,  control                                                            17/06/23  17:43:43  PAGE 1   
+C251 COMPILER V5.60.0,  control                                                            26/06/23  14:14:54  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE control
 OBJECT MODULE PLACED IN .\Out_File\control.obj
-COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE control.c LARGE INTR2 ROM(HUGE) WARNINGLEVEL(3) BROWSE INCDIR(..\..\Li
-                    -braries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_peripheral;..\CODE;..\USER\inc;..\USER\src
-                    -) DEBUG PRINT(.\Out_File\control.lst) TABS(2) OBJECT(.\Out_File\control.obj) 
+COMPILER INVOKED BY: D:\keilc215\C251\BIN\C251.EXE control.c LARGE INTR2 ROM(HUGE) WARNINGLEVEL(3) BROWSE INCDIR(..\..\L
+                    -ibraries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_peripheral;..\CODE;..\USER\inc;..\USER\sr
+                    -c) DEBUG PRINT(.\Out_File\control.lst) TABS(2) OBJECT(.\Out_File\control.obj) 
 
 stmt  level    source
 
@@ -67,7 +67,7 @@ Module Information          Static   Overlayable
   far data size        =    ------     ------
   huge data size       =    ------     ------
   const size           =    ------     ------
-C251 COMPILER V5.60.0,  control                                                            17/06/23  17:43:43  PAGE 2   
+C251 COMPILER V5.60.0,  control                                                            26/06/23  14:14:54  PAGE 2   
 
   hconst size          =        20     ------
 End of Module Information.

@@ -1,11 +1,11 @@
-C251 COMPILER V5.60.0,  zf_delay                                                           17/06/23  16:38:34  PAGE 1   
+C251 COMPILER V5.60.0,  zf_delay                                                           26/06/23  14:14:52  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE zf_delay
 OBJECT MODULE PLACED IN .\Out_File\zf_delay.obj
-COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE ..\..\Libraries\seekfree_libraries\zf_delay.c LARGE INTR2 ROM(HUGE) WA
-                    -RNINGLEVEL(3) BROWSE INCDIR(..\..\Libraries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_periph
-                    -eral;..\CODE;..\USER\inc;..\USER\src) DEBUG PRINT(.\Out_File\zf_delay.lst) TABS(2) OBJECT(.\Out_File\zf_delay.obj) 
+COMPILER INVOKED BY: D:\keilc215\C251\BIN\C251.EXE ..\..\Libraries\seekfree_libraries\zf_delay.c LARGE INTR2 ROM(HUGE) W
+                    -ARNINGLEVEL(3) BROWSE INCDIR(..\..\Libraries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_perip
+                    -heral;..\CODE;..\USER\inc;..\USER\src) DEBUG PRINT(.\Out_File\zf_delay.lst) TABS(2) OBJECT(.\Out_File\zf_delay.obj) 
 
 stmt  level    source
 
@@ -66,7 +66,7 @@ stmt  level    source
    49          {
    50   1        uint16 i;
    51   1        do {
-C251 COMPILER V5.60.0,  zf_delay                                                           17/06/23  16:38:34  PAGE 2   
+C251 COMPILER V5.60.0,  zf_delay                                                           26/06/23  14:14:52  PAGE 2   
 
    52   2            i = zf_delay_ms;
    53   2            //i = sys_clk/6000;//参数: ms,要延时的ms数, 这里只支持1~255ms. 自动适应主时钟.

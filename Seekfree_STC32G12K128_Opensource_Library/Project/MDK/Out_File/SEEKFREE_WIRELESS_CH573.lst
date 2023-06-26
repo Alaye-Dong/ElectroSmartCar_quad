@@ -1,12 +1,12 @@
-C251 COMPILER V5.60.0,  SEEKFREE_WIRELESS_CH573                                            17/06/23  16:38:39  PAGE 1   
+C251 COMPILER V5.60.0,  SEEKFREE_WIRELESS_CH573                                            26/06/23  14:14:54  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE SEEKFREE_WIRELESS_CH573
 OBJECT MODULE PLACED IN .\Out_File\SEEKFREE_WIRELESS_CH573.obj
-COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE ..\..\Libraries\seekfree_peripheral\SEEKFREE_WIRELESS_CH573.c LARGE IN
-                    -TR2 ROM(HUGE) WARNINGLEVEL(3) BROWSE INCDIR(..\..\Libraries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries
-                    -\seekfree_peripheral;..\CODE;..\USER\inc;..\USER\src) DEBUG PRINT(.\Out_File\SEEKFREE_WIRELESS_CH573.lst) TABS(2) OBJECT
-                    -(.\Out_File\SEEKFREE_WIRELESS_CH573.obj) 
+COMPILER INVOKED BY: D:\keilc215\C251\BIN\C251.EXE ..\..\Libraries\seekfree_peripheral\SEEKFREE_WIRELESS_CH573.c LARGE I
+                    -NTR2 ROM(HUGE) WARNINGLEVEL(3) BROWSE INCDIR(..\..\Libraries\libraries;..\..\Libraries\seekfree_libraries;..\..\Librarie
+                    -s\seekfree_peripheral;..\CODE;..\USER\inc;..\USER\src) DEBUG PRINT(.\Out_File\SEEKFREE_WIRELESS_CH573.lst) TABS(2) OBJEC
+                    -T(.\Out_File\SEEKFREE_WIRELESS_CH573.obj) 
 
 stmt  level    source
 
@@ -66,7 +66,7 @@ stmt  level    source
              -------------
    50          //  @brief      573转串口模块 发送函数
    51          //  @param      buff        需要发送的数据地址
-C251 COMPILER V5.60.0,  SEEKFREE_WIRELESS_CH573                                            17/06/23  16:38:39  PAGE 2   
+C251 COMPILER V5.60.0,  SEEKFREE_WIRELESS_CH573                                            26/06/23  14:14:54  PAGE 2   
 
    52          //  @param      len         发送长度
    53          //  @return     uint32      剩余未发送的字节数   
@@ -134,7 +134,7 @@ stmt  level    source
              -------------
   110          void wireless_ch573_init(void)
   111          {
-C251 COMPILER V5.60.0,  SEEKFREE_WIRELESS_CH573                                            17/06/23  16:38:39  PAGE 3   
+C251 COMPILER V5.60.0,  SEEKFREE_WIRELESS_CH573                                            26/06/23  14:14:54  PAGE 3   
 
   112   1          WIRELESS_CH573_RTS_PIN = 0;
   113   1          wireless_type = WIRELESS_CH573;
