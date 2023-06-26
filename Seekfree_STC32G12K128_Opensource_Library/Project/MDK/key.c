@@ -225,7 +225,7 @@ void Cursor(void)
 void KeystrokeLabel_Switch( float change_unit, uint8 value_bit)	//temp_value, 上一页， +-的单位值, 扇区存储的位置编号
 {		
 			static float tem_value;
-			lcd_showfloat(11*8,6,tem_value,2,2);
+			
 			//eeprom_init();
 iap_read_bytes(0x00, date_buff, 100);		//从EEPROM中读取数据
 Motor_Kp_L 			= read_float(0);
@@ -238,7 +238,7 @@ ZX_kd						= read_float(6);
 g_dirControl_P	= read_float(7);
 g_dirControl_D   = read_float(8);		
 
-
+		lcd_showfloat(11*8,6,tem_value,2,2);
 		Keystroke_Scan();
 			if (sw1_status == 0)
 			{
@@ -385,6 +385,7 @@ void Keystroke_Menu_ONE_One(void)  //11
 		lcd_showfloat(11*8,4,Motor_Ki_R,2,2);
 		
 		KeystrokeLabel_Switch(0.01, 0);
+		
 		
 }
 

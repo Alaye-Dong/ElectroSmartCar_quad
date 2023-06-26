@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  main                                                               26/06/23  11:13:36  PAGE 1   
+C251 COMPILER V5.60.0,  main                                                               26/06/23  13:04:25  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE main
@@ -66,7 +66,7 @@ stmt  level    source
    55   2      //    lcd_showfloat(65,2,g_ValueOfAD[1],4,2);  //×óÐ±
    56   2      //    lcd_showfloat(5,2,g_ValueOfAD[4],4,2);  //ÓÒÐ±
    57   2      
-C251 COMPILER V5.60.0,  main                                                               26/06/23  11:13:36  PAGE 2   
+C251 COMPILER V5.60.0,  main                                                               26/06/23  13:04:25  PAGE 2   
 
    58   2      
    59   2      //    lcd_showfloat(5,4,roundcount2,4,2);   //

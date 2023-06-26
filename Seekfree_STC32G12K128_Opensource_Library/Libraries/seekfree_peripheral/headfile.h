@@ -12,8 +12,8 @@
 #define DIRR P35 //编码器右轮
 
 //五向开关
-#define KEY1_PIN    P70
-#define KEY2_PIN    P71
+#define KEY1_PIN    P71
+#define KEY2_PIN    P70
 #define KEY3_PIN    P72
 #define KEY4_PIN    P73
 #define SW1_PIN     P75

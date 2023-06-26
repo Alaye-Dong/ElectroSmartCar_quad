@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  round                                                              26/06/23  11:07:03  PAGE 1   
+C251 COMPILER V5.60.0,  round                                                              26/06/23  13:04:27  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE round
@@ -66,7 +66,7 @@ stmt  level    source
    51          {
    52   1      
    53   1           roundcount =(ctimer_count_read(CTIM0_P34)+ctimer_count_read(CTIM3_P04))*0.1;
-C251 COMPILER V5.60.0,  round                                                              26/06/23  11:07:03  PAGE 2   
+C251 COMPILER V5.60.0,  round                                                              26/06/23  13:04:27  PAGE 2   
 
    54   1           roundcount2 = roundcount2 + roundcount;
    55   1        if(roundcount2>=0&&roundcount2<=1000)
@@ -134,7 +134,7 @@ stmt  level    source
   115   3         flag_hd_Z = 2;
   116   3         flag_in_round = 0;
   117   3         roundcount2 = 0;
-C251 COMPILER V5.60.0,  round                                                              26/06/23  11:07:03  PAGE 3   
+C251 COMPILER V5.60.0,  round                                                              26/06/23  13:04:27  PAGE 3   
 
   118   3      
   119   3         }
@@ -202,7 +202,7 @@ stmt  level    source
   179   2         Target_speed2 =50;
   180   2         cha_err1 = 56;
   181   2        }
-C251 COMPILER V5.60.0,  round                                                              26/06/23  11:07:03  PAGE 4   
+C251 COMPILER V5.60.0,  round                                                              26/06/23  13:04:27  PAGE 4   
 
   182   1        else if(roundcount2<6000&&roundcount2>2500)
   183   1          
