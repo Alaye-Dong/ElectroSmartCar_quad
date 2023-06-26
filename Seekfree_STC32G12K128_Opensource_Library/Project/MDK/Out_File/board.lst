@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  board                                                              17/06/23  16:38:34  PAGE 1   
+C251 COMPILER V5.60.0,  board                                                              26/06/23  16:29:00  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE board
@@ -66,7 +66,7 @@ stmt  level    source
    51   2          CLKDIV = 0x04;
    52   2          IRTRIM = T22M_ADDR;
    53   2          VRTRIM = VRT27M_ADDR;
-C251 COMPILER V5.60.0,  board                                                              17/06/23  16:38:34  PAGE 2   
+C251 COMPILER V5.60.0,  board                                                              26/06/23  16:29:00  PAGE 2   
 
    54   2          IRCBAND = 0x02;
    55   2          CLKDIV = 0x00;
@@ -134,7 +134,7 @@ stmt  level    source
   117          
   118          
   119          
-C251 COMPILER V5.60.0,  board                                                              17/06/23  16:38:34  PAGE 3   
+C251 COMPILER V5.60.0,  board                                                              26/06/23  16:29:00  PAGE 3   
 
   120          
   121          void board_init(void)
@@ -202,7 +202,7 @@ stmt  level    source
   183          char putchar(char c)
   184          {
   185   1        uart_putchar(UART_1, c);//把自己实现的串口打印一字节数据的函数替换到这里
-C251 COMPILER V5.60.0,  board                                                              17/06/23  16:38:34  PAGE 4   
+C251 COMPILER V5.60.0,  board                                                              26/06/23  16:29:00  PAGE 4   
 
   186   1      
   187   1        return c;

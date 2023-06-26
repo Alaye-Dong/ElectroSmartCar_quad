@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  zf_delay                                                           17/06/23  16:38:34  PAGE 1   
+C251 COMPILER V5.60.0,  zf_delay                                                           26/06/23  16:29:01  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE zf_delay
@@ -66,7 +66,7 @@ stmt  level    source
    49          {
    50   1        uint16 i;
    51   1        do {
-C251 COMPILER V5.60.0,  zf_delay                                                           17/06/23  16:38:34  PAGE 2   
+C251 COMPILER V5.60.0,  zf_delay                                                           26/06/23  16:29:01  PAGE 2   
 
    52   2            i = zf_delay_ms;
    53   2            //i = sys_clk/6000;//参数: ms,要延时的ms数, 这里只支持1~255ms. 自动适应主时钟.

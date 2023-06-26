@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  key                                                                17/06/23  17:43:41  PAGE 1   
+C251 COMPILER V5.60.0,  key                                                                26/06/23  16:29:44  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE key
@@ -9,107 +9,802 @@ COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE key.c LARGE INTR2 ROM(HUGE) WA
 
 stmt  level    source
 
-    1          #include "headfile.h"
-    2          #include "key.h"
-    3          
-    4          //²¦Âë¿ª¹Ø×´Ì¬±äÁ¿
-    5          uint8 sw1_status;
-    6          uint8 sw2_status;
-    7          uint8 sw3_status;
-    8          
-    9          //¿ª¹Ø×´Ì¬±äÁ¿
-   10          uint8 key1_status = 1;
-   11          uint8 key2_status = 1;
-   12          uint8 key3_status = 1;
-   13          uint8 key4_status = 1;
-   14          uint8 key5_status = 1;
-   15          uint8 key6_status = 1;
-   16          //ÉÏÒ»´Î¿ª¹Ø×´Ì¬±äÁ¿
-   17          uint8 key1_last_status;
-   18          uint8 key2_last_status;
-   19          uint8 key3_last_status;
-   20          uint8 key4_last_status;
-   21          uint8 key5_last_status;
-   22          uint8 key6_last_status;
-   23          
-   24          //¿ª¹Ø±êÖ¾Î»
-   25          uint8 key1_flag;
-   26          uint8 key2_flag;
-   27          uint8 key3_flag;
-   28          uint8 key4_flag;
-   29          uint8 key5_flag;
-   30          uint8 key6_flag;
-   31          uint8 test1 = 0, test2 = 0, test3 = 0, test4 = 0, test5 = 0, test6 = 0;
-   32          
-   33          void key_scan()
-   34          {
-   35   1          sw1_status = SW1_PIN;
-   36   1          sw2_status = SW2_PIN;
-   37   1      //    sw3_status = SW3_PIN;
-   38   1          //Ê¹ÓÃ´Ë·½·¨ÓÅµãÔÚÓÚ£¬²»ÐèÒªÊ¹ÓÃwhile(1) µÈ´ý£¬±ÜÃâ´¦ÀíÆ÷×ÊÔ´ÀË·Ñ
-   39   1          //±£´æ°´¼ü×´Ì¬
-   40   1          key1_last_status = key1_status;
-   41   1          key2_last_status = key2_status;
-   42   1          key3_last_status = key3_status;
-   43   1          key4_last_status = key4_status;
-   44   1      //    key5_last_status = key5_status;
-   45   1      //    key6_last_status = key6_status;
-   46   1          //¶ÁÈ¡µ±Ç°°´¼ü×´Ì¬
-   47   1          key1_status = KEY1_PIN;
-   48   1          key2_status = KEY2_PIN;
-   49   1          key3_status = KEY3_PIN;
-   50   1          key4_status = KEY4_PIN;
-   51   1      //    key5_status = KEY5_PIN;
-   52   1      //    key6_status = KEY6_PIN;
-   53   1          //¼ì²âµ½°´¼ü°´ÏÂÖ®ºó  ²¢·Å¿ªÖÃÎ»±êÖ¾Î»
-   54   1      
-   55   1          if(key1_status == 0)                      key1_flag = 1;
-   56   1          if(key2_status && !key2_last_status)    key2_flag = 1;
-   57   1          if(key3_status && !key3_last_status)    key3_flag = 1;
-C251 COMPILER V5.60.0,  key                                                                17/06/23  17:43:41  PAGE 2   
+    1          #include "key.h"
+    2          
+    3          ////¶¨Òå°´¼üÒý½Å
+    4          //#define KEY1_PIN    P71//P71
+    5          //#define KEY2_PIN    P70//P70  
+    6          //#define KEY3_PIN    P72
+    7          //#define KEY4_PIN    P73
+    8          ////¶¨Òå²¦Âë¿ª¹ØÒý½Å
+    9          //#define SW1_PIN    P76
+   10          //#define SW2_PIN     P75
+   11          
+   12          //¶¨Òå°´¼ü´úºÅ
+   13          #define KeystrokeONE 1
+   14          #define KeystrokeTWO 2
+   15          #define KeystrokeTHREE 3
+   16          #define KeystrokeFOUR 4
+   17          
+   18          //²¦Âë¿ª¹Ø×´Ì¬±äÁ¿ ONÎª0
+   19          uint8 sw1_status;
+   20          uint8 sw2_status;
+   21          
+   22          //¿ª¹Ø×´Ì¬±äÁ¿
+   23          uint8 key1_status = 1;
+   24          uint8 key2_status = 1;
+   25          uint8 key3_status = 1;
+   26          uint8 key4_status = 1;
+   27          
+   28          //ÉÏÒ»´Î¿ª¹Ø×´Ì¬±äÁ¿
+   29          uint8 key1_last_status;
+   30          uint8 key2_last_status;
+   31          uint8 key3_last_status;
+   32          uint8 key4_last_status;
+   33          
+   34          //¿ª¹Ø±êÖ¾Î»
+   35          uint8 key1_flag;
+   36          uint8 key2_flag;
+   37          uint8 key3_flag;
+   38          uint8 key4_flag;
+   39          
+   40          uint8 key1_count;
+   41          uint8 key2_count;
+   42          uint8 key3_count;
+   43          uint8 key4_count;
+   44          
+   45          uint8 test1=0,test2=0,test3=0,test4=0;
+   46          uint8 param1_1, param1_2, param3 , param4 = 0;
+   47          
+   48          int Dispay_Codename = 0;       //ÏÔÊ¾Ò³Ãæ´úºÅ
+   49          int This_Codename = 0;      //±¾Ò³Ãæ±àºÅ
+   50          uint8 KeystrokeLabel = 0;     //°´Ñ¹×´Ì¬
+   51          uint8 CursorRow= 0; //¹â±êËùÔÚÐÐºÅ
+   52          uint8 MenuNextFlag = 0; //¹â±êËùÖ¸²Ëµ¥½øÈë±êÖ¾Î»
+   53          
+   54          void Keystroke_Scan(void)
+   55          {
+   56   1      
+   57   1          //»ñÈ¡²¦Âë¿ª¹Ø×´Ì¬
+C251 COMPILER V5.60.0,  key                                                                26/06/23  16:29:44  PAGE 2   
 
-   58   1          if(key4_status && !key4_last_status)    key4_flag = 1;
-   59   1      //    if(key5_status && !key5_last_status)    key5_flag = 1;
-   60   1      //    if(key6_status && !key6_last_status)    key6_flag = 1;
-   61   1          //±êÖ¾Î»ÖÃÎ»Ö®ºó£¬¿ÉÒÔÊ¹ÓÃ±êÖ¾Î»Ö´ÐÐ×Ô¼ºÏëÒª×öµÄÊÂ¼þ
-   62   1          if(key1_flag)
-   63   1          {
-   64   2              key1_flag = 0;//Ê¹ÓÃ°´¼üÖ®ºó£¬Ó¦¸ÃÇå³ý±êÖ¾Î»
-   65   2              test1++;
-   66   2            g_dirControl_P = g_dirControl_P +0.05;
-   67   2          }
-   68   1      
-   69   1          if(key2_flag)
-   70   1          {
-   71   2              key2_flag = 0;//Ê¹ÓÃ°´¼üÖ®ºó£¬Ó¦¸ÃÇå³ý±êÖ¾Î»
-   72   2              test2++;
-   73   2            g_dirControl_P = g_dirControl_P - 0.05;
-   74   2          }
-   75   1      
-   76   1          if(key3_flag)
-   77   1          {
-   78   2              key3_flag = 0;//Ê¹ÓÃ°´¼üÖ®ºó£¬Ó¦¸ÃÇå³ý±êÖ¾Î»
-   79   2              test3++;
-   80   2            g_dirControl_D = g_dirControl_D + 0.05;
-   81   2          }
-   82   1      
-   83   1          if(key4_flag)
-   84   1          {
-   85   2              key4_flag = 0;//Ê¹ÓÃ°´¼üÖ®ºó£¬Ó¦¸ÃÇå³ý±êÖ¾Î»
-   86   2              test4++;
-   87   2            g_dirControl_D = g_dirControl_D - 0.05;
-   88   2          }
-   89   1        }
+   58   1          sw1_status = SW1_PIN;
+   59   1          sw2_status = SW2_PIN;
+   60   1      
+   61   1          //Ê¹ÓÃ´Ë·½·¨ÓÅµãÔÚÓÚ£¬²»ÐèÒªÊ¹ÓÃwhile(1) µÈ´ý£¬±ÜÃâ´¦ÀíÆ÷×ÊÔ´ÀË·Ñ
+   62   1          //±£´æ°´¼ü×´Ì¬
+   63   1          key1_last_status = key1_status;
+   64   1          key2_last_status = key2_status;
+   65   1          key3_last_status = key3_status;
+   66   1          key4_last_status = key4_status;
+   67   1          //¶ÁÈ¡µ±Ç°°´¼ü×´Ì¬
+   68   1          key1_status = KEY1_PIN;
+   69   1          key2_status = KEY2_PIN;
+   70   1          key3_status = KEY3_PIN;
+   71   1          key4_status = KEY4_PIN;
+   72   1      
+   73   1      
+   74   1          //¼ì²âµ½°´¼ü°´ÏÂÖ®ºó  ²¢·Å¿ªÖÃÎ»±êÖ¾Î»
+   75   1          if(key1_status && !key1_last_status)    key1_flag = 1;
+   76   1          if(key2_status && !key2_last_status)    key2_flag = 1;
+   77   1          if(key3_status && !key3_last_status)    key3_flag = 1;
+   78   1          if(key4_status && !key4_last_status)    key4_flag = 1;
+   79   1      
+   80   1          //±êÖ¾Î»ÖÃÎ»Ö®ºó£¬¿ÉÒÔÊ¹ÓÃ±êÖ¾Î»Ö´ÐÐ×Ô¼ºÏëÒª×öµÄÊÂ¼þ
+   81   1          KeystrokeLabel = 0;
+   82   1          if(key1_flag)   
+   83   1          {
+   84   2              key1_flag = 0;//Ê¹ÓÃ°´¼üÖ®ºó£¬Ó¦¸ÃÇå³ý±êÖ¾Î»
+   85   2              KeystrokeLabel = 1;
+   86   2              key1_count++;
+   87   2          }
+   88   1      
+   89   1          if(key2_flag)   
+   90   1          {
+   91   2              key2_flag = 0;//Ê¹ÓÃ°´¼üÖ®ºó£¬Ó¦¸ÃÇå³ý±êÖ¾Î»
+   92   2              KeystrokeLabel = 2;
+   93   2              key2_count++;
+   94   2          }
+   95   1      
+   96   1          if(key3_flag)   
+   97   1          {
+   98   2              key3_flag = 0;//Ê¹ÓÃ°´¼üÖ®ºó£¬Ó¦¸ÃÇå³ý±êÖ¾Î»
+   99   2              KeystrokeLabel = 3;
+  100   2              key3_count++;
+  101   2          }
+  102   1      
+  103   1          if(key4_flag)   
+  104   1          {
+  105   2              key4_flag = 0;//Ê¹ÓÃ°´¼üÖ®ºó£¬Ó¦¸ÃÇå³ý±êÖ¾Î»
+  106   2              KeystrokeLabel = 4;
+  107   2              key4_count++;
+  108   2          }
+  109   1      
+  110   1      }
+  111          
+  112          //-------------------------------------------------------------------------------------------------------
+             -------------
+  113          //  @brief      ²Ëµ¥Ä¿Â¼
+  114          //  @param
+  115          //  @param
+  116          //  @param
+  117          //  @param
+  118          //  @return     void
+  119          //  @note       ÆôÓÃwhileÀ´ÏÔÊ¾Ä¿±êÒ³Ãæ  ÔÚÃ¿¸öÒ³Ãæ°´¼ü°´¼üºó¶¼»á¸Ä±äµ½¶ÔÓ¦Ò³Ãæ£¬´Ëº¯ÊýÓÃÓÚ¸üÐÂÆÁÄ»ÏÔÊ¾
+  120          //-------------------------------------------------------------------------------------------------------
+             -------------
+  121          void Keystroke_Menu(void)
+C251 COMPILER V5.60.0,  key                                                                26/06/23  16:29:44  PAGE 3   
+
+  122          {
+  123   1          switch(Dispay_Codename)
+  124   1          {
+  125   2              case 0:
+  126   2                Keystroke_Menu_HOME();
+  127   2                break;
+  128   2                
+  129   2                
+  130   2              case 1:
+  131   2                Keystroke_Menu_ONE(); 
+  132   2                break;
+  133   2              case 11:
+  134   2                Keystroke_Menu_ONE_One();
+  135   2                break;
+  136   2              case 12:
+  137   2                Keystroke_Menu_ONE_Two();
+  138   2                break;
+  139   2              case 13:
+  140   2                Keystroke_Menu_ONE_Three();
+  141   2                break;
+  142   2              case 14:
+  143   2                Keystroke_Menu_ONE_Four();
+  144   2                break;
+  145   2                
+  146   2              case 2:
+  147   2                Keystroke_Menu_TWO();
+  148   2                break;
+  149   2              case 21:
+  150   2                Keystroke_Menu_TWO_One();
+  151   2                break;
+  152   2                
+  153   2              case 3:
+  154   2                Keystroke_Menu_THREE();
+  155   2                break;
+  156   2              case 31:
+  157   2                Keystroke_Menu_THREE_One();
+  158   2                break;
+  159   2              case 32:
+  160   2                Keystroke_Menu_THREE_Two();
+  161   2                break;
+  162   2              case 33:
+  163   2                Keystroke_Menu_THREE_Three();
+  164   2                break;
+  165   2              case 34:
+  166   2                Keystroke_Menu_THREE_Four();
+  167   2                break;
+  168   2                
+  169   2              case 4:
+  170   2                Keystroke_Menu_FOUR();
+  171   2                break;
+  172   2          
+  173   2          }
+  174   1          
+  175   1      }
+  176          
+  177          void Cursor(void)
+  178          {   
+  179   1          int i;
+  180   1          MenuNextFlag = 0;
+  181   1          
+  182   1          while(MenuNextFlag == 0)
+  183   1          {   
+  184   2              Keystroke_Scan();
+  185   2          
+  186   2              if (KeystrokeLabel == 1)
+  187   2              {
+C251 COMPILER V5.60.0,  key                                                                26/06/23  16:29:44  PAGE 4   
+
+  188   3                  CursorRow--;
+  189   3                  for (i = 0; i < 10; i++)
+  190   3                  {
+  191   4                  if(i == CursorRow)
+  192   4                  lcd_showstr(0, CursorRow, ">");
+  193   4                  else
+  194   4                  lcd_showstr(0, i, " ");
+  195   4                  }
+  196   3              }
+  197   2              
+  198   2              if (KeystrokeLabel == 2)
+  199   2              {
+  200   3                  CursorRow++;
+  201   3                  for (i = 0; i < 10; i++)
+  202   3                  {
+  203   4                  if(i == CursorRow)
+  204   4                  lcd_showstr(0, CursorRow, ">");
+  205   4                  else
+  206   4                  lcd_showstr(0, i, " ");
+  207   4                  }
+  208   3              }
+  209   2              
+  210   2              if (KeystrokeLabel == 3)
+  211   2              {
+  212   3                  //CursorRow = 0;
+  213   3                  MenuNextFlag = 1;
+  214   3              }
+  215   2              
+  216   2              if (KeystrokeLabel == 4)
+  217   2              {
+  218   3                  MenuNextFlag = -1;
+  219   3              }
+  220   2              
+  221   2          }
+  222   1          
+  223   1      }
+  224                  
+  225          void KeystrokeLabel_Switch(int previous_codename, float change_unit, uint8 value_bit) //temp_value, ÉÏÒ»Ò
+             -³£¬ +-µÄµ¥Î»Öµ, ÉÈÇø´æ´¢µÄÎ»ÖÃ±àºÅ
+  226          {   
+  227   1            static float tem_value;
+  228   1            lcd_showfloat(11*8,6,tem_value,2,2);
+  229   1            eeprom_init();
+  230   1      //iap_read_bytes(0x00, date_buff, 100);   //´ÓEEPROMÖÐ¶ÁÈ¡Êý¾Ý
+  231   1      //Motor_Kp_L      = read_float(0);
+  232   1      //Motor_Ki_L        = read_float(1);
+  233   1      //Motor_Kp_R        = read_float(2);
+  234   1      //Motor_Ki_R      = read_float(3);
+  235   1      //angle_kp1         = read_float(4);
+  236   1      //ZX_kp           = read_float(5);
+  237   1      //ZX_kd           = read_float(6);
+  238   1      //g_dirControl_P  = read_float(7);
+  239   1      //g_dirControl_D   = read_float(8);   
+  240   1      
+  241   1      
+  242   1          Keystroke_Scan();
+  243   1            if (sw1_status == 0)
+  244   1            {
+  245   2              change_unit *= 10; 
+  246   2            }
+  247   1           switch(KeystrokeLabel)
+  248   1          {
+  249   2              case 0 :
+  250   2                  Dispay_Codename = This_Codename;
+  251   2                  break;
+  252   2                  
+C251 COMPILER V5.60.0,  key                                                                26/06/23  16:29:44  PAGE 5   
+
+  253   2              case KeystrokeONE :
+  254   2                  tem_value += change_unit; 
+  255   2                  save_float(tem_value,value_bit);
+  256   2                  Dispay_Codename = This_Codename;    
+  257   2                  break;
+  258   2              case KeystrokeTWO :
+  259   2                  tem_value -= change_unit;     
+  260   2                  save_float(tem_value,value_bit);
+  261   2                  Dispay_Codename = This_Codename;    
+  262   2                  break;
+  263   2                  
+  264   2              case KeystrokeTHREE :
+  265   2                  Dispay_Codename = previous_codename; //·µ»ØÉÏÒ»Ò³
+  266   2                  lcd_clear(WHITE);
+  267   2                  break;
+  268   2              case KeystrokeFOUR :
+  269   2                  Dispay_Codename = 0;  //·µ»ØµÚ0Ò³
+  270   2                  lcd_clear(WHITE);
+  271   2                  break;
+  272   2          }
+  273   1      }
+  274          
+  275          //-------------------------------------------------------------------------------------------------------
+             -------------
+  276          //  @brief      ×Ü²Ëµ¥Ä¿Â¼
+  277          //  @param
+  278          //  @param
+  279          //  @param
+  280          //  @param
+  281          //  @return     void
+  282          //  @note       ´ËÒ³ÃæÎª±àºÅÎª0
+  283          //-------------------------------------------------------------------------------------------------------
+             -------------
+  284          void Keystroke_Menu_HOME(void)    //0
+  285          {
+  286   1          lcd_showstr(1*8,1,"Speed");
+  287   1          lcd_showstr(1*8,2,"Angle");
+  288   1          lcd_showstr(1*8,3,"Direction");
+  289   1          lcd_showstr(1*8,4,"Electrical");
+  290   1          Cursor(); 
+  291   1      
+  292   1          switch(CursorRow)
+  293   1          {
+  294   2              case 0 :
+  295   2                  Dispay_Codename = 0;
+  296   2                  break;
+  297   2                  
+  298   2              case 1 :
+  299   2                  Dispay_Codename = 1;
+  300   2                  lcd_clear(WHITE);
+  301   2                  CursorRow = 0;
+  302   2                  break;
+  303   2              case 2 :
+  304   2                  Dispay_Codename = 2;
+  305   2                  lcd_clear(WHITE);
+  306   2                  CursorRow = 0;
+  307   2                  break;
+  308   2              case 3 :
+  309   2                  Dispay_Codename = 3;
+  310   2                  lcd_clear(WHITE);
+  311   2                  CursorRow = 0;
+  312   2                  break;
+  313   2              case 4 :
+  314   2                  Dispay_Codename = 4;
+  315   2                  lcd_clear(WHITE);
+  316   2                  CursorRow = 0;
+C251 COMPILER V5.60.0,  key                                                                26/06/23  16:29:44  PAGE 6   
+
+  317   2                  break;
+  318   2          }
+  319   1      }
+  320          
+  321          void Keystroke_Menu_ONE(void) //1
+  322          {   
+  323   1          lcd_showstr(1*8,1,"Mot_Kp_L");
+  324   1          lcd_showstr(1*8,2,"Mot_Ki_L");
+  325   1          lcd_showstr(1*8,3,"Mot_Kp_R");
+  326   1          lcd_showstr(1*8,4,"Mot_Ki_R");
+  327   1          
+  328   1          lcd_showfloat(11*8,1,Motor_Kp_L,2,2);
+  329   1          lcd_showfloat(11*8,2,Motor_Ki_L,2,2);
+  330   1          lcd_showfloat(11*8,3,Motor_Kp_R,2,2);
+  331   1          lcd_showfloat(11*8,4,Motor_Ki_R,2,2);
+  332   1          
+  333   1          Cursor();
+  334   1          
+  335   1          if (MenuNextFlag == -1)
+  336   1          {
+  337   2              CursorRow = -1;
+  338   2          }
+  339   1          
+  340   1          switch(CursorRow)
+  341   1          {   
+  342   2              case -1 :
+  343   2                  Dispay_Codename = 0;
+  344   2                  lcd_clear(WHITE);
+  345   2                  break;
+  346   2              case 0 :
+  347   2                  Dispay_Codename = 1;
+  348   2                  break;
+  349   2                  
+  350   2              case 1 :
+  351   2                  Dispay_Codename = 11;
+  352   2                // lcd_clear(WHITE);
+  353   2                  break;
+  354   2              case 2 :
+  355   2                  Dispay_Codename = 12;
+  356   2                  lcd_clear(WHITE);
+  357   2                  break;
+  358   2              case 3 :
+  359   2                  Dispay_Codename = 13;
+  360   2                  lcd_clear(WHITE);
+  361   2                  break;
+  362   2              case 4 :
+  363   2                  Dispay_Codename = 14;
+  364   2                  lcd_clear(WHITE);
+  365   2                  break;
+  366   2              //case......
+  367   2          }
+  368   1      
+  369   1          
+  370   1      }
+  371          
+  372          void Keystroke_Menu_ONE_One(void)  //11
+  373          {   
+  374   1          static float tem_value_11;
+  375   1          uint8 value_bit = 0;
+  376   1          float change_unit = 0.01;
+  377   1          This_Codename = 11;     //±¾Ò³Ãæ±àºÅ
+  378   1          
+  379   1          lcd_showstr(1*8,1,"Mot_Kp_L"); //&
+  380   1          lcd_showstr(1*8,2,"Mot_Ki_L");
+  381   1          lcd_showstr(1*8,3,"Mot_Kp_R");
+  382   1          lcd_showstr(1*8,4,"Mot_Ki_R");
+C251 COMPILER V5.60.0,  key                                                                26/06/23  16:29:44  PAGE 7   
+
+  383   1          lcd_showstr(0,1,"&"); //&±êÖ¾ÌáÊ¾
+  384   1          
+  385   1          lcd_showfloat(11*8,1,Motor_Kp_L,2,2); //&
+  386   1          lcd_showfloat(11*8,2,Motor_Ki_L,2,2);
+  387   1          lcd_showfloat(11*8,3,Motor_Kp_R,2,2);
+  388   1          lcd_showfloat(11*8,4,Motor_Ki_R,2,2);
+  389   1      
+  390   1            lcd_showfloat(11*8,6,tem_value_11,2,2);
+  391   1            //eeprom_init();
+  392   1          Motor_Kp_L      = read_float(value_bit);
+  393   1            
+  394   1            Keystroke_Scan();
+  395   1            if (sw1_status == 0)
+  396   1            {
+  397   2              change_unit *= 10; 
+  398   2            }
+  399   1           switch(KeystrokeLabel)
+  400   1          {
+  401   2              case 0 :
+  402   2                  Dispay_Codename = This_Codename;
+  403   2                  break;
+  404   2                  
+  405   2              case KeystrokeONE :
+  406   2                  tem_value_11 += change_unit;  
+  407   2                  save_float(tem_value_11, value_bit);
+  408   2                  Dispay_Codename = This_Codename;    
+  409   2                  break;
+  410   2              case KeystrokeTWO :
+  411   2                  tem_value_11 -= change_unit;      
+  412   2                  save_float(tem_value_11, value_bit);
+  413   2                  Dispay_Codename = This_Codename;    
+  414   2                  break;
+  415   2                  
+  416   2              case KeystrokeTHREE :
+  417   2                  Dispay_Codename /= 10; //·µ»ØÉÏÒ»Ò³
+  418   2                  lcd_clear(WHITE);
+  419   2                  break;
+  420   2              case KeystrokeFOUR :
+  421   2                  Dispay_Codename = 0;  //·µ»ØµÚ0Ò³
+  422   2                  lcd_clear(WHITE);
+  423   2                  break;
+  424   2          }
+  425   1          
+  426   1      }
+  427          
+  428          void Keystroke_Menu_ONE_Two(void)  //12
+  429          {   
+  430   1          static float tem_value_12;
+  431   1          uint8 value_bit = 1;
+  432   1          float change_unit = 0.01;
+  433   1          
+  434   1          This_Codename = 12;
+  435   1          
+  436   1          lcd_showstr(1*8,1,"Mot_Kp_L");
+  437   1          lcd_showstr(1*8,2,"Mot_Ki_L");   //&  
+  438   1          lcd_showstr(1*8,3,"Mot_Kp_R");
+  439   1          lcd_showstr(1*8,4,"Mot_Ki_R");
+  440   1          lcd_showstr(0,2,"&"); //&±êÖ¾ÌáÊ¾
+  441   1          
+  442   1          lcd_showfloat(11*8,1,Motor_Kp_L,2,2); 
+  443   1          lcd_showfloat(11*8,2,Motor_Ki_L,2,2); //&
+  444   1          lcd_showfloat(11*8,3,Motor_Kp_R,2,2);
+  445   1          lcd_showfloat(11*8,4,Motor_Ki_R,2,2);
+  446   1          
+  447   1          //KeystrokeLabel_Switch( 1, 0.01, 1);
+  448   1          
+C251 COMPILER V5.60.0,  key                                                                26/06/23  16:29:44  PAGE 8   
+
+  449   1          lcd_showfloat(11*8,6,tem_value_12,2,2);
+  450   1          Motor_Ki_L      = read_float(value_bit);
+  451   1            
+  452   1            Keystroke_Scan();
+  453   1            if (sw1_status == 0)
+  454   1            {
+  455   2              change_unit *= 10; 
+  456   2            }
+  457   1           switch(KeystrokeLabel)
+  458   1          {
+  459   2              case 0 :
+  460   2                  Dispay_Codename = This_Codename;
+  461   2                  break;
+  462   2                  
+  463   2              case KeystrokeONE :
+  464   2                  tem_value_12 += change_unit;  
+  465   2                  save_float(tem_value_12, value_bit);
+  466   2                  Dispay_Codename = This_Codename;    
+  467   2                  break;
+  468   2              case KeystrokeTWO :
+  469   2                  tem_value_12 -= change_unit;      
+  470   2                  save_float(tem_value_12, value_bit);
+  471   2                  Dispay_Codename = This_Codename;    
+  472   2                  break;
+  473   2                  
+  474   2              case KeystrokeTHREE :
+  475   2                  Dispay_Codename /= 10; //·µ»ØÉÏÒ»Ò³
+  476   2                  lcd_clear(WHITE);
+  477   2                  break;
+  478   2              case KeystrokeFOUR :
+  479   2                  Dispay_Codename = 0;  //·µ»ØµÚ0Ò³
+  480   2                  lcd_clear(WHITE);
+  481   2                  break;
+  482   2          }
+  483   1          
+  484   1      }
+  485          
+  486          void Keystroke_Menu_ONE_Three(void)  //13 
+  487          {
+  488   1          
+  489   1          This_Codename = 13;
+  490   1          
+  491   1          lcd_showstr(1*8,1,"Mot_Kp_L");
+  492   1          lcd_showstr(1*8,2,"Mot_Ki_L");    
+  493   1          lcd_showstr(1*8,3,"Mot_Kp_R");    //&
+  494   1          lcd_showstr(1*8,4,"Mot_Ki_R");
+  495   1          lcd_showstr(0,3,"&"); //&
+  496   1          
+  497   1          lcd_showfloat(11*8,1,Motor_Kp_L,2,2); 
+  498   1          lcd_showfloat(11*8,2,Motor_Ki_L,2,2); 
+  499   1          lcd_showfloat(11*8,3,Motor_Kp_R,2,2);//&
+  500   1          lcd_showfloat(11*8,4,Motor_Ki_R,2,2);
+  501   1          
+  502   1          KeystrokeLabel_Switch(1, 0.01, 2);
+  503   1      
+  504   1      }
+  505          
+  506          void Keystroke_Menu_ONE_Four(void)  //14
+  507          {   
+  508   1          static float temp_value;
+  509   1          eeprom_init();
+  510   1          This_Codename = 14;
+  511   1          
+  512   1          lcd_showstr(1*8,1,"Mot_Kp_L");
+  513   1          lcd_showstr(1*8,2,"Mot_Ki_L");    
+  514   1          lcd_showstr(1*8,3,"Mot_Kp_R");
+C251 COMPILER V5.60.0,  key                                                                26/06/23  16:29:44  PAGE 9   
+
+  515   1          lcd_showstr(1*8,4,"Mot_Ki_R");  //&
+  516   1          lcd_showstr(0,4,"&"); //&
+  517   1          
+  518   1          lcd_showfloat(11*8,1,Motor_Kp_L,2,2); 
+  519   1          lcd_showfloat(11*8,2,Motor_Ki_L,2,2); 
+  520   1          lcd_showfloat(11*8,3,Motor_Kp_R,2,2);
+  521   1          lcd_showfloat(11*8,4,Motor_Ki_R,2,2); //&
+  522   1          
+  523   1          KeystrokeLabel_Switch( 1, 0.01, 3);
+  524   1      }
+  525          
+  526          
+  527          void Keystroke_Menu_TWO(void) //2
+  528          {   
+  529   1          lcd_showstr(1*8,1,"angle_kp1");
+  530   1          lcd_showstr(1*8,2," ");
+  531   1          lcd_showstr(1*8,3," ");
+  532   1          lcd_showstr(1*8,4," ");
+  533   1          
+  534   1          lcd_showfloat(11*8,1,angle_kp1,2,2);
+  535   1      //    lcd_showfloat(11*8,2, ,2,2);
+  536   1      //    lcd_showfloat(11*8,3, ,2,2);
+  537   1      //    lcd_showfloat(11*8,4, ,2,2);
+  538   1          
+  539   1          Cursor();
+  540   1          
+  541   1          if (MenuNextFlag == -1)
+  542   1          {
+  543   2              CursorRow = -1;
+  544   2          }
+  545   1          
+  546   1          switch(CursorRow)
+  547   1          {   
+  548   2              case -1 :
+  549   2                  Dispay_Codename = 0;
+  550   2                  lcd_clear(WHITE);
+  551   2                  break;
+  552   2              case 0 :
+  553   2                  Dispay_Codename = 2;
+  554   2                  break;
+  555   2                  
+  556   2              case 1 :
+  557   2                  Dispay_Codename = 21;
+  558   2                // lcd_clear(WHITE);
+  559   2                  break;
+  560   2              case 2 :
+  561   2                  Dispay_Codename = 22;
+  562   2                  lcd_clear(WHITE);
+  563   2                  break;
+  564   2              case 3 :
+  565   2                  Dispay_Codename = 23;
+  566   2                  lcd_clear(WHITE);
+  567   2                  break;
+  568   2              case 4 :
+  569   2                  Dispay_Codename = 24;
+  570   2                  lcd_clear(WHITE);
+  571   2                  break;
+  572   2              //case......
+  573   2          }
+  574   1      
+  575   1      }
+  576          
+  577          void Keystroke_Menu_TWO_One(void)  //21   &angle_kp1
+  578          {
+  579   1      
+  580   1          This_Codename = 21;     //±¾Ò³Ãæ±àºÅ
+C251 COMPILER V5.60.0,  key                                                                26/06/23  16:29:44  PAGE 10  
+
+  581   1          
+  582   1          lcd_showstr(1*8,1,"angle_kp1"); //&
+  583   1          lcd_showstr(1*8,2," ");
+  584   1          lcd_showstr(1*8,3," ");
+  585   1          lcd_showstr(1*8,4," ");
+  586   1          lcd_showstr(0,1,"&"); //&
+  587   1          
+  588   1          lcd_showfloat(11*8,1,angle_kp1,2,2);
+  589   1      //    lcd_showfloat(11*8,2, ,2,2);
+  590   1      //    lcd_showfloat(11*8,3, ,2,2);
+  591   1      //    lcd_showfloat(11*8,4, ,2,2);
+  592   1          
+  593   1          KeystrokeLabel_Switch(  2, 0.01, 4);
+  594   1      }   
+  595          
+  596          void Keystroke_Menu_THREE(void) //3
+  597          {   
+  598   1          lcd_showstr(1*8,1,"ZX_kp"); 
+  599   1          lcd_showstr(1*8,2,"ZX_kd");
+  600   1          lcd_showstr(1*8,3,"g_dirControl_P");
+  601   1          lcd_showstr(1*8,4,"g_dirControl_D");
+  602   1        
+  603   1          lcd_showfloat(11*8,1,ZX_kp,2,2); 
+  604   1          lcd_showfloat(11*8,2,ZX_kd,2,2);
+  605   1          lcd_showfloat(11*8,3,g_dirControl_P,2,2);
+  606   1          lcd_showfloat(11*8,4,g_dirControl_D,2,2);
+  607   1          
+  608   1          Cursor();
+  609   1          
+  610   1          if (MenuNextFlag == -1)
+  611   1          {
+  612   2              CursorRow = -1;
+  613   2          }
+  614   1          
+  615   1          switch(CursorRow)
+  616   1          {   
+  617   2              case -1 :
+  618   2                  Dispay_Codename = 0;
+  619   2                  lcd_clear(WHITE);
+  620   2                  break;
+  621   2              case 0 :
+  622   2                  Dispay_Codename = 3;
+  623   2                  break;
+  624   2                  
+  625   2              case 1 :
+  626   2                  Dispay_Codename = 31;
+  627   2                // lcd_clear(WHITE);
+  628   2                  break;
+  629   2              case 2 :
+  630   2                  Dispay_Codename = 32;
+  631   2                  lcd_clear(WHITE);
+  632   2                  break;
+  633   2              case 3 :
+  634   2                  Dispay_Codename = 33;
+  635   2                  lcd_clear(WHITE);
+  636   2                  break;
+  637   2              case 4 :
+  638   2                  Dispay_Codename = 34;
+  639   2                  lcd_clear(WHITE);
+  640   2                  break;
+  641   2              //case......
+  642   2          }
+  643   1      
+  644   1      }
+  645          
+  646          void Keystroke_Menu_THREE_One(void)  //31
+C251 COMPILER V5.60.0,  key                                                                26/06/23  16:29:44  PAGE 11  
+
+  647          {
+  648   1        
+  649   1          This_Codename = 31;     //±¾Ò³Ãæ±àºÅ
+  650   1          
+  651   1          lcd_showstr(1*8,1,"ZX_kp"); //&
+  652   1          lcd_showstr(1*8,2,"ZX_kd");
+  653   1          lcd_showstr(1*8,3,"g_dir_P");
+  654   1          lcd_showstr(1*8,4,"g_dir_D");
+  655   1          lcd_showstr(0,1,"&"); 
+  656   1          
+  657   1          lcd_showfloat(11*8,1,ZX_kp,2,2); //&
+  658   1          lcd_showfloat(11*8,2,ZX_kd,2,2);
+  659   1          lcd_showfloat(11*8,3,g_dirControl_P,2,2);
+  660   1          lcd_showfloat(11*8,4,g_dirControl_D,2,2);
+  661   1          
+  662   1          KeystrokeLabel_Switch( 2, 0.01, 5);
+  663   1      }
+  664          
+  665          void Keystroke_Menu_THREE_Two(void)  //32
+  666          {   
+  667   1          This_Codename = 32;     //±¾Ò³Ãæ±àºÅ
+  668   1          
+  669   1          lcd_showstr(1*8,1,"ZX_kp"); 
+  670   1          lcd_showstr(1*8,2,"ZX_kd");//&
+  671   1          lcd_showstr(1*8,3,"g_dir_P");
+  672   1          lcd_showstr(1*8,4,"g_dir_D");
+  673   1          lcd_showstr(0,2,"&"); 
+  674   1          
+  675   1          lcd_showfloat(11*8,1,ZX_kp,2,2); 
+  676   1          lcd_showfloat(11*8,2, ZX_kd,2,2);//&
+  677   1          lcd_showfloat(11*8,3,g_dirControl_P,2,2);
+  678   1          lcd_showfloat(11*8,4,g_dirControl_D,2,2);
+  679   1          
+  680   1           KeystrokeLabel_Switch( 2, 0.01, 6);
+  681   1      }
+  682          
+  683          void Keystroke_Menu_THREE_Three(void)  //33
+  684          {   
+  685   1          This_Codename = 33;     //±¾Ò³Ãæ±àºÅ
+  686   1          
+  687   1          lcd_showstr(1*8,1,"ZX_kp"); 
+  688   1          lcd_showstr(1*8,2,"ZX_kd");
+  689   1          lcd_showstr(1*8,3,"g_dir_P");//&
+  690   1          lcd_showstr(1*8,4,"g_dir_D");
+  691   1          lcd_showstr(0,3,"&"); //&
+  692   1          
+  693   1          lcd_showfloat(11*8,1,ZX_kp,2,2); 
+  694   1          lcd_showfloat(11*8,2, ZX_kd,2,2);
+  695   1          lcd_showfloat(11*8,3,g_dirControl_P,2,2);
+  696   1          lcd_showfloat(11*8,4,g_dirControl_D,2,2);
+  697   1          
+  698   1           KeystrokeLabel_Switch( 2, 0.01, 7);
+  699   1      }
+  700          
+  701          void Keystroke_Menu_THREE_Four(void)  //34
+  702          {   
+  703   1          This_Codename = 34;     //±¾Ò³Ãæ±àºÅ
+  704   1          
+  705   1          lcd_showstr(1*8,1,"ZX_kp"); 
+  706   1          lcd_showstr(1*8,2,"ZX_kd");
+  707   1          lcd_showstr(1*8,3,"g_dir_P");
+  708   1          lcd_showstr(1*8,4,"g_dir_D");//&
+  709   1          lcd_showstr(0,4,"&"); //&
+  710   1          
+  711   1          lcd_showfloat(11*8,1,ZX_kp,2,2); 
+  712   1          lcd_showfloat(11*8,2, ZX_kd,2,2);
+C251 COMPILER V5.60.0,  key                                                                26/06/23  16:29:44  PAGE 12  
+
+  713   1          lcd_showfloat(11*8,3,g_dirControl_P,2,2);
+  714   1          lcd_showfloat(11*8,4,g_dirControl_D,2,2);//&
+  715   1          
+  716   1           KeystrokeLabel_Switch( 2, 0.01, 8);
+  717   1      }
+  718          
+  719          void Keystroke_Menu_FOUR(void) //4
+  720          {
+  721   1          lcd_showfloat(65,1,g_ValueOfAD[0],4,2);   //ÓÒÊú
+  722   1          lcd_showfloat(65,2,g_ValueOfAD[1],4,2);  //ÓÒÐ±
+  723   1          lcd_showfloat(5,0,g_ValueOfAD[2],4,2);  //×óºá
+  724   1          lcd_showfloat(65,0,g_ValueOfAD[3],4,2);  //ÓÒºá
+  725   1          lcd_showfloat(5,2,g_ValueOfAD[4],4,2);//×óÐ±
+  726   1          lcd_showfloat(5,1,g_ValueOfAD[5],4,2);//×óÊú   
+  727   1      
+  728   1          lcd_showfloat(65,6,servo,4,2);
+  729   1          lcd_showfloat(5,7,g_dirControl_P,4,2);
+  730   1          lcd_showfloat(65,7,g_dirControl_D,4,2);
+  731   1          
+  732   1          Keystroke_Scan();
+  733   1          switch(KeystrokeLabel)
+  734   1          {
+  735   2              case 0 :
+  736   2                  Dispay_Codename = 4;
+  737   2                  break;
+  738   2      //        case KeystrokeONE :
+  739   2      //            Dispay_Codename = 41;
+  740   2      //           lcd_clear(WHITE);
+  741   2      //            break;
+  742   2      //        case KeystrokeTWO :
+  743   2      //            Dispay_Codename = 42;
+  744   2      //            lcd_clear(WHITE);
+  745   2      //            break;
+  746   2      //        case KeystrokeTHREE :
+  747   2      //            Dispay_Codename = 43;
+  748   2      //            lcd_clear(WHITE);
+  749   2      //            break;
+  750   2              case KeystrokeFOUR :
+  751   2                  Dispay_Codename = 0;    //·µ»ØµÚ0Ò³
+  752   2                  lcd_clear(WHITE);
+  753   2                  break;
+  754   2          }
+  755   1      }
+  756          
+  757          
+*** WARNING C183 IN LINE 375 OF key.c: dead assignment eliminated
+*** WARNING C183 IN LINE 431 OF key.c: dead assignment eliminated
 
 
 Module Information          Static   Overlayable
 ------------------------------------------------
   code size            =    ------     ------
-  ecode size           =       343     ------
+  ecode size           =      4627     ------
   data size            =    ------     ------
   idata size           =    ------     ------
   pdata size           =    ------     ------
-  xdata size           =        27     ------
+  xdata size           =        49          3
   xdata-const size     =    ------     ------
   edata size           =    ------     ------
   bit size             =    ------     ------
@@ -119,8 +814,10 @@ Module Information          Static   Overlayable
   far data size        =    ------     ------
   huge data size       =    ------     ------
   const size           =    ------     ------
-  hconst size          =        72     ------
+  hconst size          =       229     ------
+C251 COMPILER V5.60.0,  key                                                                26/06/23  16:29:44  PAGE 13  
+
 End of Module Information.
 
 
-C251 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
+C251 COMPILATION COMPLETE.  2 WARNING(S),  0 ERROR(S)
