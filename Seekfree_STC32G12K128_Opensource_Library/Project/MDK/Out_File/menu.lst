@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  menu                                                               26/06/23  13:04:26  PAGE 1   
+C251 COMPILER V5.60.0,  menu                                                               26/06/23  14:47:53  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE menu
@@ -66,7 +66,7 @@ stmt  level    source
    55   1      
    56   1      }
    57          
-C251 COMPILER V5.60.0,  menu                                                               26/06/23  13:04:26  PAGE 2   
+C251 COMPILER V5.60.0,  menu                                                               26/06/23  14:47:53  PAGE 2   
 
    58          //uint8 get_key(void)
    59          //{
@@ -134,7 +134,7 @@ stmt  level    source
   119          //            ips114_showstr_simspi(30, 0, "adc_display");
   120          //            ips114_showstr_simspi(30, 1, "adc_display");
   121          //            ips114_showstr_simspi(30, 2, "sports_pid");
-C251 COMPILER V5.60.0,  menu                                                               26/06/23  13:04:26  PAGE 3   
+C251 COMPILER V5.60.0,  menu                                                               26/06/23  14:47:53  PAGE 3   
 
   122          //            ips114_showstr_simspi(30, 3, "speed_pid");
   123          //            ips114_showstr_simspi(30, 4, "angle_pid");
@@ -202,7 +202,7 @@ stmt  level    source
   185          //            s1 = 0;
   186          //            function = 1;
   187          //            function1 = 0;
-C251 COMPILER V5.60.0,  menu                                                               26/06/23  13:04:26  PAGE 4   
+C251 COMPILER V5.60.0,  menu                                                               26/06/23  14:47:53  PAGE 4   
 
   188          //            ips114_clear_simspi(BLACK);
   189          //        }
@@ -270,7 +270,7 @@ stmt  level    source
   251          //                function2 = 7;
   252          //                break;
   253          //            default:
-C251 COMPILER V5.60.0,  menu                                                               26/06/23  13:04:26  PAGE 5   
+C251 COMPILER V5.60.0,  menu                                                               26/06/23  14:47:53  PAGE 5   
 
   254          //                break;
   255          //            }
@@ -338,7 +338,7 @@ stmt  level    source
   317          //                case 4 :
   318          //                    Motor_Kp_L = Motor_Kp_L + num;
   319          //                    break;
-C251 COMPILER V5.60.0,  menu                                                               26/06/23  13:04:26  PAGE 6   
+C251 COMPILER V5.60.0,  menu                                                               26/06/23  14:47:53  PAGE 6   
 
   320          //                case 5 :
   321          //                    Motor_Ki_L = Motor_Ki_L + num;
@@ -406,7 +406,7 @@ stmt  level    source
   383          //        save_float(Motor_Kp_R,5);
   384          //        save_float(Motor_Ki_R,6);
   385          //        ips114_clear_simspi(BLACK);
-C251 COMPILER V5.60.0,  menu                                                               26/06/23  13:04:26  PAGE 7   
+C251 COMPILER V5.60.0,  menu                                                               26/06/23  14:47:53  PAGE 7   
 
   386          //        }
   387          //    }

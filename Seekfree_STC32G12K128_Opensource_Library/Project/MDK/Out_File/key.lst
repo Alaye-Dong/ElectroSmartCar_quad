@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  key                                                                26/06/23  13:05:29  PAGE 1   
+C251 COMPILER V5.60.0,  key                                                                26/06/23  14:47:52  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE key
@@ -66,7 +66,7 @@ stmt  level    source
    55          {
    56   1      
    57   1          //»ñÈ¡²¦Âë¿ª¹Ø×´Ì¬
-C251 COMPILER V5.60.0,  key                                                                26/06/23  13:05:29  PAGE 2   
+C251 COMPILER V5.60.0,  key                                                                26/06/23  14:47:52  PAGE 2   
 
    58   1          sw1_status = SW1_PIN;
    59   1          sw2_status = SW2_PIN;
@@ -134,7 +134,7 @@ stmt  level    source
   120          //-------------------------------------------------------------------------------------------------------
              -------------
   121          void Keystroke_Menu(void)
-C251 COMPILER V5.60.0,  key                                                                26/06/23  13:05:29  PAGE 3   
+C251 COMPILER V5.60.0,  key                                                                26/06/23  14:47:52  PAGE 3   
 
   122          {
   123   1          switch(Dispay_Codename)
@@ -202,7 +202,7 @@ stmt  level    source
   185   2          
   186   2              if (KeystrokeLabel == 1)
   187   2              {
-C251 COMPILER V5.60.0,  key                                                                26/06/23  13:05:29  PAGE 4   
+C251 COMPILER V5.60.0,  key                                                                26/06/23  14:47:52  PAGE 4   
 
   188   3                  CursorRow--;
   189   3                  for (i = 0; i < 10; i++)
@@ -241,8 +241,8 @@ stmt  level    source
   222   1          
   223   1      }
   224                  
-  225          void KeystrokeLabel_Switch( float change_unit, uint8 value_bit) //temp_value, ÉÏÒ»Ò³£¬ +-µÄµ¥Î»Öµ, ÉÈÇø´æ
-             -´¢µÄÎ»ÖÃ±àºÅ
+  225          void KeystrokeLabel_Switch(int previous_codename, float change_unit, uint8 value_bit) //temp_value, ÉÏÒ»Ò
+             -³£¬ +-µÄµ¥Î»Öµ, ÉÈÇø´æ´¢µÄÎ»ÖÃ±àºÅ
   226          {   
   227   1            static float tem_value;
   228   1            
@@ -270,7 +270,7 @@ stmt  level    source
   250   2                  Dispay_Codename = This_Codename;
   251   2                  break;
   252   2                  
-C251 COMPILER V5.60.0,  key                                                                26/06/23  13:05:29  PAGE 5   
+C251 COMPILER V5.60.0,  key                                                                26/06/23  14:47:52  PAGE 5   
 
   253   2              case KeystrokeONE :
   254   2                  tem_value += change_unit; 
@@ -284,7 +284,7 @@ stmt  level    source
   262   2                  break;
   263   2                  
   264   2              case KeystrokeTHREE :
-  265   2                  Dispay_Codename /= 10; //·µ»ØÉÏÒ»Ò³
+  265   2                  Dispay_Codename = previous_codename; //·µ»ØÉÏÒ»Ò³
   266   2                  lcd_clear(WHITE);
   267   2                  break;
   268   2              case KeystrokeFOUR :
@@ -338,7 +338,7 @@ stmt  level    source
   314   2                  Dispay_Codename = 4;
   315   2                  lcd_clear(WHITE);
   316   2                  CursorRow = 0;
-C251 COMPILER V5.60.0,  key                                                                26/06/23  13:05:29  PAGE 6   
+C251 COMPILER V5.60.0,  key                                                                26/06/23  14:47:52  PAGE 6   
 
   317   2                  break;
   318   2          }
@@ -406,13 +406,13 @@ stmt  level    source
   380   1          lcd_showstr(0,1,"&"); //&±êÖ¾ÌáÊ¾
   381   1          
   382   1          lcd_showfloat(11*8,1,Motor_Kp_L,2,2); //&
-C251 COMPILER V5.60.0,  key                                                                26/06/23  13:05:29  PAGE 7   
+C251 COMPILER V5.60.0,  key                                                                26/06/23  14:47:52  PAGE 7   
 
   383   1          lcd_showfloat(11*8,2,Motor_Ki_L,2,2);
   384   1          lcd_showfloat(11*8,3,Motor_Kp_R,2,2);
   385   1          lcd_showfloat(11*8,4,Motor_Ki_R,2,2);
   386   1          
-  387   1          KeystrokeLabel_Switch(0.01, 0);
+  387   1          KeystrokeLabel_Switch( 1, 0.01, 0);
   388   1          
   389   1          
   390   1      }
@@ -433,7 +433,7 @@ stmt  level    source
   405   1          lcd_showfloat(11*8,3,Motor_Kp_R,2,2);
   406   1          lcd_showfloat(11*8,4,Motor_Ki_R,2,2);
   407   1          
-  408   1          KeystrokeLabel_Switch(0.01, 1);
+  408   1          KeystrokeLabel_Switch( 1, 0.01, 1);
   409   1      }
   410          
   411          void Keystroke_Menu_ONE_Three(void)  //13 
@@ -452,7 +452,7 @@ stmt  level    source
   424   1          lcd_showfloat(11*8,3,Motor_Kp_R,2,2);//&
   425   1          lcd_showfloat(11*8,4,Motor_Ki_R,2,2);
   426   1          
-  427   1          KeystrokeLabel_Switch(0.01, 2);
+  427   1          KeystrokeLabel_Switch(1, 0.01, 2);
   428   1      }
   429          
   430          void Keystroke_Menu_ONE_Four(void)  //14
@@ -472,9 +472,9 @@ stmt  level    source
   444   1          lcd_showfloat(11*8,3,Motor_Kp_R,2,2);
   445   1          lcd_showfloat(11*8,4,Motor_Ki_R,2,2); //&
   446   1          
-  447   1          KeystrokeLabel_Switch(0.01, 3);
+  447   1          KeystrokeLabel_Switch( 1, 0.01, 3);
   448   1      }
-C251 COMPILER V5.60.0,  key                                                                26/06/23  13:05:29  PAGE 8   
+C251 COMPILER V5.60.0,  key                                                                26/06/23  14:47:52  PAGE 8   
 
   449          
   450          
@@ -542,11 +542,11 @@ stmt  level    source
   512   1          lcd_showfloat(11*8,1,angle_kp1,2,2);
   513   1      //    lcd_showfloat(11*8,2, ,2,2);
   514   1      //    lcd_showfloat(11*8,3, ,2,2);
-C251 COMPILER V5.60.0,  key                                                                26/06/23  13:05:29  PAGE 9   
+C251 COMPILER V5.60.0,  key                                                                26/06/23  14:47:52  PAGE 9   
 
   515   1      //    lcd_showfloat(11*8,4, ,2,2);
   516   1          
-  517   1          KeystrokeLabel_Switch(0.01, 4);
+  517   1          KeystrokeLabel_Switch(  2, 0.01, 4);
   518   1      }   
   519          
   520          void Keystroke_Menu_THREE(void) //3
@@ -610,14 +610,14 @@ stmt  level    source
   578   1          lcd_showstr(1*8,4,"g_dir_D");
   579   1          lcd_showstr(0,1,"&"); 
   580   1          
-C251 COMPILER V5.60.0,  key                                                                26/06/23  13:05:29  PAGE 10  
+C251 COMPILER V5.60.0,  key                                                                26/06/23  14:47:52  PAGE 10  
 
   581   1          lcd_showfloat(11*8,1,ZX_kp,2,2); //&
   582   1          lcd_showfloat(11*8,2,ZX_kd,2,2);
   583   1          lcd_showfloat(11*8,3,g_dirControl_P,2,2);
   584   1          lcd_showfloat(11*8,4,g_dirControl_D,2,2);
   585   1          
-  586   1          KeystrokeLabel_Switch(0.01, 5);
+  586   1          KeystrokeLabel_Switch( 2, 0.01, 5);
   587   1      }
   588          
   589          void Keystroke_Menu_THREE_Two(void)  //32
@@ -635,7 +635,7 @@ stmt  level    source
   601   1          lcd_showfloat(11*8,3,g_dirControl_P,2,2);
   602   1          lcd_showfloat(11*8,4,g_dirControl_D,2,2);
   603   1          
-  604   1           KeystrokeLabel_Switch(0.01, 6);
+  604   1           KeystrokeLabel_Switch( 2, 0.01, 6);
   605   1      }
   606          
   607          void Keystroke_Menu_THREE_Three(void)  //33
@@ -653,7 +653,7 @@ stmt  level    source
   619   1          lcd_showfloat(11*8,3,g_dirControl_P,2,2);
   620   1          lcd_showfloat(11*8,4,g_dirControl_D,2,2);
   621   1          
-  622   1           KeystrokeLabel_Switch(0.01, 7);
+  622   1           KeystrokeLabel_Switch( 2, 0.01, 7);
   623   1      }
   624          
   625          void Keystroke_Menu_THREE_Four(void)  //34
@@ -671,14 +671,14 @@ stmt  level    source
   637   1          lcd_showfloat(11*8,3,g_dirControl_P,2,2);
   638   1          lcd_showfloat(11*8,4,g_dirControl_D,2,2);//&
   639   1          
-  640   1           KeystrokeLabel_Switch(0.01, 8);
+  640   1           KeystrokeLabel_Switch( 2, 0.01, 8);
   641   1      }
   642          
   643          void Keystroke_Menu_FOUR(void) //4
   644          {
   645   1          lcd_showfloat(65,1,g_ValueOfAD[0],4,2);   //ÓÒÊú
   646   1          lcd_showfloat(65,2,g_ValueOfAD[1],4,2);  //ÓÒÐ±
-C251 COMPILER V5.60.0,  key                                                                26/06/23  13:05:29  PAGE 11  
+C251 COMPILER V5.60.0,  key                                                                26/06/23  14:47:52  PAGE 11  
 
   647   1          lcd_showfloat(5,0,g_ValueOfAD[2],4,2);  //×óºá
   648   1          lcd_showfloat(65,0,g_ValueOfAD[3],4,2);  //ÓÒºá
@@ -720,11 +720,11 @@ stmt  level    source
 Module Information          Static   Overlayable
 ------------------------------------------------
   code size            =    ------     ------
-  ecode size           =      4336     ------
+  ecode size           =      4367     ------
   data size            =    ------     ------
   idata size           =    ------     ------
   pdata size           =    ------     ------
-  xdata size           =        41          1
+  xdata size           =        41          3
   xdata-const size     =    ------     ------
   edata size           =    ------     ------
   bit size             =    ------     ------

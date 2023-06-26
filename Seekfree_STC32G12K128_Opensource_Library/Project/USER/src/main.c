@@ -14,39 +14,37 @@ void main()
 {
     board_init();			// 初始化寄存器,勿删除此句代码。
 
-		adc_init(ADC_P00,ADC_SYSclk_DIV_2);    //ADC初始化
-		adc_init(ADC_P01,ADC_SYSclk_DIV_2);
-		adc_init(ADC_P05,ADC_SYSclk_DIV_2);
-		adc_init(ADC_P06,ADC_SYSclk_DIV_2);
-		adc_init(ADC_P11,ADC_SYSclk_DIV_2);
-		adc_init(ADC_P13,ADC_SYSclk_DIV_2);
-		pwm_init(PWM1, 17000, 0);
-		pwm_init(PWM2, 17000, 0);
-		gpio_mode(P7_4, GPO_PP); //蜂鸣器
-		BEEP = 0;
-		lcd_init();
-		gpio_mode(P6_4, GPO_PP);//电机
-		gpio_mode(P6_0, GPO_PP);//电机
-		EnableGlobalIRQ();		//开启总中断
-		pwm_init(PWMB_CH1_P74, 50, 692);//最大765   最小625
-		ctimer_count_init(CTIM0_P34);
-		ctimer_count_init(CTIM3_P04);
+	      adc_init(ADC_P00,ADC_SYSclk_DIV_2);    //ADC初始化
+	      adc_init(ADC_P01,ADC_SYSclk_DIV_2);
+	      adc_init(ADC_P05,ADC_SYSclk_DIV_2);
+	      adc_init(ADC_P06,ADC_SYSclk_DIV_2);
+	   	  adc_init(ADC_P11,ADC_SYSclk_DIV_2);
+		    adc_init(ADC_P13,ADC_SYSclk_DIV_2);
+        pwm_init(PWM1, 17000, 0);
+        pwm_init(PWM2, 17000, 0);
+        gpio_mode(P7_4, GPO_PP); //蜂鸣器
+        BEEP = 0;
+	    	lcd_init();
+        gpio_mode(P6_4, GPO_PP);//电机
+        gpio_mode(P6_0, GPO_PP);//电机
+        EnableGlobalIRQ();		//开启总中断
+        pwm_init(PWMB_CH1_P74, 50, 692);//最大765   最小625
+		    ctimer_count_init(CTIM0_P34);
+	      ctimer_count_init(CTIM3_P04);
 				  
 //    while(imu660ra_init())				//六轴陀螺仪初始化
 // 	  {
 //		   delay_ms(500);
 //	   	 printf("imu660ra init try again.\r\n");
 //    	}
-
-		dl1a_init();	// 初始化DL1A(TOF)
-		pit_timer_ms(TIM_4, 5);
-		eeprom_init();	//EEPROM操作初始化
+				eeprom_init(); 
+				dl1a_init();	// 初始化DL1A(TOF)
+				pit_timer_ms(TIM_4, 5);
    
     while(1)
     {
 			Keystroke_Scan();
 			Keystroke_Menu();
-			
 //		//key_scan();
 //		lcd_showfloat(5,0,g_ValueOfAD[2],4,2);  //右横
 //		lcd_showfloat(65,0,g_ValueOfAD[3],4,2);  //左横

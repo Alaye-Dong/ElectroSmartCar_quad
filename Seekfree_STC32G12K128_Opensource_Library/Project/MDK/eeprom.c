@@ -7,7 +7,7 @@ void eeprom_init()
 
     iap_read_bytes(0x00, date_buff, 100);		//从EEPROM中读取数据
 
-/****不用eeprom直接赋值****/
+///****不用eeprom直接赋值****/
 //    g_dirControl_P		= 16.7;//read_float(0);
 //    g_dirControl_D    = 15;//read_float(1);
 //	  angle_kp1     		= 0.425;//read_float(2);
