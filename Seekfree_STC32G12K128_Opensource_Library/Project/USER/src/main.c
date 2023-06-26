@@ -45,7 +45,7 @@ void main()
     while(1)
     {
 			
-		key_scan();
+		//key_scan();
 		lcd_showfloat(5,0,g_ValueOfAD[2],4,2);  //ÓÒºá
 		lcd_showfloat(65,0,g_ValueOfAD[3],4,2);  //×óºá
 		lcd_showfloat(5,1,g_ValueOfAD[5],4,2);	//ÓÒÊú£¿

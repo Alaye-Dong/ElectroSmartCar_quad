@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  round                                                              25/06/23  18:45:45  PAGE 1   
+C251 COMPILER V5.60.0,  round                                                              26/06/23  10:43:25  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE round
@@ -31,208 +31,209 @@ stmt  level    source
    20          int count_OUT = 800;
    21          int count_IN = 400;
    22          int count_R = 150;
-   23          void knn(void)
-   24          {
-   25   1      
-   26   1          float mask[2][5] = {100, 100, 100, 70,
-   27   1                                100    
-   28   1                              , 100, 6, 6, 100, 91
-   29   1                             };//Èý²æ
-   30   1          e_r1 = pow(mask[0][0] - g_ValueOfAD[2], 2) + pow(mask[0][1] - g_ValueOfAD[3], 2) + pow(mask[0][2] - g
+   23          
+   24          void knn(void)
+   25          {
+   26   1      
+   27   1          float mask[2][5] = {
+   28   1                              100, 100, 100, 70,100,     
+   29   1                              100, 6, 6, 100, 91
+   30   1                              };//Èý²æ
+   31   1          e_r1 = pow(mask[0][0] - g_ValueOfAD[2], 2) + pow(mask[0][1] - g_ValueOfAD[3], 2) + pow(mask[0][2] - g
              -_ValueOfAD[1], 2) + pow(mask[0][3] - g_ValueOfAD[4], 2);
-   31   1          e_r2 = pow(100 - g_ValueOfAD[2], 2) + pow(100 - g_ValueOfAD[3], 2) + pow(100 - g_ValueOfAD[1], 2) + pow
+   32   1          e_r2 = pow(100 - g_ValueOfAD[2], 2) + pow(100 - g_ValueOfAD[3], 2) + pow(100 - g_ValueOfAD[1], 2) + pow
              -(100 - g_ValueOfAD[4], 2)+pow(8 - g_ValueOfAD[5], 2)+pow(8 - g_ValueOfAD[0], 2);
-   32   1          
-   33   1         if(e_r1<=450&&flag_in_round==0&&g_ValueOfAD[2]>=75&&g_ValueOfAD[3]>=75&&g_ValueOfAD[1]>=80&&flag_hd_R==
+   33   1          
+   34   1         if(e_r1<=450&&flag_in_round==0&&g_ValueOfAD[2]>=75&&g_ValueOfAD[3]>=75&&g_ValueOfAD[1]>=80&&flag_hd_R==
              -0)
-   34   1         {
-   35   2           flag_hd_R = 1;
-   36   2           flag_in_round = 1;
-   37   2           
-   38   2         }
-   39   1        if(e_r2<1000&&g_ValueOfAD[2]>=75&&g_ValueOfAD[3]>=75&&flag_hd_Z==0&&flag_hd_R==2) 
-   40   1        {
-   41   2           flag_hd_Z = 1;
-   42   2        
-   43   2        }   
-   44   1                       
-   45   1                             
-   46   1        //  e_r2 = pow(mask[1][0] - all, 2) + pow(mask[1][1] - al, 2) + pow(mask[1][2] - mid, 2) + pow(mask[1][
+   35   1         {
+   36   2           flag_hd_R = 1;
+   37   2           flag_in_round = 1;
+   38   2           
+   39   2         }
+   40   1        if(e_r2<1000&&g_ValueOfAD[2]>=75&&g_ValueOfAD[3]>=75&&flag_hd_Z==0&&flag_hd_R==2) 
+   41   1        {
+   42   2           flag_hd_Z = 1;
+   43   2        
+   44   2        }   
+   45   1                       
+   46   1                             
+   47   1        //  e_r2 = pow(mask[1][0] - all, 2) + pow(mask[1][1] - al, 2) + pow(mask[1][2] - mid, 2) + pow(mask[1][
              -3] - ar, 2) + pow(mask[1][4] - arr, 2);
-   47   1      }
-   48          
-   49          void RuKu()
-   50          {
-   51   1      
-   52   1           roundcount =(ctimer_count_read(CTIM0_P34)+ctimer_count_read(CTIM3_P04))*0.1;
-   53   1           roundcount2 = roundcount2 + roundcount;
-C251 COMPILER V5.60.0,  round                                                              25/06/23  18:45:45  PAGE 2   
+   48   1      }
+   49          
+   50          void RuKu()
+   51          {
+   52   1      
+   53   1           roundcount =(ctimer_count_read(CTIM0_P34)+ctimer_count_read(CTIM3_P04))*0.1;
+C251 COMPILER V5.60.0,  round                                                              26/06/23  10:43:25  PAGE 2   
 
-   54   1        if(roundcount2>=0&&roundcount2<=1000)
-   55   1        {
-   56   2        
+   54   1           roundcount2 = roundcount2 + roundcount;
+   55   1        if(roundcount2>=0&&roundcount2<=1000)
+   56   1        {
    57   2        
-   58   2         Target_speed1 = 120;
-   59   2         Target_speed2 = 120;
-   60   2        cha_err1 = 0;
-   61   2        }
-   62   1        else if(roundcount2<3800&&roundcount2>800)
-   63   1        {
-   64   2        
-   65   2        Target_speed1 = -120;
-   66   2         Target_speed2 = -120;
-   67   2        
-   68   2        cha_err1 = -70; //×óÈë¿â-70 ÓÒÍ¼¿â+70
-   69   2          
-   70   2          }
-   71   1        else if(roundcount2>=3800)
-   72   1        {
-   73   2        
-   74   2        Target_speed1 = 0;
-   75   2         Target_speed2 = 0;
-   76   2        
-   77   2        cha_err1 = 0;
-   78   2          
-   79   2          }
-   80   1        
-   81   1      
+   58   2        
+   59   2         Target_speed1 = 120;
+   60   2         Target_speed2 = 120;
+   61   2        cha_err1 = 0;
+   62   2        }
+   63   1        else if(roundcount2<3800&&roundcount2>800)
+   64   1        {
+   65   2        
+   66   2        Target_speed1 = -120;
+   67   2         Target_speed2 = -120;
+   68   2        
+   69   2        cha_err1 = 70; //×óÈë¿â-70 ÓÒÍ¼¿â+70
+   70   2          
+   71   2          }
+   72   1        else if(roundcount2>=3800)
+   73   1        {
+   74   2        
+   75   2        Target_speed1 = 0;
+   76   2         Target_speed2 = 0;
+   77   2        
+   78   2        cha_err1 = 0;
+   79   2          
+   80   2          }
+   81   1        
    82   1      
-   83   1      }
-   84          void Huan_Dao_Z()
-   85          {
-   86   1      
-   87   1         Target_speed1 = 110;
-   88   1         Target_speed2 = 110;
-   89   1        if(flag_hd_Z==1)
-   90   1        {
-   91   2            roundcount =(ctimer_count_read(CTIM0_P34)+ctimer_count_read(CTIM3_P04))*0.1;
-   92   2           roundcount2 = roundcount2 + roundcount;
-   93   2          if(roundcount2<=200&&roundcount2>=0)
-   94   2          {
-   95   3             cha_err1 = 0.2*g_fDirectionError[2] * g_dirControl_P + (g_fDirectionError[2] - last_err1) * g_dirCon
+   83   1      
+   84   1      }
+   85          void Huan_Dao_Z()
+   86          {
+   87   1      
+   88   1         Target_speed1 = 110;
+   89   1         Target_speed2 = 110;
+   90   1        if(flag_hd_Z==1)
+   91   1        {
+   92   2            roundcount =(ctimer_count_read(CTIM0_P34)+ctimer_count_read(CTIM3_P04))*0.1;
+   93   2           roundcount2 = roundcount2 + roundcount;
+   94   2          if(roundcount2<=200&&roundcount2>=0)
+   95   2          {
+   96   3             cha_err1 = 0.2*g_fDirectionError[2] * g_dirControl_P + (g_fDirectionError[2] - last_err1) * g_dirCon
              -trol_D*0.4;
-   96   3              last_err1 = g_fDirectionError[2];
-   97   3          
-   98   3          }
-   99   2          else if(roundcount2>200&&roundcount2<=2500)
-  100   2          {
-  101   3           cha_err1 = -55;
-  102   3          
-  103   3          }
-  104   2          else if(roundcount2>2500&&roundcount2<=6000)
-  105   2           
-  106   2         {
-  107   3         
-  108   3          cha_err1 = 2.5*g_fDirectionError[2] * g_dirControl_P + (g_fDirectionError[2] - last_err1) * g_dirContr
+   97   3              last_err1 = g_fDirectionError[2];
+   98   3          
+   99   3          }
+  100   2          else if(roundcount2>200&&roundcount2<=2500)
+  101   2          {
+  102   3           cha_err1 = -55;
+  103   3          
+  104   3          }
+  105   2          else if(roundcount2>2500&&roundcount2<=6000)
+  106   2           
+  107   2         {
+  108   3         
+  109   3          cha_err1 = 2.5*g_fDirectionError[2] * g_dirControl_P + (g_fDirectionError[2] - last_err1) * g_dirContr
              -ol_D*1;
-  109   3              last_err1 = g_fDirectionError[2];
-  110   3         
-  111   3         }
-  112   2          else if(roundcount2>6000)
-  113   2         {
-  114   3         flag_hd_Z = 2;
-  115   3         flag_in_round = 0;
-  116   3         roundcount2 = 0;
-  117   3      
-C251 COMPILER V5.60.0,  round                                                              25/06/23  18:45:45  PAGE 3   
+  110   3              last_err1 = g_fDirectionError[2];
+  111   3         
+  112   3         }
+  113   2          else if(roundcount2>6000)
+  114   2         {
+  115   3         flag_hd_Z = 2;
+  116   3         flag_in_round = 0;
+  117   3         roundcount2 = 0;
+C251 COMPILER V5.60.0,  round                                                              26/06/23  10:43:25  PAGE 3   
 
-  118   3         }
-  119   2         }
-  120   1      
-  121   1         
-  122   1      
+  118   3      
+  119   3         }
+  120   2         }
+  121   1      
+  122   1         
   123   1      
-  124   1      }
-  125          void Huan_Dao_R()
-  126          {
-  127   1         Target_speed1 = 110 - cha_err1*0.15;
-  128   1         Target_speed2 = 110 + cha_err1*0.15;
-  129   1         
-  130   1         if(flag_hd_R==1)
-  131   1         {
-  132   2           
-  133   2        roundcount =(ctimer_count_read(CTIM0_P34)+ctimer_count_read(CTIM3_P04))*0.1;
-  134   2           roundcount2 = roundcount2 + roundcount;
-  135   2          if(roundcount2<=1000&&roundcount2>=0)
-  136   2          {
-  137   3           cha_err1 = 0.2*g_fDirectionError[2] * g_dirControl_P + (g_fDirectionError[2] - last_err1) * g_dirContr
+  124   1      
+  125   1      }
+  126          void Huan_Dao_R()
+  127          {
+  128   1         Target_speed1 = 110 - cha_err1*0.15;
+  129   1         Target_speed2 = 110 + cha_err1*0.15;
+  130   1         
+  131   1         if(flag_hd_R==1)
+  132   1         {
+  133   2           
+  134   2        roundcount =(ctimer_count_read(CTIM0_P34)+ctimer_count_read(CTIM3_P04))*0.1;
+  135   2           roundcount2 = roundcount2 + roundcount;
+  136   2          if(roundcount2<=1000&&roundcount2>=0)
+  137   2          {
+  138   3           cha_err1 = 0.2*g_fDirectionError[2] * g_dirControl_P + (g_fDirectionError[2] - last_err1) * g_dirContr
              -ol_D*0.4;
-  138   3              last_err1 = g_fDirectionError[2];
-  139   3          
-  140   3          }
-  141   2          else if(roundcount2>1000&&roundcount2<=2500)
-  142   2          {
-  143   3           cha_err1 = +53;
-  144   3          
-  145   3              }
-  146   2          else if(roundcount2>2500&&roundcount2<=7000)
-  147   2          {
-  148   3           cha_err1 = 2.3*g_fDirectionError[2] * g_dirControl_P + (g_fDirectionError[2] - last_err1) * g_dirContr
+  139   3              last_err1 = g_fDirectionError[2];
+  140   3          
+  141   3          }
+  142   2          else if(roundcount2>1000&&roundcount2<=2500)
+  143   2          {
+  144   3           cha_err1 = +53;
+  145   3          
+  146   3              }
+  147   2          else if(roundcount2>2500&&roundcount2<=7000)
+  148   2          {
+  149   3           cha_err1 = 2.3*g_fDirectionError[2] * g_dirControl_P + (g_fDirectionError[2] - last_err1) * g_dirContr
              -ol_D*1;
-  149   3              last_err1 = g_fDirectionError[2];
-  150   3          
-  151   3          }
-  152   2         
-  153   2         else if(roundcount2>7000)
-  154   2         {
-  155   3         flag_hd_R = 2;
-  156   3         flag_in_round = 0;
-  157   3         roundcount2 = 0;
-  158   3         }
-  159   2         }
-  160   1        
-  161   1       }
-  162          
-  163           void obstacle()
-  164          {
-  165   1        roundcount =(ctimer_count_read(CTIM0_P34)+ctimer_count_read(CTIM3_P04))*0.1;
-  166   1        roundcount2 = roundcount2 + roundcount;
-  167   1        
-  168   1        if(roundcount2>=0&&roundcount2<=1000)
-  169   1        {
-  170   2          
-  171   2          Target_speed1 =-30;
-  172   2         Target_speed2 = -30;
-  173   2      }
-  174   1        else if(roundcount2>1000&&roundcount2<=2500)
-  175   1          
-  176   1        {
-  177   2         Target_speed1 =50;
-  178   2         Target_speed2 =50;
-  179   2         cha_err1 = 56;
-  180   2        }
-  181   1        else if(roundcount2<6000&&roundcount2>2500)
-C251 COMPILER V5.60.0,  round                                                              25/06/23  18:45:45  PAGE 4   
+  150   3              last_err1 = g_fDirectionError[2];
+  151   3          
+  152   3          }
+  153   2         
+  154   2         else if(roundcount2>7000)
+  155   2         {
+  156   3         flag_hd_R = 2;
+  157   3         flag_in_round = 0;
+  158   3         roundcount2 = 0;
+  159   3         }
+  160   2         }
+  161   1        
+  162   1       }
+  163          
+  164           void obstacle()
+  165          {
+  166   1        roundcount =(ctimer_count_read(CTIM0_P34)+ctimer_count_read(CTIM3_P04))*0.1;
+  167   1        roundcount2 = roundcount2 + roundcount;
+  168   1        
+  169   1        if(roundcount2>=0&&roundcount2<=1000)
+  170   1        {
+  171   2          
+  172   2          Target_speed1 =-30;
+  173   2         Target_speed2 = -30;
+  174   2      }
+  175   1        else if(roundcount2>1000&&roundcount2<=2500)
+  176   1          
+  177   1        {
+  178   2         Target_speed1 =50;
+  179   2         Target_speed2 =50;
+  180   2         cha_err1 = 56;
+  181   2        }
+C251 COMPILER V5.60.0,  round                                                              26/06/23  10:43:25  PAGE 4   
 
-  182   1          
-  183   1        {
-  184   2         Target_speed1 =50;
-  185   2         Target_speed2 =50;
-  186   2        cha_err1 = -60;
-  187   2          
-  188   2        }
-  189   1        else
-  190   1        {
-  191   2        HD = 0;
-  192   2          roundcount2=0;
-  193   2        }
-  194   1      
-  195   1      }
-  196          void CHUKU()
-  197          { 
-  198   1        if(CK_count2>=0&&CK_count2<=1000)
-  199   1        {
-  200   2          cha_err1 = -60; //60ÓÒ³ö¿â -60×ó³ö¿â
-  201   2         Target_speed1 =100;
-  202   2         Target_speed2 =100;
-  203   2        }
-  204   1        else
-  205   1      {
-  206   2          XJ=1;
-  207   2      
+  182   1        else if(roundcount2<6000&&roundcount2>2500)
+  183   1          
+  184   1        {
+  185   2         Target_speed1 =50;
+  186   2         Target_speed2 =50;
+  187   2        cha_err1 = -60;
+  188   2          
+  189   2        }
+  190   1        else
+  191   1        {
+  192   2        HD = 0;
+  193   2          roundcount2=0;
+  194   2        }
+  195   1      
+  196   1      }
+  197          void CHUKU()
+  198          { 
+  199   1        if(CK_count2>=0&&CK_count2<=1000)
+  200   1        {
+  201   2          cha_err1 = 60; //60ÓÒ³ö¿â -60×ó³ö¿â
+  202   2         Target_speed1 =100;
+  203   2         Target_speed2 =100;
+  204   2        }
+  205   1        else
+  206   1      {
+  207   2          XJ=1;
   208   2      
-  209   2      }
-  210   1      }
+  209   2      
+  210   2      }
+  211   1      }
 
 
 Module Information          Static   Overlayable

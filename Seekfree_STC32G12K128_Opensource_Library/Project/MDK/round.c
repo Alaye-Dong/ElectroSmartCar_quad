@@ -20,13 +20,14 @@ int flag_hd_Z_2;
 int	count_OUT = 800;
 int count_IN = 400;
 int count_R = 150;
+
 void knn(void)
 {
 
-    float mask[2][5] = {100, 100, 100, 70,
-		                    	100		 
-                        , 100, 6, 6, 100, 91
-                       };//Èý²æ
+    float mask[2][5] = {
+												100, 100, 100, 70,100,		 
+												100, 6, 6, 100, 91
+                        };//Èý²æ
     e_r1 = pow(mask[0][0] - g_ValueOfAD[2], 2) + pow(mask[0][1] - g_ValueOfAD[3], 2) + pow(mask[0][2] - g_ValueOfAD[1], 2) + pow(mask[0][3] - g_ValueOfAD[4], 2);
 		e_r2 = pow(100 - g_ValueOfAD[2], 2) + pow(100 - g_ValueOfAD[3], 2) + pow(100 - g_ValueOfAD[1], 2) + pow(100 - g_ValueOfAD[4], 2)+pow(8 - g_ValueOfAD[5], 2)+pow(8 - g_ValueOfAD[0], 2);
 		

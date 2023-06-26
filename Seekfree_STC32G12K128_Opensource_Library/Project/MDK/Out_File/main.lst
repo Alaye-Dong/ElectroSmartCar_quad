@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  main                                                               25/06/23  17:37:29  PAGE 1   
+C251 COMPILER V5.60.0,  main                                                               26/06/23  10:43:23  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE main
@@ -56,7 +56,7 @@ stmt  level    source
    45   1          while(1)
    46   1          {
    47   2            
-   48   2          key_scan();
+   48   2          //key_scan();
    49   2          lcd_showfloat(5,0,g_ValueOfAD[2],4,2);  //ÓÒºá
    50   2          lcd_showfloat(65,0,g_ValueOfAD[3],4,2);  //×óºá
    51   2          lcd_showfloat(5,1,g_ValueOfAD[5],4,2);  //ÓÒÊú£¿
@@ -66,7 +66,7 @@ stmt  level    source
    55   2      
    56   2      
    57   2          lcd_showfloat(5,4,roundcount2,4,2);   //
-C251 COMPILER V5.60.0,  main                                                               25/06/23  17:37:29  PAGE 2   
+C251 COMPILER V5.60.0,  main                                                               26/06/23  10:43:23  PAGE 2   
 
    58   2          lcd_showfloat(65,3,Target_speed1,4,2);  //
    59   2          lcd_showfloat(5,3,Target_speed2,4,2);//
@@ -85,7 +85,7 @@ stmt  level    source
 Module Information          Static   Overlayable
 ------------------------------------------------
   code size            =    ------     ------
-  ecode size           =       797     ------
+  ecode size           =       793     ------
   data size            =    ------     ------
   idata size           =    ------     ------
   pdata size           =    ------     ------

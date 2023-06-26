@@ -74,4 +74,5 @@
 #include "round.h"
 #include "control.h"
 #include "encoder.h"
+#include "eeprom.h"
 #endif
