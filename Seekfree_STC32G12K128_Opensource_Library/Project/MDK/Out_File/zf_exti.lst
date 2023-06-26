@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  zf_exti                                                            26/06/23  16:29:01  PAGE 1   
+C251 COMPILER V5.60.0,  zf_exti                                                            26/06/23  18:34:26  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE zf_exti
@@ -66,7 +66,7 @@ stmt  level    source
    51   2          INTCLKO |= 1<<5;  //Ê¹ÄÜINT3ÖÐ¶Ï
    52   2        }
    53   1        
-C251 COMPILER V5.60.0,  zf_exti                                                            26/06/23  16:29:01  PAGE 2   
+C251 COMPILER V5.60.0,  zf_exti                                                            26/06/23  18:34:26  PAGE 2   
 
    54   1        if(INT4_P30 == int_n)
    55   1        {
