@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  eeprom                                                             26/06/23  10:43:24  PAGE 1   
+C251 COMPILER V5.60.0,  eeprom                                                             26/06/23  11:13:57  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE eeprom
@@ -19,24 +19,24 @@ stmt  level    source
     8   1          iap_read_bytes(0x00, date_buff, 100);   //从EEPROM中读取数据
     9   1      
    10   1      /****不用eeprom直接赋值****/
-   11   1          g_dirControl_P    = 16.7;//read_float(0);
-   12   1          g_dirControl_D    = 15;//read_float(1);
-   13   1          angle_kp1         = 0.425;//read_float(2);
+   11   1      //    g_dirControl_P    = 16.7;//read_float(0);
+   12   1      //    g_dirControl_D    = 15;//read_float(1);
+   13   1      //    angle_kp1         = 0.425;//read_float(2);
    14   1      
-   15   1          Motor_Kp_L        = 45;//read_float(3);
-   16   1          Motor_Ki_L        = 5.7;//read_float(4);
-   17   1        
-   18   1          Motor_Kp_R        = 45;//read_float(5);
-   19   1          Motor_Ki_R        = 5.7;//read_float(6);
+   15   1      //    Motor_Kp_L        = 45;//read_float(3);
+   16   1      //    Motor_Ki_L        = 5.7;//read_float(4);
+   17   1      //  
+   18   1      //    Motor_Kp_R        = 45;//read_float(5);
+   19   1      //    Motor_Ki_R        = 5.7;//read_float(6);
    20   1        
    21   1      /****用eeprom赋值****/  
-   22   1      //    g_dirControl_P    = read_float(0);
-   23   1      //    g_dirControl_D    = read_float(1);
-   24   1      //    angle_kp1         = read_float(2);
-   25   1      //    Motor_Kp_L        = read_float(3);
-   26   1      //    Motor_Ki_L        = read_float(4);
-   27   1      //    Motor_Kp_R        = read_float(5);
-   28   1      //    Motor_Ki_R        = read_float(6);
+   22   1          g_dirControl_P    = read_float(0);
+   23   1          g_dirControl_D    = read_float(1);
+   24   1          angle_kp1         = read_float(2);
+   25   1          Motor_Kp_L        = read_float(3);
+   26   1          Motor_Ki_L        = read_float(4);
+   27   1          Motor_Kp_R        = read_float(5);
+   28   1          Motor_Ki_R        = read_float(6);
    29   1        
    30   1      }
    31          void save_int(int32 input, uint8 value_bit)
@@ -66,7 +66,7 @@ stmt  level    source
    55          
    56          void save_float(float input, uint8 value_bit)
    57          {
-C251 COMPILER V5.60.0,  eeprom                                                             26/06/23  10:43:24  PAGE 2   
+C251 COMPILER V5.60.0,  eeprom                                                             26/06/23  11:13:57  PAGE 2   
 
    58   1          uint8 i;
    59   1          uint8 begin = value_bit * 4;
@@ -94,7 +94,7 @@ stmt  level    source
 Module Information          Static   Overlayable
 ------------------------------------------------
   code size            =    ------     ------
-  ecode size           =       411     ------
+  ecode size           =       416     ------
   data size            =    ------     ------
   idata size           =    ------     ------
   pdata size           =    ------     ------

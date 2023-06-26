@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  Direction                                                          26/06/23  10:43:24  PAGE 1   
+C251 COMPILER V5.60.0,  Direction                                                          26/06/23  11:07:02  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE Direction
@@ -66,7 +66,7 @@ stmt  level    source
    55          
    56          float g_fSpeedErrorTemp[5];
    57          float g_n_Left_pulse;
-C251 COMPILER V5.60.0,  Direction                                                          26/06/23  10:43:24  PAGE 2   
+C251 COMPILER V5.60.0,  Direction                                                          26/06/23  11:07:02  PAGE 2   
 
    58          float g_n_Right_pulse;
    59          float g_f_Left_RealSpeed;
@@ -134,7 +134,7 @@ stmt  level    source
   121   2          }
   122   1      
   123   1          /*===========================中值滤波=================================*/
-C251 COMPILER V5.60.0,  Direction                                                          26/06/23  10:43:24  PAGE 3   
+C251 COMPILER V5.60.0,  Direction                                                          26/06/23  11:07:02  PAGE 3   
 
   124   1          for(i = 0; i < 9; i++) //求中间三项的和
   125   1          {
@@ -202,7 +202,7 @@ stmt  level    source
   184   1          (g_ValueOfAD[5]) = (rightS > 100) ? 100 : rightS;
   185   1          (g_ValueOfAD[6]) = (middle < 0) ? 0 : middle;
   186   1          (g_ValueOfAD[6]) = (middle > 100) ? 100 : middle;
-C251 COMPILER V5.60.0,  Direction                                                          26/06/23  10:43:24  PAGE 4   
+C251 COMPILER V5.60.0,  Direction                                                          26/06/23  11:07:02  PAGE 4   
 
   187   1          (g_ValueOfAD[7]) = (second_leftp < 0) ? 0 : second_leftp;
   188   1          (g_ValueOfAD[7]) = (second_leftp > 100) ? 100 : second_leftp;
@@ -270,7 +270,7 @@ stmt  level    source
   245   2      }
   246   1      else
   247   1      {
-C251 COMPILER V5.60.0,  Direction                                                          26/06/23  10:43:24  PAGE 5   
+C251 COMPILER V5.60.0,  Direction                                                          26/06/23  11:07:02  PAGE 5   
 
   248   2         zhidaoflag = 0;
   249   2      

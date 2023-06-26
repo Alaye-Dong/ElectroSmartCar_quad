@@ -222,7 +222,7 @@ void Cursor(void)
 		
 }
 				
-void KeystrokeLabel_Switch(int previous_codename, float change_unit, uint8 value_bit)	//temp_value, 上一页， +-的单位值, 扇区存储的位置编号
+void KeystrokeLabel_Switch( float change_unit, uint8 value_bit)	//temp_value, 上一页， +-的单位值, 扇区存储的位置编号
 {		
 			static float tem_value;
 			lcd_showfloat(11*8,6,tem_value,2,2);
@@ -262,7 +262,7 @@ g_dirControl_D   = read_float(8);
 						break;
 						
         case KeystrokeTHREE :
-            Dispay_Codename = previous_codename; //返回上一页
+            Dispay_Codename /= 10; //返回上一页
             lcd_clear(WHITE);
             break;
         case KeystrokeFOUR :
@@ -384,7 +384,7 @@ void Keystroke_Menu_ONE_One(void)  //11
 		lcd_showfloat(11*8,3,Motor_Kp_R,2,2);
 		lcd_showfloat(11*8,4,Motor_Ki_R,2,2);
 		
-		KeystrokeLabel_Switch( 1, 0.01, 0);
+		KeystrokeLabel_Switch(0.01, 0);
 		
 }
 
@@ -404,7 +404,7 @@ void Keystroke_Menu_ONE_Two(void)  //12
 		lcd_showfloat(11*8,3,Motor_Kp_R,2,2);
 		lcd_showfloat(11*8,4,Motor_Ki_R,2,2);
 		
-		KeystrokeLabel_Switch( 1, 0.01, 1);
+		KeystrokeLabel_Switch(0.01, 1);
 }
 
 void Keystroke_Menu_ONE_Three(void)  //13	
@@ -423,7 +423,7 @@ void Keystroke_Menu_ONE_Three(void)  //13
 		lcd_showfloat(11*8,3,Motor_Kp_R,2,2);//&
 		lcd_showfloat(11*8,4,Motor_Ki_R,2,2);
 		
-		KeystrokeLabel_Switch(1, 0.01, 2);
+		KeystrokeLabel_Switch(0.01, 2);
 }
 
 void Keystroke_Menu_ONE_Four(void)  //14
@@ -443,7 +443,7 @@ void Keystroke_Menu_ONE_Four(void)  //14
 		lcd_showfloat(11*8,3,Motor_Kp_R,2,2);
 		lcd_showfloat(11*8,4,Motor_Ki_R,2,2);	//&
 		
-    KeystrokeLabel_Switch( 1, 0.01, 3);
+    KeystrokeLabel_Switch(0.01, 3);
 }
 
 
@@ -513,7 +513,7 @@ void Keystroke_Menu_TWO_One(void)  //21		&angle_kp1
 //		lcd_showfloat(11*8,3, ,2,2);
 //		lcd_showfloat(11*8,4, ,2,2);
 		
-		KeystrokeLabel_Switch(  2, 0.01, 4);
+		KeystrokeLabel_Switch(0.01, 4);
 }		
 
 void Keystroke_Menu_THREE(void) //3
@@ -582,7 +582,7 @@ void Keystroke_Menu_THREE_One(void)  //31
 		lcd_showfloat(11*8,3,g_dirControl_P,2,2);
 		lcd_showfloat(11*8,4,g_dirControl_D,2,2);
 		
-    KeystrokeLabel_Switch( 2, 0.01, 5);
+    KeystrokeLabel_Switch(0.01, 5);
 }
 
 void Keystroke_Menu_THREE_Two(void)  //32
@@ -600,7 +600,7 @@ void Keystroke_Menu_THREE_Two(void)  //32
 		lcd_showfloat(11*8,3,g_dirControl_P,2,2);
 		lcd_showfloat(11*8,4,g_dirControl_D,2,2);
 		
-     KeystrokeLabel_Switch( 2, 0.01, 6);
+     KeystrokeLabel_Switch(0.01, 6);
 }
 
 void Keystroke_Menu_THREE_Three(void)  //33
@@ -618,7 +618,7 @@ void Keystroke_Menu_THREE_Three(void)  //33
 		lcd_showfloat(11*8,3,g_dirControl_P,2,2);
 		lcd_showfloat(11*8,4,g_dirControl_D,2,2);
 		
-     KeystrokeLabel_Switch( 2, 0.01, 7);
+     KeystrokeLabel_Switch(0.01, 7);
 }
 
 void Keystroke_Menu_THREE_Four(void)  //34
@@ -636,7 +636,7 @@ void Keystroke_Menu_THREE_Four(void)  //34
 		lcd_showfloat(11*8,3,g_dirControl_P,2,2);
 		lcd_showfloat(11*8,4,g_dirControl_D,2,2);//&
 		
-     KeystrokeLabel_Switch( 2, 0.01, 8);
+     KeystrokeLabel_Switch(0.01, 8);
 }
 
 void Keystroke_Menu_FOUR(void) //4

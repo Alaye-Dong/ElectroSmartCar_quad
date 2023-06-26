@@ -42,7 +42,7 @@ extern uint8 MenuNextFlag;
 void Keystroke_Scan(void);
 void Keystroke_Menu(void);
 void Cursor(void);
-void KeystrokeLabel_Switch(int previous_codename, float change_unit, uint8 value_bit);
+void KeystrokeLabel_Switch(float change_unit, uint8 value_bit);
 
 void Keystroke_Menu_HOME(void);
 
