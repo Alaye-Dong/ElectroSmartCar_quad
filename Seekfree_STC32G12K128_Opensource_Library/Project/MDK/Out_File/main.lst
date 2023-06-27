@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  main                                                               26/06/23  18:34:30  PAGE 1   
+C251 COMPILER V5.60.0,  main                                                               27/06/23  14:18:24  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE main
@@ -49,10 +49,10 @@ stmt  level    source
    38   1      //       printf("imu660ra init try again.\r\n");
    39   1      //      }
    40   1      
-   41   1          eeprom_init();  //eeprom初始化
+   41   1          
    42   1          dl1a_init(); //TOF初始化
    43   1          pit_timer_ms(TIM_4, 5);
-   44   1         
+   44   1         eeprom_init(); //eeprom初始化
    45   1          while(1)
    46   1          {
    47   2          Keystroke_Scan();
@@ -66,7 +66,7 @@ stmt  level    source
    55   2      // 
    56   2      // lcd_showfloat(5,2,g_ValueOfAD[4],4,2);//右斜
    57   2      //  
-C251 COMPILER V5.60.0,  main                                                               26/06/23  18:34:30  PAGE 2   
+C251 COMPILER V5.60.0,  main                                                               27/06/23  14:18:24  PAGE 2   
 
    58   2      
    59   2      // lcd_showfloat(5,4,roundcount2,4,2);   //

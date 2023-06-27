@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  SEEKFREE_PRINTF                                                    26/06/23  18:34:30  PAGE 1   
+C251 COMPILER V5.60.0,  SEEKFREE_PRINTF                                                    27/06/23  14:10:50  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE SEEKFREE_PRINTF
@@ -66,7 +66,7 @@ stmt  level    source
    51   3                  temp_data = pos_dat%radix;
    52   3                  if(10 <= temp_data) temp_data += 'A'-10;
    53   3                  else                temp_data += '0';
-C251 COMPILER V5.60.0,  SEEKFREE_PRINTF                                                    26/06/23  18:34:30  PAGE 2   
+C251 COMPILER V5.60.0,  SEEKFREE_PRINTF                                                    27/06/23  14:10:50  PAGE 2   
 
    54   3                  
    55   3                  *p = temp_data;
@@ -134,7 +134,7 @@ stmt  level    source
   117          //                }break;
   118          //                
   119          //                case 'f':// 浮点数，输出小数点后六位  不能指定输出精度
-C251 COMPILER V5.60.0,  SEEKFREE_PRINTF                                                    26/06/23  18:34:30  PAGE 3   
+C251 COMPILER V5.60.0,  SEEKFREE_PRINTF                                                    27/06/23  14:10:50  PAGE 3   
 
   120          //                case 'F':// 浮点数，输出小数点后六位  不能指定输出精度
   121          //                {
@@ -202,7 +202,7 @@ stmt  level    source
   183          //                {
   184          //                    int8 vstr[33];
   185          //                    uint32 ival = (uint32)va_arg(arg, uint32);
-C251 COMPILER V5.60.0,  SEEKFREE_PRINTF                                                    26/06/23  18:34:30  PAGE 4   
+C251 COMPILER V5.60.0,  SEEKFREE_PRINTF                                                    27/06/23  14:10:50  PAGE 4   
 
   186          //                    uint8 vlen = number_conversion_ascii(ival, vstr, 0, 16);
   187          //                    printf_reverse_order(vstr,8);
@@ -270,7 +270,7 @@ stmt  level    source
   249   5                          if(ival<0)  
   250   5                          {
   251   6                              vstr[vlen] = '-';
-C251 COMPILER V5.60.0,  SEEKFREE_PRINTF                                                    26/06/23  18:34:30  PAGE 5   
+C251 COMPILER V5.60.0,  SEEKFREE_PRINTF                                                    27/06/23  14:10:50  PAGE 5   
 
   252   6                              vlen++;
   253   6                          }
@@ -338,7 +338,7 @@ stmt  level    source
   315   5                          buff_len += vlen;
   316   5                      }break;
   317   4                      
-C251 COMPILER V5.60.0,  SEEKFREE_PRINTF                                                    26/06/23  18:34:30  PAGE 6   
+C251 COMPILER V5.60.0,  SEEKFREE_PRINTF                                                    27/06/23  14:10:50  PAGE 6   
 
   318   4                      case 'o':// 无符号八进制整数 
   319   4                      {
@@ -406,7 +406,7 @@ stmt  level    source
   381   3          }
   382   2          else
   383   2          {
-C251 COMPILER V5.60.0,  SEEKFREE_PRINTF                                                    26/06/23  18:34:30  PAGE 7   
+C251 COMPILER V5.60.0,  SEEKFREE_PRINTF                                                    27/06/23  14:10:50  PAGE 7   
 
   384   3                  *buff = (int8)(*format);
   385   3                  buff++;

@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  SEEKFREE_AT24C02                                                   26/06/23  18:34:28  PAGE 1   
+C251 COMPILER V5.60.0,  SEEKFREE_AT24C02                                                   27/06/23  14:10:48  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE SEEKFREE_AT24C02
@@ -66,7 +66,7 @@ stmt  level    source
    50          
    51          //内部使用，用户无需调用
    52          static void at24c02_simiic_start(void)
-C251 COMPILER V5.60.0,  SEEKFREE_AT24C02                                                   26/06/23  18:34:28  PAGE 2   
+C251 COMPILER V5.60.0,  SEEKFREE_AT24C02                                                   27/06/23  14:10:48  PAGE 2   
 
    53          {
    54   1        AT24C02_SDA_HIGH();
@@ -134,7 +134,7 @@ stmt  level    source
   116          {
   117   1        uint8 i = 8;
   118   1          while(i--)
-C251 COMPILER V5.60.0,  SEEKFREE_AT24C02                                                   26/06/23  18:34:28  PAGE 3   
+C251 COMPILER V5.60.0,  SEEKFREE_AT24C02                                                   27/06/23  14:10:48  PAGE 3   
 
   119   1          {
   120   2              if(c & 0x80)  AT24C02_SDA_HIGH();//SDA 输出数据
@@ -202,7 +202,7 @@ stmt  level    source
   180   1        at24c02_send_ch( dat );            //发送需要写入的数据
   181   1        at24c02_simiic_stop();
   182   1      }
-C251 COMPILER V5.60.0,  SEEKFREE_AT24C02                                                   26/06/23  18:34:28  PAGE 4   
+C251 COMPILER V5.60.0,  SEEKFREE_AT24C02                                                   27/06/23  14:10:48  PAGE 4   
 
   183          
   184          //-------------------------------------------------------------------------------------------------------
@@ -270,7 +270,7 @@ stmt  level    source
   241          //  Sample usage:       
   242          //-------------------------------------------------------------------------------------------------------
              -------------
-C251 COMPILER V5.60.0,  SEEKFREE_AT24C02                                                   26/06/23  18:34:28  PAGE 5   
+C251 COMPILER V5.60.0,  SEEKFREE_AT24C02                                                   27/06/23  14:10:48  PAGE 5   
 
   243          //static void at24c02_simiic_read_regs(uint8 dev_add, uint8 reg, uint8 *dat_add, uint32 num)
   244          //{
@@ -338,7 +338,7 @@ stmt  level    source
              -------------
   301          void at24c02_write_bytes(uint8 byte_reg, uint8 *dat_add, uint8 num)
   302          {
-C251 COMPILER V5.60.0,  SEEKFREE_AT24C02                                                   26/06/23  18:34:28  PAGE 6   
+C251 COMPILER V5.60.0,  SEEKFREE_AT24C02                                                   27/06/23  14:10:48  PAGE 6   
 
   303   1        delay_ms(6);
   304   1        at24c02_simiic_start();
@@ -407,7 +407,7 @@ Module Information          Static   Overlayable
   ebit size            =    ------     ------
   bitaddressable size  =    ------     ------
   ebitaddressable size =    ------     ------
-C251 COMPILER V5.60.0,  SEEKFREE_AT24C02                                                   26/06/23  18:34:28  PAGE 7   
+C251 COMPILER V5.60.0,  SEEKFREE_AT24C02                                                   27/06/23  14:10:48  PAGE 7   
 
   far data size        =    ------     ------
   huge data size       =    ------     ------

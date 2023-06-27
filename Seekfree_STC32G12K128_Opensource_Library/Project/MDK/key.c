@@ -1,14 +1,13 @@
 #include "key.h"
 
-////定义按键引脚
-//#define KEY1_PIN    P71//P71
-//#define KEY2_PIN    P70//P70	
-//#define KEY3_PIN    P72
-//#define KEY4_PIN    P73
-////定义拨码开关引脚
-//#define SW1_PIN		 P76
-//#define SW2_PIN     P75
-
+//定义按键引脚
+#define KEY1_PIN    P71//P71
+#define KEY2_PIN    P70//P70	
+#define KEY3_PIN    P72
+#define KEY4_PIN    P73
+//定义拨码开关引脚
+#define SW1_PIN		 P76
+#define SW2_PIN     P75
 //定义按键代号
 #define KeystrokeONE 1
 #define KeystrokeTWO 2
@@ -50,7 +49,6 @@ int This_Codename = 0;			//本页面编号
 uint8 KeystrokeLabel = 0;			//按压状态
 uint8 CursorRow= 0; //光标所在行号
 uint8 MenuNextFlag = 0; //光标所指菜单进入标志位
-uint8 target_value_bit = 0;
 
 void Keystroke_Scan(void)
 {
@@ -223,54 +221,53 @@ void Cursor(void)
 		
 }
 				
-void KeystrokeLabel_Switch(int previous_codename, float change_unit, uint8 value_bit)	//temp_value, 上一页， +-的单位值, 扇区存储的位置编号
+void KeystrokeLabel_Switch(float change_unit, uint8 value_bit)	//temp_value, 上一页， +-的单位值, 扇区存储的位置编号
 {		
-			static float tem_value;
-			lcd_showfloat(11*8,6,tem_value,2,2);
-			//eeprom_init();
-iap_read_bytes(0x00, date_buff, 100);		//从EEPROM中读取数据
-Motor_Kp_L 			= read_float(0);
-Motor_Ki_L      	= read_float(1);
-Motor_Kp_R      	= read_float(2);
-Motor_Ki_R     	= read_float(3);
-angle_kp1     		= read_float(4);
-ZX_kp						= read_float(5);
-ZX_kd						= read_float(6);
-g_dirControl_P	= read_float(7);
-g_dirControl_D   = read_float(8);		
+		static float tem_value;
+		lcd_showfloat(11*8,6,tem_value,2,2);
 
+		iap_read_bytes(0x00, date_buff, 100);		//从EEPROM中读取数据
+		Motor_Kp_L 			= read_float(0);
+		Motor_Ki_L      = read_float(1);
+		Motor_Kp_R      = read_float(2);
+		Motor_Ki_R     	= read_float(3);
+		angle_kp1     	= read_float(4);
+		ZX_kp						= read_float(5);
+		ZX_kd						= read_float(6);
+		g_dirControl_P	= read_float(7);
+		g_dirControl_D  = read_float(8);		
 
 		Keystroke_Scan();
-			if (sw1_status == 0)
-			{
-				change_unit *= 10; 
-			}
-		 switch(KeystrokeLabel)
-    {
-        case 0 :
-						Dispay_Codename = This_Codename;
-						break;
-						
-				case KeystrokeONE :
-						tem_value += change_unit;	
-						save_float(tem_value,value_bit);
-						Dispay_Codename = This_Codename;		
-						break;
-        case KeystrokeTWO :
-						tem_value -= change_unit;			
-						save_float(tem_value,value_bit);
-						Dispay_Codename = This_Codename;		
-						break;
-						
-        case KeystrokeTHREE :
-            Dispay_Codename = previous_codename; //返回上一页
-            lcd_clear(WHITE);
-            break;
-        case KeystrokeFOUR :
-            Dispay_Codename = 0;	//返回第0页
-            lcd_clear(WHITE);
-            break;
-    }
+		if (sw1_status == 0)
+		{
+			change_unit *= 10; 
+		}
+		switch(KeystrokeLabel)
+		{
+			case 0 :
+					Dispay_Codename = This_Codename;
+					break;
+					
+			case KeystrokeONE :
+					tem_value += change_unit;	
+					save_float(tem_value,value_bit);
+					Dispay_Codename = This_Codename;		
+					break;
+			case KeystrokeTWO :
+					tem_value -= change_unit;			
+					save_float(tem_value,value_bit);
+					Dispay_Codename = This_Codename;		
+					break;
+					
+			case KeystrokeTHREE :
+					Dispay_Codename /= 10; //返回上一页
+					lcd_clear(WHITE);
+					break;
+			case KeystrokeFOUR :
+					Dispay_Codename = 0;	//返回第0页
+					lcd_clear(WHITE);
+					break;
+		}
 }
 
 //-------------------------------------------------------------------------------------------------------------------
@@ -372,10 +369,6 @@ void Keystroke_Menu_ONE(void) //1
 
 void Keystroke_Menu_ONE_One(void)  //11
 {		
-		static float tem_value_11;
-		
-		float change_unit = 0.01;
-		target_value_bit = 0;
 		This_Codename = 11;			//本页面编号
 		
 		lcd_showstr(1*8,1,"Mot_Kp_L"); //&
@@ -388,50 +381,14 @@ void Keystroke_Menu_ONE_One(void)  //11
 		lcd_showfloat(11*8,2,Motor_Ki_L,2,2);
 		lcd_showfloat(11*8,3,Motor_Kp_R,2,2);
 		lcd_showfloat(11*8,4,Motor_Ki_R,2,2);
-
-		//KeystrokeLabel_Switch( 1, 0.01, 0);
-
-		iap_read_bytes(0x00, date_buff, 100);		//从EEPROM中读取数据
-		Motor_Kp_L 			= read_float(0);
-	
-		Keystroke_Scan();
-			if (sw1_status == 0)
-			{
-				change_unit *= 10; 
-			}
-		 switch(KeystrokeLabel)
-    {
-        case 0 :
-						Dispay_Codename = This_Codename;
-						break;
-						
-				case KeystrokeONE :
-						tem_value_11 += change_unit;	
-						save_float(tem_value_11,target_value_bit);
-						Dispay_Codename = This_Codename;		
-						break;
-        case KeystrokeTWO :
-						tem_value_11 -= change_unit;			
-						save_float(tem_value_11,target_value_bit);
-						Dispay_Codename = This_Codename;		
-						break;
-						
-        case KeystrokeTHREE :
-            Dispay_Codename /= 10; //返回上一页
-            lcd_clear(WHITE);
-            break;
-        case KeystrokeFOUR :
-            Dispay_Codename = 0;	//返回第0页
-            lcd_clear(WHITE);
-            break;
-    }
-
+		
+		KeystrokeLabel_Switch(0.01, 0);
+		
 }
 
 void Keystroke_Menu_ONE_Two(void)  //12
 {		
-
-		
+	
 		This_Codename = 12;
 		
 		lcd_showstr(1*8,1,"Mot_Kp_L");
@@ -445,8 +402,7 @@ void Keystroke_Menu_ONE_Two(void)  //12
 		lcd_showfloat(11*8,3,Motor_Kp_R,2,2);
 		lcd_showfloat(11*8,4,Motor_Ki_R,2,2);
 		
-		KeystrokeLabel_Switch( 1, 0.01, 1);
-
+		KeystrokeLabel_Switch(0.01, 1);
 }
 
 void Keystroke_Menu_ONE_Three(void)  //13	
@@ -465,12 +421,13 @@ void Keystroke_Menu_ONE_Three(void)  //13
 		lcd_showfloat(11*8,3,Motor_Kp_R,2,2);//&
 		lcd_showfloat(11*8,4,Motor_Ki_R,2,2);
 		
-		KeystrokeLabel_Switch(1, 0.01, 2);
-
+		KeystrokeLabel_Switch(0.01, 2);
 }
 
 void Keystroke_Menu_ONE_Four(void)  //14
 {		
+		static float temp_value;
+		eeprom_init();
 		This_Codename = 14;
 		
 		lcd_showstr(1*8,1,"Mot_Kp_L");
@@ -484,7 +441,7 @@ void Keystroke_Menu_ONE_Four(void)  //14
 		lcd_showfloat(11*8,3,Motor_Kp_R,2,2);
 		lcd_showfloat(11*8,4,Motor_Ki_R,2,2);	//&
 		
-    KeystrokeLabel_Switch( 1, 0.01, 3);
+    KeystrokeLabel_Switch(0.01, 3);
 }
 
 
@@ -554,7 +511,7 @@ void Keystroke_Menu_TWO_One(void)  //21		&angle_kp1
 //		lcd_showfloat(11*8,3, ,2,2);
 //		lcd_showfloat(11*8,4, ,2,2);
 		
-		KeystrokeLabel_Switch(  2, 0.01, 4);
+		KeystrokeLabel_Switch(0.01, 4);
 }		
 
 void Keystroke_Menu_THREE(void) //3
@@ -623,7 +580,7 @@ void Keystroke_Menu_THREE_One(void)  //31
 		lcd_showfloat(11*8,3,g_dirControl_P,2,2);
 		lcd_showfloat(11*8,4,g_dirControl_D,2,2);
 		
-    KeystrokeLabel_Switch( 2, 0.01, 5);
+    KeystrokeLabel_Switch(0.01, 5);
 }
 
 void Keystroke_Menu_THREE_Two(void)  //32
@@ -641,7 +598,7 @@ void Keystroke_Menu_THREE_Two(void)  //32
 		lcd_showfloat(11*8,3,g_dirControl_P,2,2);
 		lcd_showfloat(11*8,4,g_dirControl_D,2,2);
 		
-     KeystrokeLabel_Switch( 2, 0.01, 6);
+     KeystrokeLabel_Switch(0.01, 6);
 }
 
 void Keystroke_Menu_THREE_Three(void)  //33
@@ -659,7 +616,7 @@ void Keystroke_Menu_THREE_Three(void)  //33
 		lcd_showfloat(11*8,3,g_dirControl_P,2,2);
 		lcd_showfloat(11*8,4,g_dirControl_D,2,2);
 		
-     KeystrokeLabel_Switch( 2, 0.01, 7);
+     KeystrokeLabel_Switch(0.01, 7);
 }
 
 void Keystroke_Menu_THREE_Four(void)  //34
@@ -677,7 +634,7 @@ void Keystroke_Menu_THREE_Four(void)  //34
 		lcd_showfloat(11*8,3,g_dirControl_P,2,2);
 		lcd_showfloat(11*8,4,g_dirControl_D,2,2);//&
 		
-     KeystrokeLabel_Switch( 2, 0.01, 8);
+     KeystrokeLabel_Switch(0.01, 8);
 }
 
 void Keystroke_Menu_FOUR(void) //4

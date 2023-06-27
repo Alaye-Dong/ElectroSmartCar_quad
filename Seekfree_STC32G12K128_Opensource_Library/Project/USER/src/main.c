@@ -38,10 +38,10 @@ void main()
 //	   	 printf("imu660ra init try again.\r\n");
 //    	}
 
-		eeprom_init();	//eeprom初始化
+		
 		dl1a_init(); //TOF初始化
 		pit_timer_ms(TIM_4, 5);
-   
+   eeprom_init();	//eeprom初始化
     while(1)
     {
 		Keystroke_Scan();

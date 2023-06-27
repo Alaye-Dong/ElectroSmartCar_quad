@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  anotc                                                              26/06/23  18:34:31  PAGE 1   
+C251 COMPILER V5.60.0,  anotc                                                              27/06/23  14:18:24  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE anotc
@@ -66,7 +66,7 @@ stmt  level    source
    55   2              addcheck += sumcheck;
    56   2          }
    57   1          BUFF[_cnt++] = sumcheck;
-C251 COMPILER V5.60.0,  anotc                                                              26/06/23  18:34:31  PAGE 2   
+C251 COMPILER V5.60.0,  anotc                                                              27/06/23  14:18:24  PAGE 2   
 
    58   1          BUFF[_cnt++] = addcheck;
    59   1      
@@ -134,7 +134,7 @@ stmt  level    source
   121          //                    }
   122          //                }
   123          //            }
-C251 COMPILER V5.60.0,  anotc                                                              26/06/23  18:34:31  PAGE 3   
+C251 COMPILER V5.60.0,  anotc                                                              27/06/23  14:18:24  PAGE 3   
 
   124          //        }
   125          //    }
