@@ -5,13 +5,10 @@ uint8 function1 = 0;
 uint8 function2 = 0;
 uint8 function3 = 0;
 
-float dir_kp = 0.0;
-float dir_kd = 0.0;
-float angle_kp = 0.0;
-float angle_kd = 0.0;
-float speed_p = 0.0;
-float speed_i = 0.0;
-float speed_d = 0.0;
+
+
+
+
 //float speed_e=0.0;
 
 

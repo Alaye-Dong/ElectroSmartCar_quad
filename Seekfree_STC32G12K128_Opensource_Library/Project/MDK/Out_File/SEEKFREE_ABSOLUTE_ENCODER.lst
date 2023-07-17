@@ -1,12 +1,12 @@
-C251 COMPILER V5.60.0,  SEEKFREE_ABSOLUTE_ENCODER                                          17/06/23  16:38:36  PAGE 1   
+C251 COMPILER V5.60.0,  SEEKFREE_ABSOLUTE_ENCODER                                          17/07/23  18:34:08  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE SEEKFREE_ABSOLUTE_ENCODER
 OBJECT MODULE PLACED IN .\Out_File\SEEKFREE_ABSOLUTE_ENCODER.obj
-COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE ..\..\Libraries\seekfree_peripheral\SEEKFREE_ABSOLUTE_ENCODER.c LARGE 
-                    -INTR2 ROM(HUGE) WARNINGLEVEL(3) BROWSE INCDIR(..\..\Libraries\libraries;..\..\Libraries\seekfree_libraries;..\..\Librari
-                    -es\seekfree_peripheral;..\CODE;..\USER\inc;..\USER\src) DEBUG PRINT(.\Out_File\SEEKFREE_ABSOLUTE_ENCODER.lst) TABS(2) OB
-                    -JECT(.\Out_File\SEEKFREE_ABSOLUTE_ENCODER.obj) 
+COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE ..\..\Libraries\seekfree_peripheral\SEEKFREE_ABSOLUTE_ENCODER.c XSMALL
+                    - ROM(HUGE) WARNINGLEVEL(3) BROWSE INCDIR(..\..\Libraries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\se
+                    -ekfree_peripheral;..\CODE;..\USER\inc;..\USER\src) DEBUG PRINT(.\Out_File\SEEKFREE_ABSOLUTE_ENCODER.lst) OBJECT(.\Out_Fi
+                    -le\SEEKFREE_ABSOLUTE_ENCODER.obj) 
 
 stmt  level    source
 
@@ -20,22 +20,22 @@ stmt  level    source
     7           * 以下所有内容版权均属逐飞科技所有，未经允许不得用于商业用途，
     8           * 欢迎各位使用并传播本程序，修改内容时必须保留逐飞科技的版权声明。
     9           *
-   10           * @file          绝对式编码器
-   11           * @company       成都逐飞科技有限公司
-   12           * @author        逐飞科技(QQ3184284598)
-   13           * @Software    MDK FOR C251 V5.60
-   14           * @Target core   STC32G12K128
-   15           * @Taobao      https://seekfree.taobao.com/
-   16           * @date          2020-01-13
-   17           * @note    
-   18                    接线定义：
-   19                    ------------------------------------ 
-   20                    模块管脚            单片机管脚
-   21                    SCK             查看SEEKFREE_ABSOLUTE_ENCODER.H文件ABS_ENCODER_SPI_SCK_PIN 宏定义
-   22                    MISO              查看SEEKFREE_ABSOLUTE_ENCODER.H文件ABS_ENCODER_SPI_MISO_PIN宏定义
-   23                    MOSI                查看SEEKFREE_ABSOLUTE_ENCODER.H文件ABS_ENCODER_SPI_MOSI_PIN宏定义
-   24                    CS                  查看SEEKFREE_ABSOLUTE_ENCODER.H文件ABS_ENCODER_SPI_PCS_PIN  宏定义
-   25                    ------------------------------------  
+   10           * @file                绝对式编码器
+   11           * @company                     成都逐飞科技有限公司
+   12           * @author              逐飞科技(QQ3184284598)
+   13           * @Software            MDK FOR C251 V5.60
+   14           * @Target core         STC32G12K128
+   15           * @Taobao              https://seekfree.taobao.com/
+   16           * @date                2020-01-13
+   17           * @note                
+   18                                                  接线定义：
+   19                                                  ------------------------------------ 
+   20                                                  模块管脚            单片机管脚
+   21                                                  SCK                         查看SEEKFREE_ABSOLUTE_ENCODER.H文件ABS_ENCODER_SPI_SCK_PIN 宏定义
+   22                                                  MISO                查看SEEKFREE_ABSOLUTE_ENCODER.H文件ABS_ENCODER_SPI_MISO_PIN宏定义
+   23                                                  MOSI                查看SEEKFREE_ABSOLUTE_ENCODER.H文件ABS_ENCODER_SPI_MOSI_PIN宏定义
+   24                                                  CS                  查看SEEKFREE_ABSOLUTE_ENCODER.H文件ABS_ENCODER_SPI_PCS_PIN  宏定义
+   25                                                  ------------------------------------  
    26           ********************************************************************************************************
              -************/
    27          
@@ -51,14 +51,14 @@ stmt  level    source
    37          //-------------------------------------------------------------------------------------------------------
              -------------
    38          //  @brief      内部使用用户无需关心
-   39          //  @param      NULL              
+   39          //  @param      NULL                    
    40          //  @return     void
    41          //  Sample usage:               无需用户调用，用户请使用h文件中的宏定义
    42          //-------------------------------------------------------------------------------------------------------
              -------------
    43          void encoder_delay_us(uint16 x)
    44          {
-   45   1        delay_us(x);
+   45   1              delay_us(x);
    46   1      }
    47          
    48          
@@ -66,7 +66,7 @@ stmt  level    source
              -------------
    50          //  @brief      通过SPI写一个byte,同时读取一个byte
    51          //  @param      byte        发送的数据    
-C251 COMPILER V5.60.0,  SEEKFREE_ABSOLUTE_ENCODER                                          17/06/23  16:38:36  PAGE 2   
+C251 COMPILER V5.60.0,  SEEKFREE_ABSOLUTE_ENCODER                                          17/07/23  18:34:08  PAGE 2   
 
    52          //  @return     uint8       return 返回status状态
    53          //  @since      v1.0
@@ -83,9 +83,9 @@ stmt  level    source
    63   2              ABS_ENCODER_SCK (0);    
    64   2            
    65   2              ABS_ENCODER_SCK (1);
-   66   2          byte |= ABS_ENCODER_MISO;  
-   67   2          } 
-   68   1          return(byte);                                         
+   66   2                      byte |= ABS_ENCODER_MISO;  
+   67   2          }   
+   68   1          return(byte);                                               
    69   1      }
    70          
    71          //-------------------------------------------------------------------------------------------------------
@@ -103,7 +103,7 @@ stmt  level    source
    81   1          cmd |= ABS_ENCODER_SPI_W;
    82   1          simspi_wr_byte(cmd);                        
    83   1          simspi_wr_byte(val);                                
-   84   1          ABS_ENCODER_CSN (1);                                      
+   84   1          ABS_ENCODER_CSN (1);                                        
    85   1      }
    86          
    87          //-------------------------------------------------------------------------------------------------------
@@ -120,8 +120,8 @@ stmt  level    source
    96   1          ABS_ENCODER_CSN (0);
    97   1          cmd |= ABS_ENCODER_SPI_R;
    98   1          simspi_wr_byte(cmd);                                
-   99   1          *val = simspi_wr_byte(0);                             
-  100   1          ABS_ENCODER_CSN (1);                                      
+   99   1          *val = simspi_wr_byte(0);                                   
+  100   1          ABS_ENCODER_CSN (1);                                        
   101   1      }
   102          
   103          
@@ -134,12 +134,12 @@ stmt  level    source
   109          //  @since      v1.0
   110          //  Sample usage:
   111          //-------------------------------------------------------------------------------------------------------
-C251 COMPILER V5.60.0,  SEEKFREE_ABSOLUTE_ENCODER                                          17/06/23  16:38:36  PAGE 3   
+C251 COMPILER V5.60.0,  SEEKFREE_ABSOLUTE_ENCODER                                          17/07/23  18:34:08  PAGE 3   
 
              -------------
   112          uint8 encoder_simspi_w_reg_byte(uint8 cmd, uint8 val)
   113          {
-  114   1        
+  114   1              
   115   1          uint8 dat;
   116   1          ABS_ENCODER_CSN (0);
   117   1          cmd |= ABS_ENCODER_SPI_W;
@@ -148,8 +148,8 @@ stmt  level    source
   120   1          ABS_ENCODER_CSN (1);   
   121   1          encoder_delay_us(1);
   122   1          ABS_ENCODER_CSN (0);
-  123   1          dat = simspi_wr_byte(0x00);                       
-  124   1          simspi_wr_byte(0x00);                                 
+  123   1          dat = simspi_wr_byte(0x00);                         
+  124   1          simspi_wr_byte(0x00);                                       
   125   1          ABS_ENCODER_CSN (1);  
   126   1          
   127   1          if(val != dat)  return 1;   //写入失败
@@ -171,12 +171,12 @@ stmt  level    source
   141   1          ABS_ENCODER_CSN (0);
   142   1          cmd |= ABS_ENCODER_SPI_R;
   143   1          simspi_wr_byte(cmd);                        
-  144   1          simspi_wr_byte(0x00);                                 
+  144   1          simspi_wr_byte(0x00);                                       
   145   1          ABS_ENCODER_CSN (1);   
-  146   1        encoder_delay_us(1);
+  146   1              encoder_delay_us(1);
   147   1          ABS_ENCODER_CSN (0);
   148   1          *val = simspi_wr_byte(0x00);                        
-  149   1          simspi_wr_byte(0x00);                                 
+  149   1          simspi_wr_byte(0x00);                                       
   150   1          ABS_ENCODER_CSN (1);
   151   1      }
   152          
@@ -202,7 +202,7 @@ stmt  level    source
   169          //  @brief      写入一个数据到编码器的寄存器
   170          //  @param      void
   171          //  @return     uint16       返回角度值0-4096 对应0-360°
-C251 COMPILER V5.60.0,  SEEKFREE_ABSOLUTE_ENCODER                                          17/06/23  16:38:36  PAGE 4   
+C251 COMPILER V5.60.0,  SEEKFREE_ABSOLUTE_ENCODER                                          17/07/23  18:34:08  PAGE 4   
 
   172          //  @since      v1.0
   173          //  Sample usage:
@@ -227,9 +227,9 @@ stmt  level    source
              -------------
   191          //  @brief      编码器自检函数
   192          //  @param      NULL
-  193          //  @return     void          
+  193          //  @return     void                                    
   194          //  @since      v1.0
-  195          //  Sample usage:       
+  195          //  Sample usage:                               
   196          //-------------------------------------------------------------------------------------------------------
              -------------
   197          void encoder_self4_check(void)
@@ -238,7 +238,7 @@ stmt  level    source
   200   1          do
   201   1          {
   202   2              encoder_simspi_r_reg_byte(6,&val);
-  203   2        
+  203   2              
   204   2              //卡在这里原因有以下几点
   205   2              //1 编码器坏了，如果是新的这样的概率极低
   206   2              //2 接线错误或者没有接好
@@ -249,14 +249,14 @@ stmt  level    source
              -------------
   211          //  @brief      编码器初始化函数
   212          //  @param      NULL
-  213          //  @return     void          
+  213          //  @return     void                                    
   214          //  @since      v1.0
-  215          //  Sample usage:       
+  215          //  Sample usage:                               
   216          //-------------------------------------------------------------------------------------------------------
              -------------
   217          void encoder_init_simspi(void)
   218          {
-  219   1          encoder_self4_check();          //自检
+  219   1          encoder_self4_check();                                      //自检
   220   1          
   221   1          encoder_simspi_w_reg_byte(DIR_REG,0x00);//设置旋转方向 正转数值变小：0x00   反转数值变大：0x80
   222   1      
@@ -270,7 +270,7 @@ stmt  level    source
   230          
   231          
   232          //-------------------------以下为硬件SPI--------------------------//
-C251 COMPILER V5.60.0,  SEEKFREE_ABSOLUTE_ENCODER                                          17/06/23  16:38:36  PAGE 5   
+C251 COMPILER V5.60.0,  SEEKFREE_ABSOLUTE_ENCODER                                          17/07/23  18:34:08  PAGE 5   
 
   233          //-------------------------以下为硬件SPI--------------------------//
   234          //-------------------------以下为硬件SPI--------------------------//
@@ -286,8 +286,8 @@ stmt  level    source
              -------------
   243          uint8 spi_wr_byte(uint8 byte)
   244          {  
-  245   1        byte = spi_mosi(byte);
-  246   1        return(byte);   
+  245   1              byte = spi_mosi(byte);
+  246   1              return(byte);   
   247   1      }
   248          
   249          //-------------------------------------------------------------------------------------------------------
@@ -303,8 +303,8 @@ stmt  level    source
   257          {
   258   1          ABS_ENCODER_SPI_CSN (0);
   259   1          cmd |= ABS_ENCODER_SPI_W;
-  260   1          spi_wr_byte(cmd);                       
-  261   1          spi_wr_byte(val);                                 
+  260   1          spi_wr_byte(cmd);                           
+  261   1          spi_wr_byte(val);                                   
   262   1          ABS_ENCODER_SPI_CSN (1);       
   263   1      }
   264          
@@ -321,9 +321,9 @@ stmt  level    source
   273          {
   274   1          ABS_ENCODER_SPI_CSN (0);
   275   1          cmd |= ABS_ENCODER_SPI_R;
-  276   1          spi_wr_byte(cmd);                                 
-  277   1          *val = simspi_wr_byte(0);                             
-  278   1          ABS_ENCODER_SPI_CSN (1);                                      
+  276   1          spi_wr_byte(cmd);                                   
+  277   1          *val = simspi_wr_byte(0);                                   
+  278   1          ABS_ENCODER_SPI_CSN (1);                                            
   279   1      }
   280          
   281          
@@ -338,19 +338,19 @@ stmt  level    source
   289          //-------------------------------------------------------------------------------------------------------
              -------------
   290          uint8 encoder_spi_w_reg_byte(uint8 cmd, uint8 val)
-C251 COMPILER V5.60.0,  SEEKFREE_ABSOLUTE_ENCODER                                          17/06/23  16:38:36  PAGE 6   
+C251 COMPILER V5.60.0,  SEEKFREE_ABSOLUTE_ENCODER                                          17/07/23  18:34:08  PAGE 6   
 
   291          {
   292   1          uint8 dat;
   293   1          ABS_ENCODER_SPI_CSN (0);
   294   1          cmd |= ABS_ENCODER_SPI_W;
-  295   1          spi_wr_byte(cmd);                       
-  296   1          spi_wr_byte(val);                                 
+  295   1          spi_wr_byte(cmd);                           
+  296   1          spi_wr_byte(val);                                   
   297   1          ABS_ENCODER_SPI_CSN (1);   
-  298   1        encoder_delay_us(1);
+  298   1              encoder_delay_us(1);
   299   1          ABS_ENCODER_SPI_CSN (0);
-  300   1          dat = spi_wr_byte(0x00);                        
-  301   1          spi_wr_byte(0x00);                                
+  300   1          dat = spi_wr_byte(0x00);                            
+  301   1          spi_wr_byte(0x00);                                  
   302   1          ABS_ENCODER_SPI_CSN (1);  
   303   1          
   304   1          if(val != dat)  return 1;   //写入失败
@@ -371,14 +371,14 @@ stmt  level    source
   317          {
   318   1          ABS_ENCODER_SPI_CSN (0);
   319   1          cmd |= ABS_ENCODER_SPI_R;
-  320   1          spi_wr_byte(cmd);                       
+  320   1          spi_wr_byte(cmd);                           
   321   1          spi_wr_byte(0x00);   
   322   1      
   323   1          ABS_ENCODER_SPI_CSN (1);   
-  324   1        encoder_delay_us(1);
+  324   1              encoder_delay_us(1);
   325   1          ABS_ENCODER_SPI_CSN (0);
-  326   1          *val = spi_wr_byte(0x00);                       
-  327   1          spi_wr_byte(0x00);                                
+  326   1          *val = spi_wr_byte(0x00);                           
+  327   1          spi_wr_byte(0x00);                                  
   328   1          ABS_ENCODER_SPI_CSN (1);
   329   1      }
   330          
@@ -406,7 +406,7 @@ stmt  level    source
   349          //  @return     uint16       返回角度值0-4096 对应0-360°
   350          //  @since      v1.0
   351          //  Sample usage:
-C251 COMPILER V5.60.0,  SEEKFREE_ABSOLUTE_ENCODER                                          17/06/23  16:38:36  PAGE 7   
+C251 COMPILER V5.60.0,  SEEKFREE_ABSOLUTE_ENCODER                                          17/07/23  18:34:08  PAGE 7   
 
   352          //-------------------------------------------------------------------------------------------------------
              -------------
@@ -427,14 +427,14 @@ stmt  level    source
              -------------
   367          //  @brief      编码器自检函数
   368          //  @param      NULL
-  369          //  @return     void          
+  369          //  @return     void                                    
   370          //  @since      v1.0
-  371          //  Sample usage:       
+  371          //  Sample usage:                               
   372          //-------------------------------------------------------------------------------------------------------
              -------------
   373          void encoder_self5_check(void)
   374          {
-  375   1        uint8 val;
+  375   1              uint8 val;
   376   1          do
   377   1          {
   378   2              encoder_spi_r_reg_byte(6,&val);
@@ -448,19 +448,19 @@ stmt  level    source
              -------------
   386          //  @brief      编码器初始化函数
   387          //  @param      NULL
-  388          //  @return     void          
+  388          //  @return     void                                    
   389          //  @since      v1.0
-  390          //  Sample usage:       
+  390          //  Sample usage:                               
   391          //-------------------------------------------------------------------------------------------------------
              -------------
   392          void encoder_init_spi(void)
   393          {
-  394   1        spi_init(ABS_ENCODER_SPI_NUM, ABS_ENCODER_SPI_SCK_PIN, ABS_ENCODER_SPI_MOSI_PIN,ABS_ENCODER_SPI_MISO_PIN
+  394   1              spi_init(ABS_ENCODER_SPI_NUM, ABS_ENCODER_SPI_SCK_PIN, ABS_ENCODER_SPI_MOSI_PIN,ABS_ENCODER_SPI_MISO_PIN
              -, 0, MASTER, SPI_SYSclk_DIV_4);
   395   1      
-  396   1        encoder_self5_check();
-  397   1        encoder_spi_w_reg_byte(DIR_REG,0x00);//设置旋转方向 正转数值变小：0x00   反转数值变大：0x80
-  398   1        set_zero_position_spi(0);                   //设置零偏
+  396   1              encoder_self5_check();
+  397   1              encoder_spi_w_reg_byte(DIR_REG,0x00);//设置旋转方向 正转数值变小：0x00   反转数值变大：0x80
+  398   1              set_zero_position_spi(0);                   //设置零偏
   399   1      }
   400          
   401          
@@ -472,15 +472,15 @@ stmt  level    source
 Module Information          Static   Overlayable
 ------------------------------------------------
   code size            =    ------     ------
-  ecode size           =       649     ------
+  ecode size           =       633     ------
   data size            =    ------     ------
   idata size           =    ------     ------
-C251 COMPILER V5.60.0,  SEEKFREE_ABSOLUTE_ENCODER                                          17/06/23  16:38:36  PAGE 8   
+C251 COMPILER V5.60.0,  SEEKFREE_ABSOLUTE_ENCODER                                          17/07/23  18:34:08  PAGE 8   
 
   pdata size           =    ------     ------
-  xdata size           =    ------          2
+  xdata size           =    ------     ------
   xdata-const size     =    ------     ------
-  edata size           =    ------     ------
+  edata size           =    ------          2
   bit size             =    ------     ------
   ebit size            =    ------     ------
   bitaddressable size  =    ------     ------

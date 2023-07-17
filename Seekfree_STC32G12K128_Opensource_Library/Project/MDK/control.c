@@ -2,9 +2,9 @@
 #include "control.h"
 
 int duty1 = 0, duty2 = 0;
-uint8 Ring_state = 0;
 
 
+float servo = 0;
 
  
 

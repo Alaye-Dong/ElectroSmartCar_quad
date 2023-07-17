@@ -150,16 +150,15 @@ void TM3_Isr() interrupt 19
 	
 }
 
-int count=0;
-int start1=0;
-int flag1=0;
+
 void TM4_Isr() interrupt 20
 {
 	TIM4_CLEAR_FLAG; //清除中断标志
-	dl1a_get_distance ();
-	mpu660_PID();
+	
+	dl1a_get_distance ();	
 	knn();
 	DirectionControl();
+	
 	CK_count =(ctimer_count_read(CTIM0_P34)+ctimer_count_read(CTIM3_P04))*0.1;
 	CK_count2 = CK_count + CK_count2;
 	
@@ -167,57 +166,40 @@ void TM4_Isr() interrupt 20
 	
 	if(XJ==1)
 	{
-	
-	if(dl1a_distance_mm<=650&&g_ValueOfAD[2]>=40&&g_ValueOfAD[3]>=40&&dl1a_distance_mm>=100&&flag_hd_Z ==2)
-		{
-		 HD=1;
-		
+		if(obstacle_flag != 0)
+		{	
+			Obstacle();
+			//Obstacle_Deal();
 		}
-	if(P26==0)
-	{
-	Hall=1;
-	
-	}	
-	else if(Hall==1)
-	 {
-		RuKu();
-	 } 
-	 else if(HD==1)
-	 {
-	 
-	 obstacle();
-	 } 
-	else
-	{
-	 if(flag_r_hd==1)
-	 {
-		 Huan_Dao_R();
-	 }
-	  else if(flag_hd_Z==1)
+
+		else if(Hall==1)
+		{	
+			RuKu();
+		} 
+		else if(flag_r_hd==1)
 		{
-	 Huan_Dao_Z();
+			Round_Deal();
 		}
-	 else
-		 
-	{
-		Huan_Dao_Z();
-	dir_pid();
- }
+		else if(cross_flag == 1)
+		{
+			Cross();
+		}
+		else
+		{
+			dir_pid();
+		}
 	}
-}
+	
 	read_encoder();
-	Target_speed();
 	speedR_pid();
 	speedL_pid();
 	Control();
+	
 	servo	 = 692 - cha_err1;
-	if(servo>=765) servo=765;
-	if(servo<=621) servo=621;
+	if(servo>=767) servo=767;
+	if(servo<=619) servo=619;
 	pwm_duty(PWMB_CH1_P74, servo); 
-	
-	
-
-	}
+}
 
 
 

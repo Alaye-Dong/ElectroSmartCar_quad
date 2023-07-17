@@ -2,9 +2,7 @@
 #include "encoder.h"
 int16 speed1;//±àÂëÆ÷¶ÁÈ¡Âö³å
 int16 speed2;
-float encoder_integral = 0;
-float encoder = 0;
-int16 count_flag = 0;
+
 	
 void read_encoder()
 {

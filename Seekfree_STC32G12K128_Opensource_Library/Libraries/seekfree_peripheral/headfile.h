@@ -6,18 +6,18 @@
 #define PWM2 PWMA_CH2P_P62  //右轮PWMA_CH2P_P62
 #define DIR2 P60  // DIR1=1 正转
 #define DIR1 P64  
-#define BEEP  P74
+#define BEEP  P67
 #define HALL_PIN P33
 #define DIRL P53 //编码器左轮
 #define DIRR P35 //编码器右轮
 
 //五向开关
-#define KEY1_PIN    P70
-#define KEY2_PIN    P71
+#define KEY1_PIN    P71
+#define KEY2_PIN    P70
 #define KEY3_PIN    P72
 #define KEY4_PIN    P73
-#define SW1_PIN     P75
-#define SW2_PIN     P76
+#define SW1_PIN     P76
+#define SW2_PIN     P75
 
 
 
@@ -63,15 +63,14 @@
 #include "SEEKFREE_IMU963RA.h"
 #include "SEEKFREE_DL1A.h"
 
+#include "math.h"
 
 #include "key.h"
 #include "direction.h"
-#include "anotc.h"
-#include "math.h"
-#include "menu.h"
-#include "PID.h"
 #include "park.h"
+#include "PID.h"
 #include "round.h"
 #include "control.h"
 #include "encoder.h"
+#include "eeprom.h"
 #endif

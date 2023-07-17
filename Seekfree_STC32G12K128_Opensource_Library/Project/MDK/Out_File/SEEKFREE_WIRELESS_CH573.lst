@@ -1,12 +1,12 @@
-C251 COMPILER V5.60.0,  SEEKFREE_WIRELESS_CH573                                            17/06/23  16:38:39  PAGE 1   
+C251 COMPILER V5.60.0,  SEEKFREE_WIRELESS_CH573                                            17/07/23  18:34:10  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE SEEKFREE_WIRELESS_CH573
 OBJECT MODULE PLACED IN .\Out_File\SEEKFREE_WIRELESS_CH573.obj
-COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE ..\..\Libraries\seekfree_peripheral\SEEKFREE_WIRELESS_CH573.c LARGE IN
-                    -TR2 ROM(HUGE) WARNINGLEVEL(3) BROWSE INCDIR(..\..\Libraries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries
-                    -\seekfree_peripheral;..\CODE;..\USER\inc;..\USER\src) DEBUG PRINT(.\Out_File\SEEKFREE_WIRELESS_CH573.lst) TABS(2) OBJECT
-                    -(.\Out_File\SEEKFREE_WIRELESS_CH573.obj) 
+COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE ..\..\Libraries\seekfree_peripheral\SEEKFREE_WIRELESS_CH573.c XSMALL R
+                    -OM(HUGE) WARNINGLEVEL(3) BROWSE INCDIR(..\..\Libraries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seek
+                    -free_peripheral;..\CODE;..\USER\inc;..\USER\src) DEBUG PRINT(.\Out_File\SEEKFREE_WIRELESS_CH573.lst) OBJECT(.\Out_File\S
+                    -EEKFREE_WIRELESS_CH573.obj) 
 
 stmt  level    source
 
@@ -46,9 +46,9 @@ stmt  level    source
              -------------
    32          //  @brief      573转串口模块回调函数
    33          //  @param      NULL
-   34          //  @return     void          
+   34          //  @return     void                                    
    35          //  @since      v1.0
-   36          //  Sample usage: 
+   36          //  Sample usage:       
    37          //  @note       
    38          //-------------------------------------------------------------------------------------------------------
              -------------
@@ -66,12 +66,12 @@ stmt  level    source
              -------------
    50          //  @brief      573转串口模块 发送函数
    51          //  @param      buff        需要发送的数据地址
-C251 COMPILER V5.60.0,  SEEKFREE_WIRELESS_CH573                                            17/06/23  16:38:39  PAGE 2   
+C251 COMPILER V5.60.0,  SEEKFREE_WIRELESS_CH573                                            17/07/23  18:34:10  PAGE 2   
 
    52          //  @param      len         发送长度
    53          //  @return     uint32      剩余未发送的字节数   
    54          //  @since      v1.0
-   55          //  Sample usage: 
+   55          //  Sample usage:       
    56          //  @note       
    57          //-------------------------------------------------------------------------------------------------------
              -------------
@@ -126,15 +126,15 @@ stmt  level    source
              -------------
   103          //  @brief      573转串口模块初始化
   104          //  @param      NULL
-  105          //  @return     void          
+  105          //  @return     void                                    
   106          //  @since      v1.0
-  107          //  Sample usage: 
+  107          //  Sample usage:       
   108          //  @note       
   109          //-------------------------------------------------------------------------------------------------------
              -------------
   110          void wireless_ch573_init(void)
   111          {
-C251 COMPILER V5.60.0,  SEEKFREE_WIRELESS_CH573                                            17/06/23  16:38:39  PAGE 3   
+C251 COMPILER V5.60.0,  SEEKFREE_WIRELESS_CH573                                            17/07/23  18:34:10  PAGE 3   
 
   112   1          WIRELESS_CH573_RTS_PIN = 0;
   113   1          wireless_type = WIRELESS_CH573;
@@ -142,7 +142,7 @@ stmt  level    source
              -特率
   115   1          fifo_init(&wireless_ch573_fifo, wireless_ch573_buffer, WIRELESS_CH573_BUFFER_SIZE);
   116   1          uart_init(WIRELESS_CH573_UART, WIRELESS_CH573_UART_RX_PIN, WIRELESS_CH573_UART_TX_PIN, WIRELESS_CH573
-             -_UART_BAUD, WIRELESS_CH573_TIMER_N); //初始化串口    
+             -_UART_BAUD, WIRELESS_CH573_TIMER_N);   //初始化串口    
   117   1          
   118   1      }
 
@@ -150,13 +150,13 @@ stmt  level    source
 Module Information          Static   Overlayable
 ------------------------------------------------
   code size            =    ------     ------
-  ecode size           =       289     ------
+  ecode size           =       218     ------
   data size            =    ------     ------
   idata size           =    ------     ------
   pdata size           =    ------     ------
-  xdata size           =        85          6
+  xdata size           =    ------     ------
   xdata-const size     =    ------     ------
-  edata size           =    ------     ------
+  edata size           =        85          6
   bit size             =    ------     ------
   ebit size            =    ------     ------
   bitaddressable size  =    ------     ------

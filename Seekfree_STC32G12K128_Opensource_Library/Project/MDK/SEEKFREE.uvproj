@@ -186,7 +186,7 @@
         </Utilities>
         <Target251>
           <Target251Misc>
-            <MemoryModel>4</MemoryModel>
+            <MemoryModel>3</MemoryModel>
             <RTOS>0</RTOS>
             <RomSize>4</RomSize>
             <NearDataHold>0</NearDataHold>
@@ -195,7 +195,7 @@
             <uocRom>0</uocRom>
             <uocXRAM>0</uocXRAM>
             <uSrcBin>1</uSrcBin>
-            <uFrame4>0</uFrame4>
+            <uFrame4>1</uFrame4>
             <hadIRAM>1</hadIRAM>
             <hadXRAM>1</hadXRAM>
             <hadIROM>1</hadIROM>
@@ -685,6 +685,11 @@
           <GroupName>user_c</GroupName>
           <Files>
             <File>
+              <FileName>eeprom.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\eeprom.c</FilePath>
+            </File>
+            <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\USER\src\main.c</FilePath>
@@ -693,21 +698,6 @@
               <FileName>key.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\key.c</FilePath>
-            </File>
-            <File>
-              <FileName>anotc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\anotc.c</FilePath>
-            </File>
-            <File>
-              <FileName>menu.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\menu.c</FilePath>
-            </File>
-            <File>
-              <FileName>eeprom.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\eeprom.c</FilePath>
             </File>
             <File>
               <FileName>Direction.c</FileName>
@@ -725,11 +715,6 @@
               <FilePath>.\encoder.c</FilePath>
             </File>
             <File>
-              <FileName>park.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\park.c</FilePath>
-            </File>
-            <File>
               <FileName>pid.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\pid.c</FilePath>
@@ -744,6 +729,11 @@
               <FileType>1</FileType>
               <FilePath>..\USER\src\isr.c</FilePath>
             </File>
+            <File>
+              <FileName>park.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\park.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -753,16 +743,6 @@
               <FileName>key.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\key.h</FilePath>
-            </File>
-            <File>
-              <FileName>anotc.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\anotc.h</FilePath>
-            </File>
-            <File>
-              <FileName>menu.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\menu.h</FilePath>
             </File>
             <File>
               <FileName>eeprom.h</FileName>
@@ -785,11 +765,6 @@
               <FilePath>.\encoder.h</FilePath>
             </File>
             <File>
-              <FileName>park.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\park.h</FilePath>
-            </File>
-            <File>
               <FileName>pid.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\pid.h</FilePath>
@@ -803,6 +778,11 @@
               <FileName>isr.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\USER\inc\isr.h</FilePath>
+            </File>
+            <File>
+              <FileName>park.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\park.h</FilePath>
             </File>
           </Files>
         </Group>

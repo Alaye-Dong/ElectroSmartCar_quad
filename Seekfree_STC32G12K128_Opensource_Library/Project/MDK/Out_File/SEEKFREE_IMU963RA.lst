@@ -1,12 +1,12 @@
-C251 COMPILER V5.60.0,  SEEKFREE_IMU963RA                                                  17/06/23  16:38:37  PAGE 1   
+C251 COMPILER V5.60.0,  SEEKFREE_IMU963RA                                                  17/07/23  18:34:09  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE SEEKFREE_IMU963RA
 OBJECT MODULE PLACED IN .\Out_File\SEEKFREE_IMU963RA.obj
-COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE ..\..\Libraries\seekfree_peripheral\SEEKFREE_IMU963RA.c LARGE INTR2 RO
-                    -M(HUGE) WARNINGLEVEL(3) BROWSE INCDIR(..\..\Libraries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekf
-                    -ree_peripheral;..\CODE;..\USER\inc;..\USER\src) DEBUG PRINT(.\Out_File\SEEKFREE_IMU963RA.lst) TABS(2) OBJECT(.\Out_File\
-                    -SEEKFREE_IMU963RA.obj) 
+COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE ..\..\Libraries\seekfree_peripheral\SEEKFREE_IMU963RA.c XSMALL ROM(HUG
+                    -E) WARNINGLEVEL(3) BROWSE INCDIR(..\..\Libraries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_p
+                    -eripheral;..\CODE;..\USER\inc;..\USER\src) DEBUG PRINT(.\Out_File\SEEKFREE_IMU963RA.lst) OBJECT(.\Out_File\SEEKFREE_IMU9
+                    -63RA.obj) 
 
 stmt  level    source
 
@@ -66,7 +66,7 @@ stmt  level    source
    47          *
    48          *                   // 软件 IIC 引脚
    49          *                   SCL/SPC             查看 zf_device_imu963ra.h 中 IMU963RA_SCL_PIN 宏定义
-C251 COMPILER V5.60.0,  SEEKFREE_IMU963RA                                                  17/06/23  16:38:37  PAGE 2   
+C251 COMPILER V5.60.0,  SEEKFREE_IMU963RA                                                  17/07/23  18:34:09  PAGE 2   
 
    50          *                   SDA/DSI             查看 zf_device_imu963ra.h 中 IMU963RA_SDA_PIN 宏定义
    51          *                   VCC                 3.3V电源
@@ -94,12 +94,12 @@ stmt  level    source
    72          #if IMU963RA_USE_SOFT_IIC
                
                
-               #define GET_IMU963RA_SDA        IMU963RA_SDA_PIN
-               #define IMU963RA_SDA_LOW()          IMU963RA_SDA_PIN = 0    //IO口输出低电平
-               #define IMU963RA_SDA_HIGH()         IMU963RA_SDA_PIN = 1    //IO口输出高电平
+               #define GET_IMU963RA_SDA                        IMU963RA_SDA_PIN
+               #define IMU963RA_SDA_LOW()              IMU963RA_SDA_PIN = 0            //IO口输出低电平
+               #define IMU963RA_SDA_HIGH()         IMU963RA_SDA_PIN = 1                //IO口输出高电平
                
-               #define IMU963RA_SCL_LOW()          IMU963RA_SCL_PIN = 0    //IO口输出低电平
-               #define IMU963RA_SCL_HIGH()         IMU963RA_SCL_PIN = 1    //IO口输出高电平
+               #define IMU963RA_SCL_LOW()          IMU963RA_SCL_PIN = 0                //IO口输出低电平
+               #define IMU963RA_SCL_HIGH()         IMU963RA_SCL_PIN = 1                //IO口输出高电平
                
                #define ack 1      //主应答
                #define no_ack 0   //从应答  
@@ -107,40 +107,40 @@ stmt  level    source
                //-------------------------------------------------------------------------------------------------------
              -------------
                //  @brief      模拟IIC延时
-               //  @return     void            
+               //  @return     void                                            
                //  @since      v1.0
-               //  Sample usage:       如果IIC通讯失败可以尝试增加j的值
+               //  Sample usage:                               如果IIC通讯失败可以尝试增加j的值
                //-------------------------------------------------------------------------------------------------------
              -------------
                static void imu963ra_simiic_delay(void)
                {
                    uint16 j=IMU963RA_SOFT_IIC_DELAY;   
-                 while(j--);
+                       while(j--);
                }
                
                //内部使用，用户无需调用
                static void imu963ra_simiic_start(void)
                {
-                 IMU963RA_SDA_HIGH();
-                 IMU963RA_SCL_HIGH();
-                 imu963ra_simiic_delay();
-                 IMU963RA_SDA_LOW();
-                 imu963ra_simiic_delay();
-                 IMU963RA_SCL_LOW();
+                       IMU963RA_SDA_HIGH();
+                       IMU963RA_SCL_HIGH();
+                       imu963ra_simiic_delay();
+                       IMU963RA_SDA_LOW();
+                       imu963ra_simiic_delay();
+                       IMU963RA_SCL_LOW();
                }
                
                //内部使用，用户无需调用
                static void imu963ra_simiic_stop(void)
                {
-                 IMU963RA_SDA_LOW();
-                 IMU963RA_SCL_LOW();
-C251 COMPILER V5.60.0,  SEEKFREE_IMU963RA                                                  17/06/23  16:38:37  PAGE 3   
+                       IMU963RA_SDA_LOW();
+                       IMU963RA_SCL_LOW();
+C251 COMPILER V5.60.0,  SEEKFREE_IMU963RA                                                  17/07/23  18:34:09  PAGE 3   
 
-                 imu963ra_simiic_delay();
-                 IMU963RA_SCL_HIGH();
-                 imu963ra_simiic_delay();
-                 IMU963RA_SDA_HIGH();
-                 imu963ra_simiic_delay();
+                       imu963ra_simiic_delay();
+                       IMU963RA_SCL_HIGH();
+                       imu963ra_simiic_delay();
+                       IMU963RA_SDA_HIGH();
+                       imu963ra_simiic_delay();
                }
                
                //主应答(包含ack:SDA=0和no_ack:SDA=0)
@@ -148,9 +148,9 @@ stmt  level    source
                static void imu963ra_simiic_sendack(unsigned char ack_dat)
                {
                    IMU963RA_SCL_LOW();
-                 imu963ra_simiic_delay();
-                 if(ack_dat) IMU963RA_SDA_LOW();
-                   else      IMU963RA_SDA_HIGH();
+                       imu963ra_simiic_delay();
+                       if(ack_dat) IMU963RA_SDA_LOW();
+                   else        IMU963RA_SDA_HIGH();
                
                    IMU963RA_SCL_HIGH();
                    imu963ra_simiic_delay();
@@ -163,11 +163,11 @@ stmt  level    source
                {
                    IMU963RA_SCL_LOW();
                
-                 imu963ra_simiic_delay();
-                 
-                 IMU963RA_SCL_HIGH();
+                       imu963ra_simiic_delay();
+                       
+                       IMU963RA_SCL_HIGH();
                    imu963ra_simiic_delay();
-                 
+                       
                    if(GET_IMU963RA_SDA)           //应答为高电平，异常，通信失败
                    {
                
@@ -176,7 +176,7 @@ stmt  level    source
                    }
                
                    IMU963RA_SCL_LOW();
-                 imu963ra_simiic_delay();
+                       imu963ra_simiic_delay();
                    return 1;
                }
                
@@ -186,23 +186,23 @@ stmt  level    source
                //内部使用，用户无需调用
                static void imu963ra_send_ch(uint8 c)
                {
-                 uint8 i = 8;
+                       uint8 i = 8;
                    while(i--)
                    {
-                       if(c & 0x80)  IMU963RA_SDA_HIGH();//SDA 输出数据
-                       else      IMU963RA_SDA_LOW();
+                       if(c & 0x80)    IMU963RA_SDA_HIGH();//SDA 输出数据
+                       else                    IMU963RA_SDA_LOW();
                        c <<= 1;
                        imu963ra_simiic_delay();
                        IMU963RA_SCL_HIGH();                //SCL 拉高，采集信号
                        imu963ra_simiic_delay();
                        IMU963RA_SCL_LOW();                //SCL 时钟线拉低
                    }
-                 imu963ra_sccb_waitack();
+                       imu963ra_sccb_waitack();
                }
                
                
                //字节接收程序
-C251 COMPILER V5.60.0,  SEEKFREE_IMU963RA                                                  17/06/23  16:38:37  PAGE 4   
+C251 COMPILER V5.60.0,  SEEKFREE_IMU963RA                                                  17/07/23  18:34:09  PAGE 4   
 
                //接收器件传来的数据，此程序应配合|主应答函数|使用
                //内部使用，用户无需调用
@@ -229,10 +229,10 @@ stmt  level    source
                        }
                    }
                
-                 IMU963RA_SCL_LOW();
-                 imu963ra_simiic_delay();
-                 imu963ra_simiic_sendack(ack_x);
-                 
+                       IMU963RA_SCL_LOW();
+                       imu963ra_simiic_delay();
+                       imu963ra_simiic_sendack(ack_x);
+                       
                    return c;
                }
                
@@ -240,21 +240,21 @@ stmt  level    source
                //-------------------------------------------------------------------------------------------------------
              -------------
                //  @brief      模拟IIC写数据到设备寄存器函数
-               //  @param      dev_add     设备地址(低七位地址)
-               //  @param      reg       寄存器地址
-               //  @param      dat       写入的数据
-               //  @return     void            
+               //  @param      dev_add                 设备地址(低七位地址)
+               //  @param      reg                             寄存器地址
+               //  @param      dat                             写入的数据
+               //  @return     void                                            
                //  @since      v1.0
-               //  Sample usage:       
+               //  Sample usage:                               
                //-------------------------------------------------------------------------------------------------------
              -------------
                static void imu963ra_simiic_write_reg(uint8 dev_add, uint8 reg, uint8 dat)
                {
-                 imu963ra_simiic_start();
+                       imu963ra_simiic_start();
                    imu963ra_send_ch( (dev_add<<1) | 0x00);   //发送器件地址加写位
-                 imu963ra_send_ch( reg );           //发送从机寄存器地址
-                 imu963ra_send_ch( dat );           //发送需要写入的数据
-                 imu963ra_simiic_stop();
+                       imu963ra_send_ch( reg );                                 //发送从机寄存器地址
+                       imu963ra_send_ch( dat );                                 //发送需要写入的数据
+                       imu963ra_simiic_stop();
                }
                
                
@@ -263,91 +263,91 @@ stmt  level    source
                //-------------------------------------------------------------------------------------------------------
              -------------
                //  @brief      模拟IIC从设备寄存器读取数据
-               //  @param      dev_add     设备地址(低七位地址)
-               //  @param      reg       寄存器地址
-               //  @param      type      选择通信方式是IIC  还是 SCCB
-               //  @return     uint8     返回寄存器的数据      
+               //  @param      dev_add                 设备地址(低七位地址)
+               //  @param      reg                             寄存器地址
+               //  @param      type                    选择通信方式是IIC  还是 SCCB
+               //  @return     uint8                   返回寄存器的数据                        
                //  @since      v1.0
-               //  Sample usage:       
+               //  Sample usage:                               
                //-------------------------------------------------------------------------------------------------------
-C251 COMPILER V5.60.0,  SEEKFREE_IMU963RA                                                  17/06/23  16:38:37  PAGE 5   
+C251 COMPILER V5.60.0,  SEEKFREE_IMU963RA                                                  17/07/23  18:34:09  PAGE 5   
 
              -------------
                //static uint8 imu963ra_simiic_read_reg(uint8 dev_add, uint8 reg)
                //{
-               //  uint8 dat;
-               //  imu963ra_simiic_start();
+               //      uint8 dat;
+               //      imu963ra_simiic_start();
                //    imu963ra_send_ch( (dev_add<<1) | 0x00);  //发送器件地址加写位
-               //  imu963ra_send_ch( reg );          //发送从机寄存器地址
+               //      imu963ra_send_ch( reg );                                //发送从机寄存器地址
                
-               //  
-               //  imu963ra_simiic_start();
-               //  imu963ra_send_ch( (dev_add<<1) | 0x01);  //发送器件地址加读位
-               //  dat = imu963ra_read_ch(no_ack);           //读取数据
-               //  imu963ra_simiic_stop();
-               //  
-               //  return dat;
+               //      
+               //      imu963ra_simiic_start();
+               //      imu963ra_send_ch( (dev_add<<1) | 0x01);  //发送器件地址加读位
+               //      dat = imu963ra_read_ch(no_ack);                                 //读取数据
+               //      imu963ra_simiic_stop();
+               //      
+               //      return dat;
                //}
                
                
                //-------------------------------------------------------------------------------------------------------
              -------------
                //  @brief      模拟IIC从设备寄存器读取数据
-               //  @param      dev_add     设备地址(低七位地址)
-               //  @param      reg       寄存器地址
-               //  @return     uint8     返回寄存器的数据      
+               //  @param      dev_add                 设备地址(低七位地址)
+               //  @param      reg                             寄存器地址
+               //  @return     uint8                   返回寄存器的数据                        
                //  @since      v1.0
-               //  Sample usage:       
+               //  Sample usage:                               
                //-------------------------------------------------------------------------------------------------------
              -------------
                static uint8 imu963ra_simiic_sccb_read_reg(uint8 dev_add, uint8 reg)
                {
-                 uint8 dat;
-                 imu963ra_simiic_start();
+                       uint8 dat;
+                       imu963ra_simiic_start();
                    imu963ra_send_ch( (dev_add<<1) | 0x00);  //发送器件地址加写位
-                 imu963ra_send_ch( reg );          //发送从机寄存器地址
-                 imu963ra_simiic_stop();
-                 
-                 imu963ra_simiic_start();
-                 imu963ra_send_ch( (dev_add<<1) | 0x01);  //发送器件地址加读位
-                 dat = imu963ra_read_ch(no_ack);           //读取数据
-                 imu963ra_simiic_stop();
-                 
-                 return dat;
+                       imu963ra_send_ch( reg );                                //发送从机寄存器地址
+                       imu963ra_simiic_stop();
+                       
+                       imu963ra_simiic_start();
+                       imu963ra_send_ch( (dev_add<<1) | 0x01);  //发送器件地址加读位
+                       dat = imu963ra_read_ch(no_ack);                                 //读取数据
+                       imu963ra_simiic_stop();
+                       
+                       return dat;
                }
                
                
                //-------------------------------------------------------------------------------------------------------
              -------------
                //  @brief      模拟IIC读取多字节数据
-               //  @param      dev_add     设备地址(低七位地址)
-               //  @param      reg       寄存器地址
-               //  @param      dat_add     数据保存的地址指针
-               //  @param      num       读取字节数量
-               //  @param      type      选择通信方式是IIC  还是 SCCB
-               //  @return     uint8     返回寄存器的数据      
+               //  @param      dev_add                 设备地址(低七位地址)
+               //  @param      reg                             寄存器地址
+               //  @param      dat_add                 数据保存的地址指针
+               //  @param      num                             读取字节数量
+               //  @param      type                    选择通信方式是IIC  还是 SCCB
+               //  @return     uint8                   返回寄存器的数据                        
                //  @since      v1.0
-               //  Sample usage:       
+               //  Sample usage:                               
                //-------------------------------------------------------------------------------------------------------
              -------------
                static void imu963ra_simiic_read_regs(uint8 dev_add, uint8 reg, uint8 *dat_add, uint32 num)
                {
-                 imu963ra_simiic_start();
+                       imu963ra_simiic_start();
                    imu963ra_send_ch( (dev_add<<1) | 0x00);  //发送器件地址加写位
-                 imu963ra_send_ch( reg );          //发送从机寄存器地址
+                       imu963ra_send_ch( reg );                                //发送从机寄存器地址
                
-                 
-                 imu963ra_simiic_start();
-C251 COMPILER V5.60.0,  SEEKFREE_IMU963RA                                                  17/06/23  16:38:37  PAGE 6   
+                       
+                       imu963ra_simiic_start();
+C251 COMPILER V5.60.0,  SEEKFREE_IMU963RA                                                  17/07/23  18:34:09  PAGE 6   
 
-                 imu963ra_send_ch( (dev_add<<1) | 0x01);  //发送器件地址加读位
+                       imu963ra_send_ch( (dev_add<<1) | 0x01);  //发送器件地址加读位
                    while(--num)
                    {
                        *dat_add = imu963ra_read_ch(ack); //读取数据
                        dat_add++;
                    }
                    *dat_add = imu963ra_read_ch(no_ack); //读取数据
-                 imu963ra_simiic_stop();
+                       imu963ra_simiic_stop();
                }
                
                
@@ -395,10 +395,10 @@ stmt  level    source
   346          
   347          
   348          
-  349          #define IMU963RA_SCK(x)       IMU963RA_SPC_PIN  = x
-  350          #define IMU963RA_MOSI(x)      IMU963RA_SDI_PIN = x
-  351          #define IMU963RA_CS(x)        IMU963RA_CS_PIN  = x
-  352          #define IMU963RA_MISO         IMU963RA_SDO_PIN 
+  349          #define IMU963RA_SCK(x)                         IMU963RA_SPC_PIN  = x
+  350          #define IMU963RA_MOSI(x)                        IMU963RA_SDI_PIN = x
+  351          #define IMU963RA_CS(x)                          IMU963RA_CS_PIN  = x
+  352          #define IMU963RA_MISO                           IMU963RA_SDO_PIN 
   353          
   354          //-------------------------------------------------------------------------------------------------------
              -------------
@@ -406,7 +406,7 @@ stmt  level    source
   356          //  @param      byte        发送的数据    
   357          //  @return     uint8       return 返回status状态
   358          //  @since      v1.0
-C251 COMPILER V5.60.0,  SEEKFREE_IMU963RA                                                  17/06/23  16:38:37  PAGE 7   
+C251 COMPILER V5.60.0,  SEEKFREE_IMU963RA                                                  17/07/23  18:34:09  PAGE 7   
 
   359          //  Sample usage:
   360          //-------------------------------------------------------------------------------------------------------
@@ -414,19 +414,19 @@ stmt  level    source
   361          static uint8 imu963ra_simspi_wr_byte(uint8 byte)
   362          {
   363   1          uint8 i;
-  364   1        
+  364   1              
   365   1          for(i=0; i<8; i++)
   366   1          {
   367   2              IMU963RA_MOSI(byte&0x80);
   368   2              byte <<= 1;
-  369   2          IMU963RA_SCK (0);
-  370   2          IMU963RA_SCK (0);
-  371   2          
-  372   2          IMU963RA_SCK (1);
-  373   2          IMU963RA_SCK (1);
-  374   2          byte |= IMU963RA_MISO; 
-  375   2          } 
-  376   1          return(byte);                                         
+  369   2                      IMU963RA_SCK (0);
+  370   2                      IMU963RA_SCK (0);
+  371   2                      
+  372   2                      IMU963RA_SCK (1);
+  373   2                      IMU963RA_SCK (1);
+  374   2                      byte |= IMU963RA_MISO; 
+  375   2          }   
+  376   1          return(byte);                                               
   377   1      }
   378          //-------------------------------------------------------------------------------------------------------
              -------------
@@ -442,7 +442,7 @@ stmt  level    source
   387   1          IMU963RA_CS(0);
   388   1          cmd |= IMU963RA_SPI_W;
   389   1          imu963ra_simspi_wr_byte(cmd);                       
-  390   1          imu963ra_simspi_wr_byte(val);                                 
+  390   1          imu963ra_simspi_wr_byte(val);                                       
   391   1          IMU963RA_CS(1);                                     
   392   1      }
   393          
@@ -459,22 +459,22 @@ stmt  level    source
   402          //static void imu963ra_simspi_w_reg_bytes(uint8 cmd, uint8 *dat_addr, uint32 len)
   403          //{
   404          
-  405          //  
+  405          //      
   406          //    IMU963RA_CS(0);
   407          //    cmd |= IMU963RA_SPI_W;
   408          //    imu963ra_simspi_wr_byte(cmd);   
-  409          //  while(len--)
-  410          //  {
-  411          //    imu963ra_simspi_wr_byte(*dat_addr++); 
-  412          //  }                 
-  413          //    IMU963RA_CS(1);                                     
+  409          //      while(len--)
+  410          //      {
+  411          //              imu963ra_simspi_wr_byte(*dat_addr++); 
+  412          //      }                       
+  413          //    IMU963RA_CS(1);                                           
   414          //}
   415          
   416          //-------------------------------------------------------------------------------------------------------
              -------------
   417          //  @brief      读取cmd所对应的寄存器地址
   418          //  @param      cmd         命令字
-C251 COMPILER V5.60.0,  SEEKFREE_IMU963RA                                                  17/06/23  16:38:37  PAGE 8   
+C251 COMPILER V5.60.0,  SEEKFREE_IMU963RA                                                  17/07/23  18:34:09  PAGE 8   
 
   419          //  @param      *val        存储读取的数据地址
   420          //  @since      v1.0
@@ -485,8 +485,8 @@ stmt  level    source
   424          {
   425   1          IMU963RA_CS(0);
   426   1          cmd |= IMU963RA_SPI_R;
-  427   1          imu963ra_simspi_wr_byte(cmd);                                 
-  428   1          *val = imu963ra_simspi_wr_byte(0);                            
+  427   1          imu963ra_simspi_wr_byte(cmd);                                       
+  428   1          *val = imu963ra_simspi_wr_byte(0);                                  
   429   1          IMU963RA_CS(1);                                     
   430   1      }
   431          
@@ -506,10 +506,10 @@ stmt  level    source
   443   1          cmd |= IMU963RA_SPI_R;
   444   1          imu963ra_simspi_wr_byte(cmd);
   445   1      
-  446   1        while(num--)
-  447   1        {
-  448   2          *val++ = imu963ra_simspi_wr_byte(0);
-  449   2        }          
+  446   1              while(num--)
+  447   1              {
+  448   2                      *val++ = imu963ra_simspi_wr_byte(0);
+  449   2              }          
   450   1      }
   451          
   452          
@@ -542,12 +542,12 @@ stmt  level    source
   476          //-------------------------------------------------------------------------------------------------------
              -------------
   477          static uint8 imu963ra_read_acc_gyro_register(uint8 reg)
-C251 COMPILER V5.60.0,  SEEKFREE_IMU963RA                                                  17/06/23  16:38:37  PAGE 9   
+C251 COMPILER V5.60.0,  SEEKFREE_IMU963RA                                                  17/07/23  18:34:09  PAGE 9   
 
   478          {
   479   1          uint8 dat = 0;
   480   1          IMU963RA_CS(0);
-  481   1        imu963ra_simspi_r_reg_byte(reg | IMU963RA_SPI_R , &dat);
+  481   1              imu963ra_simspi_r_reg_byte(reg | IMU963RA_SPI_R , &dat);
   482   1          IMU963RA_CS(1);
   483   1          return dat;
   484   1      }
@@ -610,7 +610,7 @@ stmt  level    source
   534   2          }
   535   1          return return_state;
   536   1      }
-C251 COMPILER V5.60.0,  SEEKFREE_IMU963RA                                                  17/06/23  16:38:37  PAGE 10  
+C251 COMPILER V5.60.0,  SEEKFREE_IMU963RA                                                  17/07/23  18:34:09  PAGE 10  
 
   537          
   538          //-------------------------------------------------------------------------------------------------------
@@ -678,7 +678,7 @@ stmt  level    source
              -------------
   589          // 函数简介     IMU963RA 六轴自检 内部调用
   590          // 参数说明     void
-C251 COMPILER V5.60.0,  SEEKFREE_IMU963RA                                                  17/06/23  16:38:37  PAGE 11  
+C251 COMPILER V5.60.0,  SEEKFREE_IMU963RA                                                  17/07/23  18:34:09  PAGE 11  
 
   591          // 返回参数     uint8           1-自检失败 0-自检成功
   592          // 使用示例     imu963ra_acc_gyro_self_check();
@@ -746,7 +746,7 @@ stmt  level    source
   649   1          uint8 dat[6];
   650   1      
   651   1          imu963ra_read_acc_gyro_registers(IMU963RA_OUTX_L_A, dat, 6);
-C251 COMPILER V5.60.0,  SEEKFREE_IMU963RA                                                  17/06/23  16:38:37  PAGE 12  
+C251 COMPILER V5.60.0,  SEEKFREE_IMU963RA                                                  17/07/23  18:34:09  PAGE 12  
 
   652   1          imu963ra_acc_x = (int16)(((uint16)dat[1]<<8 | dat[0]));
   653   1          imu963ra_acc_y = (int16)(((uint16)dat[3]<<8 | dat[2]));
@@ -814,7 +814,7 @@ stmt  level    source
   709   1          float acc_dat = 0;
   710   1          switch(IMU963RA_ACC_SAMPLE)
   711   1          {
-C251 COMPILER V5.60.0,  SEEKFREE_IMU963RA                                                  17/06/23  16:38:37  PAGE 13  
+C251 COMPILER V5.60.0,  SEEKFREE_IMU963RA                                                  17/07/23  18:34:09  PAGE 13  
 
   712   2              case 0x30: acc_dat = (float)acc_value / 16393; break;                  // 0x30 加速度量程为
              -:±2G      获取到的加速度计数据 除以 16393 ，可以转化为带物理单位的数据，单位：g(m/s^2)
@@ -882,7 +882,7 @@ stmt  level    source
   759   2          }
   760   1          return mag_dat;
   761   1      }
-C251 COMPILER V5.60.0,  SEEKFREE_IMU963RA                                                  17/06/23  16:38:37  PAGE 14  
+C251 COMPILER V5.60.0,  SEEKFREE_IMU963RA                                                  17/07/23  18:34:09  PAGE 14  
 
   762          
   763          //-------------------------------------------------------------------------------------------------------
@@ -918,12 +918,12 @@ stmt  level    source
              -��
   788   2              if(imu963ra_acc_gyro_self_check())                   
   789   2              {                
-  790   3      //      while(1)
-  791   3      //      {
-  792   3              printf( "IMU963RA acc and gyro self check error.\r\n");                    
-  793   3      //        delay_ms(200);
-  794   3      //      };
-  795   3            
+  790   3      //                      while(1)
+  791   3      //                      {
+  792   3                                      printf( "IMU963RA acc and gyro self check error.\r\n");                    
+  793   3      //                              delay_ms(200);
+  794   3      //                      };
+  795   3                              
   796   3                  
   797   3                  return_state = 1;
   798   3                  break;            
@@ -950,7 +950,7 @@ stmt  level    source
              -转化为带物理单位的数据，单位为：°/s
   812   2              // 设置为:0x50 陀螺仪量程为:±250dps  获取到的陀螺仪数据除以114.3，   可以
              -转化为带物理单位的数据，单位为：°/s
-C251 COMPILER V5.60.0,  SEEKFREE_IMU963RA                                                  17/06/23  16:38:37  PAGE 15  
+C251 COMPILER V5.60.0,  SEEKFREE_IMU963RA                                                  17/07/23  18:34:09  PAGE 15  
 
   813   2              // 设置为:0x54 陀螺仪量程为:±500dps  获取到的陀螺仪数据除以57.1，    可以
              -转化为带物理单位的数据，单位为：°/s
@@ -989,12 +989,12 @@ stmt  level    source
   836   2              
   837   2              if(imu963ra_mag_self_check())
   838   2              {
-  839   3      //      while(1)
-  840   3      //      {
-  841   3              printf("IMU963RA mag self check error.\r\n");
-  842   3      //        delay_ms(200);
-  843   3      //      };
-  844   3            
+  839   3      //                      while(1)
+  840   3      //                      {
+  841   3                                      printf("IMU963RA mag self check error.\r\n");
+  842   3      //                              delay_ms(200);
+  843   3      //                      };
+  844   3                              
   845   3                  
   846   3                  return_state = 1;
   847   3                  break;            
@@ -1018,20 +1018,20 @@ stmt  level    source
   861   2          }while(0);
   862   1          return return_state;
   863   1      }
-C251 COMPILER V5.60.0,  SEEKFREE_IMU963RA                                                  17/06/23  16:38:37  PAGE 16  
+C251 COMPILER V5.60.0,  SEEKFREE_IMU963RA                                                  17/07/23  18:34:09  PAGE 16  
 
 
 
 Module Information          Static   Overlayable
 ------------------------------------------------
   code size            =    ------     ------
-  ecode size           =      1086     ------
+  ecode size           =      1016     ------
   data size            =    ------     ------
   idata size           =    ------     ------
   pdata size           =    ------     ------
-  xdata size           =        18         25
+  xdata size           =    ------     ------
   xdata-const size     =    ------     ------
-  edata size           =    ------     ------
+  edata size           =        18         25
   bit size             =    ------     ------
   ebit size            =    ------     ------
   bitaddressable size  =    ------     ------
@@ -1039,7 +1039,7 @@ Module Information          Static   Overlayable
   far data size        =    ------     ------
   huge data size       =    ------     ------
   const size           =    ------     ------
-  hconst size          =       138     ------
+  hconst size          =       129     ------
 End of Module Information.
 
 

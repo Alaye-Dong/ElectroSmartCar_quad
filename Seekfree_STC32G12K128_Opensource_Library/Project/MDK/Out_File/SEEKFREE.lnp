@@ -30,18 +30,16 @@
 ".\Out_File\SEEKFREE_VIRSCO.obj",
 ".\Out_File\SEEKFREE_WIRELESS.obj",
 ".\Out_File\SEEKFREE_WIRELESS_CH573.obj",
+".\Out_File\eeprom.obj",
 ".\Out_File\main.obj",
 ".\Out_File\key.obj",
-".\Out_File\anotc.obj",
-".\Out_File\menu.obj",
-".\Out_File\eeprom.obj",
 ".\Out_File\Direction.obj",
 ".\Out_File\control.obj",
 ".\Out_File\encoder.obj",
-".\Out_File\park.obj",
 ".\Out_File\pid.obj",
 ".\Out_File\round.obj",
-".\Out_File\isr.obj" 
+".\Out_File\isr.obj",
+".\Out_File\park.obj" 
 TO ".\Out_File\SEEKFREE" 
 PRINT(".\Out_File\SEEKFREE.map") CASE DISABLEWARNING (16,57) 
 REMOVEUNUSED 

@@ -20,8 +20,7 @@
 #ifndef __ISR_H_
 #define __ISR_H_
 
-extern int flag;
-extern int start1;
+
 
 
 

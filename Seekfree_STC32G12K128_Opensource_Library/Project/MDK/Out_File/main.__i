@@ -1,1 +1,1 @@
-"..\USER\src\main.c" LARGE INTR2 ROM(HUGE) WARNINGLEVEL (3) BROWSE INCDIR(..\..\Libraries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_peripheral;..\CODE;..\USER\inc;..\USER\src) DEBUG PRINT(.\Out_File\main.lst) TABS (2) OBJECT(.\Out_File\main.obj)
+"..\USER\src\main.c" XSMALL ROM(HUGE) WARNINGLEVEL (3) BROWSE INCDIR(..\..\Libraries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_peripheral;..\CODE;..\USER\inc;..\USER\src) DEBUG PRINT(.\Out_File\main.lst) OBJECT(.\Out_File\main.obj)
