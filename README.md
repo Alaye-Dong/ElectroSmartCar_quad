@@ -1,2 +1,2 @@
 # ElectroSmartCar_quad
-基于STC32G12K128的电磁循迹四轮智能车
+Electromagnetic tracking four-wheel intelligent vehicle based on STC32G12K128
