@@ -1,0 +1,101 @@
+C251 COMPILER V5.60.0,  main                                                               23/07/23  00:26:13  PAGE 1   
+
+
+C251 COMPILER V5.60.0, COMPILATION OF MODULE main
+OBJECT MODULE PLACED IN .\Out_File\main.obj
+COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE ..\USER\src\main.c XSMALL ROM(HUGE) WARNINGLEVEL(3) BROWSE INCDIR(..\.
+                    -.\Libraries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_peripheral;..\CODE;..\USER\inc;..\USER
+                    -\src) DEBUG PRINT(.\Out_File\main.lst) OBJECT(.\Out_File\main.obj) 
+
+stmt  level    source
+
+    1          #include "headfile.h"
+    2          
+    3          
+    4          /*
+    5           * 系统频率，可查看board.h中的 FOSC 宏定义修改。
+    6           * board.h文件中FOSC的值设置为0,则程序自动设置系统频率为33.1776MHZ
+    7           * 在board_init中,已经将P54引脚设置为复位
+    8           * 如果需要使用P54引脚,可以在board.c文件中的board_init()函数中删除SET_P54_RESRT即可
+    9           */
+   10          
+   11          void main()
+   12          {
+   13   1          board_init();                       // 初始化寄存器,勿删除此句代码。
+   14   1                      
+   15   1          adc_init(ADC_P00,ADC_SYSclk_DIV_2);    //ADC初始化
+   16   1          adc_init(ADC_P01,ADC_SYSclk_DIV_2);
+   17   1          adc_init(ADC_P05,ADC_SYSclk_DIV_2);
+   18   1          adc_init(ADC_P06,ADC_SYSclk_DIV_2);
+   19   1          adc_init(ADC_P11,ADC_SYSclk_DIV_2);
+   20   1          adc_init(ADC_P13,ADC_SYSclk_DIV_2);
+   21   1          
+   22   1          pwm_init(PWM1, 17000, 0);
+   23   1          pwm_init(PWM2, 17000, 0);
+   24   1          
+   25   1          gpio_mode(P6_7, GPO_PP); //蜂鸣器
+   26   1          BEEP = 0;
+   27   1          lcd_init();
+   28   1          
+   29   1          gpio_mode(P6_4, GPO_PP);//电机
+   30   1          gpio_mode(P6_0, GPO_PP);//电机
+   31   1          
+   32   1          EnableGlobalIRQ();          //开启总中断
+   33   1          
+   34   1          pwm_init(PWMB_CH1_P74, 50, 692);//舵机 最大765   最小625
+   35   1          ctimer_count_init(CTIM0_P34);   
+   36   1          ctimer_count_init(CTIM3_P04);
+   37   1                                        
+   38   1          while(imu660ra_init())                              //六轴陀螺仪初始化
+   39   1          {
+   40   2              delay_ms(500);
+   41   2              printf("imu660ra init try again.\r\n");
+   42   2          }
+   43   1      
+   44   1          dl1a_init();
+   45   1                                      
+   46   1              //eeprom_init();        //eeprom初始化
+   47   1          
+   48   1          pit_timer_ms(TIM_4, 5);
+   49   1          
+   50   1          BEEP = 1;
+   51   1          delay_ms(10);
+   52   1          BEEP = 0;
+   53   1          //Dispay_Codename = 4; //初次启动直进菜单4页方便查看
+   54   1                              
+   55   1          while(1) 
+   56   1          {
+   57   2                      if(Start_Flag != 1 )//|| DEBUG_MODE != -1
+C251 COMPILER V5.60.0,  main                                                               23/07/23  00:26:13  PAGE 2   
+
+   58   2                      {
+   59   3                              Keystroke_Scan();
+   60   3                              Keystroke_Menu();
+   61   3                      }
+   62   2          }
+   63   1      }
+   64          
+
+
+Module Information          Static   Overlayable
+------------------------------------------------
+  code size            =    ------     ------
+  ecode size           =       256     ------
+  data size            =    ------     ------
+  idata size           =    ------     ------
+  pdata size           =    ------     ------
+  xdata size           =    ------     ------
+  xdata-const size     =    ------     ------
+  edata size           =    ------     ------
+  bit size             =    ------     ------
+  ebit size            =    ------     ------
+  bitaddressable size  =    ------     ------
+  ebitaddressable size =    ------     ------
+  far data size        =    ------     ------
+  huge data size       =    ------     ------
+  const size           =    ------     ------
+  hconst size          =        27     ------
+End of Module Information.
+
+
+C251 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

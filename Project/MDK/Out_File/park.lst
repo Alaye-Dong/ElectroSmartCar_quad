@@ -1,0 +1,265 @@
+C251 COMPILER V5.60.0,  park                                                               23/07/23  00:26:15  PAGE 1   
+
+
+C251 COMPILER V5.60.0, COMPILATION OF MODULE park
+OBJECT MODULE PLACED IN .\Out_File\park.obj
+COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE park.c XSMALL ROM(HUGE) WARNINGLEVEL(3) BROWSE INCDIR(..\..\Libraries\
+                    -libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_peripheral;..\CODE;..\USER\inc;..\USER\src) DEBUG 
+                    -PRINT(.\Out_File\park.lst) OBJECT(.\Out_File\park.obj) 
+
+stmt  level    source
+
+    1          #include "headfile.h"
+    2          #include "park.h"
+    3          
+    4          //int DEBUG_MODE = 1;
+    5          int Start_Flag = 0; //为1则发车出库
+    6          int XJ = 0;
+    7          int garage_out_direction = 1; //出库方向 -1左出库 1右出库
+    8          int Hall = 0;
+    9          int roundcount_k = 0, roundcount2_k = 0;
+   10          int ruku_encoder_round_after_flag = 0;
+   11          
+   12          int CK_count = 0;
+   13          int CK_count2 = 0;
+   14          
+   15          
+   16          void CHUKU()
+   17          {       
+   18   1              if(Start_Flag != 0 && CK_count2>=0 && CK_count2<=1100)
+   19   1              {
+   20   2                      if(garage_out_direction == 1)
+   21   2                      {
+   22   3                              cha_err1 = +70;
+   23   3                              Target_speed1 =150;//右轮
+   24   3                              Target_speed2 =180;//右轮
+   25   3                      }
+   26   2                      else if(garage_out_direction == -1)
+   27   2                      {
+   28   3                              cha_err1 = -70;
+   29   3                              Target_speed1 =180;//右轮
+   30   3                              Target_speed2 =150;//右轮
+   31   3                      }
+   32   2              }
+   33   1              
+   34   1              else if(Start_Flag == 1)
+   35   1              {
+   36   2                      XJ=1;
+   37   2              }
+   38   1              
+   39   1      }
+   40          
+   41          void RuKu()
+   42          {
+   43   1              roundcount = (ctimer_count_read(CTIM0_P34)+ctimer_count_read(CTIM3_P04))*0.15;
+   44   1              roundcount2 = roundcount2 + roundcount;
+   45   1              if(roundcount2>=0 && roundcount2<=1000) //1300
+   46   1              {
+   47   2                      BEEP = 1;
+   48   2                      Target_speed1 = -50;
+   49   2                      Target_speed2 = -50;
+   50   2                      cha_err1 = 0;
+   51   2              }
+   52   1              else
+   53   1              {
+   54   2                      roundcount_k = (ctimer_count_read(CTIM0_P34)+ctimer_count_read(CTIM3_P04))*0.15;
+   55   2                      roundcount2_k = roundcount2_k + roundcount_k;
+   56   2              
+   57   2                      if(roundcount2_k>=0 && roundcount2_k<=4000)
+C251 COMPILER V5.60.0,  park                                                               23/07/23  00:26:15  PAGE 2   
+
+   58   2                      {
+   59   3                              Target_speed1 = -50;
+   60   3                              Target_speed2 = -50;
+   61   3                              BEEP = 1;
+   62   3                      }
+   63   2                      else
+   64   2                      {
+   65   3                              mpu660_angle();
+   66   3                              if(abs(angle) <= 80)
+   67   3                              {
+   68   4                                      Target_speed1 = 70;
+   69   4                                      Target_speed2 = 70;
+   70   4                                      if(garage_out_direction == 1)
+   71   4                                      {
+   72   5                                              cha_err1 = 72;
+   73   5                                      }
+   74   4                                      else if(garage_out_direction == -1)
+   75   4                                      {
+   76   5                                              cha_err1= -72;
+   77   5                                      }
+   78   4                              }
+   79   3                              else
+   80   3                              {
+   81   4                                      BEEP = 0;
+   82   4                                      Target_speed1 = 0;
+   83   4                                      Target_speed2 = 0;
+   84   4                                      cha_err1 = 0;
+   85   4                              }
+   86   3                      }
+   87   2              }               
+   88   1      }
+   89          
+   90          //入库，倒车入库式
+   91          void RuKu_Back_Into()
+   92          {
+   93   1              roundcount =(ctimer_count_read(CTIM0_P34)+ctimer_count_read(CTIM3_P04))*0.1;
+   94   1              roundcount2 = roundcount2 + roundcount;
+   95   1              if(roundcount2>=0&&roundcount2<=1000) //速度150 匹配1000                 速度165 匹配1300？
+   96   1              {
+   97   2                      BEEP = 1;
+   98   2                      Target_speed1 = 50; //速度150 匹配-100          速度165 匹配-200？
+   99   2                      Target_speed2 = 50;
+  100   2                      cha_err1 = 0;
+  101   2              }
+  102   1              else if(roundcount2<9000&&roundcount2>1000)
+  103   1              {
+  104   2                      mpu660_angle(); 
+  105   2                      BEEP = 1;
+  106   2                      switch(garage_out_direction)
+  107   2                      {
+  108   3                              case 1:
+  109   3      //                                      Target_speed1 = -120;
+  110   3      //                                      Target_speed2 = -160;
+  111   3                                              cha_err1 = 72;
+  112   3                                              if(abs(angle)<=90)
+  113   3                                              {
+  114   4                                                      Target_speed1 = -120;
+  115   4                                                      Target_speed2 = -160;   
+  116   4                                              }
+  117   3                                              else 
+  118   3                                              {
+  119   4                                                      BEEP = 0;
+  120   4                                                      Target_speed1 = 0;
+  121   4                                                      Target_speed2 = 0;
+  122   4                                                      cha_err1 = 0;
+  123   4                                              }
+C251 COMPILER V5.60.0,  park                                                               23/07/23  00:26:15  PAGE 3   
+
+  124   3                                              break;
+  125   3                                              
+  126   3                              case -1:
+  127   3      //                                      Target_speed1 = -160;
+  128   3      //                                      Target_speed2 = -120;
+  129   3                                              cha_err1 = -72;
+  130   3                                              if(abs(angle)<=90)
+  131   3                                              {
+  132   4                                                      Target_speed1 = -160;
+  133   4                                                      Target_speed2 = -120;   
+  134   4                                              }
+  135   3                                              else 
+  136   3                                              {
+  137   4                                                      BEEP = 0;
+  138   4                                                      Target_speed1 = 0;
+  139   4                                                      Target_speed2 = 0;
+  140   4                                                      cha_err1 = 0;
+  141   4                                              }
+  142   3                                              break;
+  143   3                      }
+  144   2              }
+  145   1      }
+  146          
+  147          
+  148          
+  149          
+  150          
+  151          //入库，出圆环编码器正车入库式
+  152          void RuKu_Encoder_Round_After()
+  153          {
+  154   1          roundcount =(ctimer_count_read(CTIM0_P34)+ctimer_count_read(CTIM3_P04))*0.1;
+  155   1              roundcount2 = roundcount2 + roundcount;
+  156   1          
+  157   1          switch(ruku_encoder_round_after_flag)
+  158   1          {
+  159   2              case 0: 
+  160   2                      break;
+  161   2              
+  162   2              case 1:
+  163   2                      Ordinary_trace();
+  164   2                      if(roundcount2 > 2000)
+  165   2                      {
+  166   3                          ruku_encoder_round_after_flag = 2;
+  167   3                      }
+  168   2                      break;
+  169   2                      
+  170   2              case 2:
+  171   2                      mpu660_angle(); 
+  172   2                      BEEP = 1;
+  173   2              
+  174   2                      cha_err1 = 72;
+  175   2                      if(abs(angle)<=90)
+  176   2                      {
+  177   3                          Target_speed1 = -160;
+  178   3                          Target_speed2 = -120;       
+  179   3                      }
+  180   2                      else 
+  181   2                      {
+  182   3                          BEEP = 0;
+  183   3                          Target_speed1 = 0;
+  184   3                          Target_speed2 = 0;
+  185   3                          cha_err1 = 0;
+  186   3                      }
+  187   2                      break;        
+  188   2          }
+  189   1      }
+C251 COMPILER V5.60.0,  park                                                               23/07/23  00:26:15  PAGE 4   
+
+  190          
+  191          
+  192          
+  193          //跑两圈控制变量还原函数
+  194          int park_number = 0;
+  195          void Re_Start()
+  196          {
+  197   1              roundcount = (ctimer_count_read(CTIM0_P34)+ctimer_count_read(CTIM3_P04))*0.15;
+  198   1              roundcount2 = roundcount2 + roundcount;
+  199   1              Ordinary_trace();
+  200   1              if(roundcount2 > 1000)
+  201   1              {
+  202   2                      Hall = 0;
+  203   2                      roundcount2 = 0;
+  204   2                      round_number = 0;
+  205   2                      obstacle_number = 0;
+  206   2                      park_number++;
+  207   2              }
+  208   1      }
+  209          
+  210          
+  211          
+  212          //isr:
+  213          
+  214          //      else if(Hall==1)
+  215          //      {       
+  216          //              if(park_number == 1)
+  217          //              {
+  218          //                      Re_Start();
+  219          //              }
+  220          //              else if(park_number == 2)
+  221          //              {
+  222          //                      RuKu();
+  223          //              }
+  224          //      } 
+
+
+Module Information          Static   Overlayable
+------------------------------------------------
+  code size            =    ------     ------
+  ecode size           =       873     ------
+  data size            =    ------     ------
+  idata size           =    ------     ------
+  pdata size           =    ------     ------
+  xdata size           =    ------     ------
+  xdata-const size     =    ------     ------
+  edata size           =        20     ------
+  bit size             =    ------     ------
+  ebit size            =    ------     ------
+  bitaddressable size  =    ------     ------
+  ebitaddressable size =    ------     ------
+  far data size        =    ------     ------
+  huge data size       =    ------     ------
+  const size           =    ------     ------
+  hconst size          =        60     ------
+End of Module Information.
+
+
+C251 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

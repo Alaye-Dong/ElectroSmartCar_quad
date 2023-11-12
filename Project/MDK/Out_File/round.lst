@@ -1,0 +1,471 @@
+C251 COMPILER V5.60.0,  round                                                              23/07/23  00:26:14  PAGE 1   
+
+
+C251 COMPILER V5.60.0, COMPILATION OF MODULE round
+OBJECT MODULE PLACED IN .\Out_File\round.obj
+COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE round.c XSMALL ROM(HUGE) WARNINGLEVEL(3) BROWSE INCDIR(..\..\Libraries
+                    -\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_peripheral;..\CODE;..\USER\inc;..\USER\src) DEBUG
+                    - PRINT(.\Out_File\round.lst) OBJECT(.\Out_File\round.obj) 
+
+stmt  level    source
+
+    1          #include "headfile.h"
+    2          #include "round.h"
+    3          
+    4          int e_r1 = 0, e_r2 = 0;
+    5          int flag_r_hd = 0; //入环岛预测
+    6          int flag_c_hd = 0; //出环岛标志位
+    7          
+    8          int flag_hd_Z = 0; //左环岛
+    9          int flag_hd_R = 0; //右环岛
+   10          int roundcount = 0;
+   11          int roundcount2 = 0;
+   12          int roundcount3 = 0;
+   13          
+   14          int round_number = 0;   
+   15          
+   16          //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   17          int round_number_MAX = 2;   //环岛最大数量！！！
+   18          int round1_type = 1,round2_type = -1,round3_type = 1,round4_type = -1; //-1入左环，1入右环
+   19          //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   20          
+   21          int real_obstacle_flag = 0;
+   22          int obstacle_flag = 0;
+   23          int obstacle_number = 0;
+   24          
+   25          //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   26          int obstacle_number_MAX = 1;    //避障最大数量！！！
+   27          int obstacle1_type = 1, obstacle2_type = -1, obstacle3_type = 0;//已关闭，若启用Obstacle_Deal，由obstacle
+             -_type决定的障碍处理，-1为坡道，1为路障
+   28          //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   29          
+   30          int slope_flag = 0;
+   31          float Gyro_Pitch_Angle = 0;
+   32          
+   33          int cross_flag = 0;
+   34          
+   35          
+   36          void knn(void)
+   37          {                       
+   38   1              e_r1 = pow(65 - g_ValueOfAD[2], 2) + pow(65 - g_ValueOfAD[3], 2) 
+   39   1                              + pow(100 - g_ValueOfAD[1], 2) + pow(20 - g_ValueOfAD[4], 2)
+   40   1                              + pow(50 - g_ValueOfAD[5], 2) + pow(50 - g_ValueOfAD[0], 2);
+   41   1                              
+   42   1              e_r2 = pow(100 - g_ValueOfAD[2], 2) + pow(100 - g_ValueOfAD[3], 2) 
+   43   1                              + pow(100 - g_ValueOfAD[1], 2) + pow(100 - g_ValueOfAD[4], 2)
+   44   1                              +pow(30 - g_ValueOfAD[5], 2)+pow(30 - g_ValueOfAD[0], 2);
+   45   1                      
+   46   1              if(e_r2<1000&&g_ValueOfAD[2]>=80&&g_ValueOfAD[3]>=80&&abs(g_ValueOfAD[5]-g_ValueOfAD[0])<=15)       //环
+             -岛识别
+   47   1              {
+   48   2                      flag_r_hd = 1;
+   49   2              }
+   50   1              
+   51   1           
+   52   1              if(P26==0&&Hall!=1)     //霍尔识别
+   53   1              {
+   54   2                      Hall=1;
+   55   2              }       
+C251 COMPILER V5.60.0,  round                                                              23/07/23  00:26:14  PAGE 2   
+
+   56   1              
+   57   1              if(flag_r_hd==0 && g_ValueOfAD[5]>90 && g_ValueOfAD[0]>90
+   58   1                      && (g_ValueOfAD[4]+g_ValueOfAD[1])>90 && abs(v_angle)<=30 )     //十字识别
+   59   1              {               
+   60   2                      cross_flag = 1;
+   61   2              }
+   62   1              
+   63   1              if(obstacle_flag==0 && obstacle_number<obstacle_number_MAX && (dl1a_distance_mm<=850 && dl1a_distance_mm
+             ->=300
+   64   1                      && g_ValueOfAD[2]>=40 && g_ValueOfAD[3]>=40  && abs(v_angle)<=12))      //障碍识别
+   65   1              {
+   66   2                      obstacle_flag = 1;
+   67   2              }
+   68   1              
+   69   1      //    else if(round_number == round_number_MAX)
+   70   1      //    {   
+   71   1      //        ruku_encoder_round_after_flag = 1;
+   72   1      //    }
+   73   1      }
+   74          
+   75          void Round_Deal()
+   76          {   
+   77   1          if(round_number>=round_number_MAX) //环岛最大数量
+   78   1              {
+   79   2              flag_r_hd = 0;
+   80   2              }
+   81   1          
+   82   1              else if(flag_r_hd == 1 && round_number == 0)
+   83   1              {
+   84   2                      if (round1_type == -1)
+   85   2                      {
+   86   3                              Huan_Dao_Z(400);
+   87   3                      }
+   88   2                      else if (round1_type == 1)
+   89   2                      {
+   90   3                              Huan_Dao_R(450);
+   91   3                      }
+   92   2              }
+   93   1                      
+   94   1              else if(flag_r_hd == 1 && round_number == 1)
+   95   1              {
+   96   2                      if (round2_type == -1)
+   97   2                      {
+   98   3                              Huan_Dao_Z(400);
+   99   3                      }
+  100   2                      else if (round2_type == 1)
+  101   2                      {
+  102   3                              Huan_Dao_R(450);
+  103   3                      }
+  104   2              }
+  105   1              
+  106   1              else if(flag_r_hd == 1 && round_number == 2)
+  107   1              {
+  108   2                      if (round2_type == -1)
+  109   2                      {
+  110   3                              Huan_Dao_Z(400);
+  111   3                      }
+  112   2                      else if (round2_type == 1)
+  113   2                      {
+  114   3                              Huan_Dao_R(450);
+  115   3                      }
+  116   2              }       
+  117   1              
+  118   1          else if(flag_r_hd == 1 && round_number == 3)
+  119   1              {
+  120   2                      if (round2_type == -1)
+C251 COMPILER V5.60.0,  round                                                              23/07/23  00:26:14  PAGE 3   
+
+  121   2                      {
+  122   3                              Huan_Dao_Z(400);
+  123   3                      }
+  124   2                      else if (round2_type == 1)
+  125   2                      {
+  126   3                              Huan_Dao_R(450);
+  127   3                      }
+  128   2              }       
+  129   1              
+  130   1      }
+  131          
+  132          void Huan_Dao_Z(int round_into_waiting_distance)
+  133          {
+  134   1              
+  135   1              Target_speed1 = round_speed - cha_err1*0.12; 
+  136   1              Target_speed2 = round_speed + cha_err1*0.12;
+  137   1        
+  138   1              roundcount =(ctimer_count_read(CTIM0_P34)+ctimer_count_read(CTIM3_P04))*0.1;
+  139   1              roundcount2 = roundcount2 + roundcount;
+  140   1              if(roundcount2<=round_into_waiting_distance && roundcount2>=0) //小圆小大圆大 半径50cm
+  141   1              {
+  142   2                      cha_err1 = 0.2*g_fDirectionError[2] * g_dirControl_P + (g_fDirectionError[2] - last_err1) * g_dirContro
+             -l_D*0.4;
+  143   2                      last_err1 = g_fDirectionError[2];
+  144   2              }
+  145   1              else if(roundcount2>round_into_waiting_distance)//&&roundcount2<=25000&&flag_c_hd==0)
+  146   1              {
+  147   2                      mpu660_angle(); 
+  148   2      
+  149   2                      if(abs(angle)<=60)
+  150   2                      {
+  151   3                              BEEP = 1;
+  152   3                              cha_err1 = -70;
+  153   3                      }
+  154   2                      
+  155   2                      else if(g_ValueOfAD[3]==0 && g_ValueOfAD[2] == 0)
+  156   2                      {
+  157   3                              Target_speed1 = 0;
+  158   3                              Target_speed2 = 0;
+  159   3                      }
+  160   2                      
+  161   2                      else if(abs(angle)<=270&&abs(angle)>50)
+  162   2                      {
+  163   3                              Ordinary_trace();
+  164   3                      }
+  165   2                      
+  166   2                      else if(abs(angle)<=315&&abs(angle)>280)
+  167   2                      {
+  168   3                              //BEEP = 1;
+  169   3                              cha_err1 = -50;
+  170   3                              //roundcount3 = roundcount2;
+  171   3                      }
+  172   2                      
+  173   2                      else if(abs(angle)<=350&&abs(angle)>325)
+  174   2                      {
+  175   3                              Ordinary_trace();
+  176   3                      }
+  177   2                      
+  178   2                      else 
+  179   2                      {
+  180   3                              //Ordinary_trace();
+  181   3                              //if(roundcount2 > roundcount3+1000)
+  182   3                              //{                             
+  183   3                                      //BEEP = 0;
+  184   3                                      angle = 0;
+  185   3                                      roundcount2=0;
+C251 COMPILER V5.60.0,  round                                                              23/07/23  00:26:14  PAGE 4   
+
+  186   3                                      roundcount3=0;
+  187   3                                      round_number++;
+  188   3                                      flag_r_hd = 0;
+  189   3                              //}
+  190   3                      }
+  191   2                              
+  192   2              }
+  193   1      }
+  194          
+  195          void Huan_Dao_R(int round_into_waiting_distance)
+  196          {   
+  197   1      
+  198   1              Target_speed1 = round_speed - cha_err1*0.12; 
+  199   1              Target_speed2 = round_speed + cha_err1*0.12;
+  200   1              
+  201   1              roundcount =(ctimer_count_read(CTIM0_P34)+ctimer_count_read(CTIM3_P04))*0.1;
+  202   1              roundcount2 = roundcount2 + roundcount;
+  203   1              if(roundcount2<=round_into_waiting_distance && roundcount2>=0)  //半径60cm
+  204   1              {
+  205   2                      cha_err1 = 0.2*g_fDirectionError[2] * g_dirControl_P + (g_fDirectionError[2] - last_err1) * g_dirContro
+             -l_D*0.4;
+  206   2                      last_err1 = g_fDirectionError[2];
+  207   2              }
+  208   1              else if(roundcount2>round_into_waiting_distance)//&&roundcount2<=25000&&flag_c_hd==0
+  209   1              {
+  210   2                      mpu660_angle() ;        
+  211   2      
+  212   2                      if(abs(angle)<=55)
+  213   2                      {
+  214   3                              BEEP = 1;
+  215   3                              cha_err1 = +64;
+  216   3                      }
+  217   2                      
+  218   2                      else if(g_ValueOfAD[3]==0 && g_ValueOfAD[2] == 0)
+  219   2                      {
+  220   3                              Target_speed1 = 0;
+  221   3                              Target_speed2 = 0;
+  222   3                      }
+  223   2                      
+  224   2                      else if(abs(angle)<=280&&abs(angle)>55)
+  225   2                      {
+  226   3                              Ordinary_trace();
+  227   3                      }
+  228   2                      else if(abs(angle)<=325&&abs(angle)>280)
+  229   2                      {
+  230   3                              //BEEP = 1;
+  231   3                              cha_err1 = +50;
+  232   3                              //roundcount3 = roundcount2;
+  233   3                      }
+  234   2                      
+  235   2                      else if(abs(angle)<=350&&abs(angle)>325)
+  236   2                      {
+  237   3                              Ordinary_trace();
+  238   3                      
+  239   3                      }
+  240   2                      
+  241   2                      else 
+  242   2                      {
+  243   3                              //Ordinary_trace();
+  244   3                              //if(roundcount2 > roundcount3+1000)
+  245   3                              //{                             
+  246   3                                      //BEEP = 0;
+  247   3                  angle = 0;
+  248   3                  roundcount2=0;
+  249   3                  roundcount3=0;
+  250   3                  round_number++;
+C251 COMPILER V5.60.0,  round                                                              23/07/23  00:26:14  PAGE 5   
+
+  251   3                  flag_r_hd = 0;
+  252   3      
+  253   3                              //}
+  254   3                      }
+  255   2      
+  256   2              }
+  257   1      }
+  258          
+  259          void Slope() //坡道
+  260          {
+  261   1              if(obstacle_flag == 1 && slope_flag == 0)
+  262   1              {
+  263   2                      slope_flag = 1;
+  264   2              }
+  265   1              switch (slope_flag)
+  266   1              {
+  267   2                      case 1: //上坡预备 
+  268   2      //                              Target_speed1 = 80 -abs(v_angle)*0.155- cha_err1*0.24;
+  269   2      //                              Target_speed2 = 80 -abs(v_angle)*0.155+ cha_err1*0.24;
+  270   2                              Ordinary_trace();
+  271   2                              
+  272   2                              IMU660ra_Angle_Y();
+  273   2                              Gyro_Pitch_Angle = angle_y;
+  274   2                              if(Gyro_Pitch_Angle>=10)
+  275   2                              {
+  276   3      //                                              obstacle_number++;
+  277   3      //                                              obstacle_flag = 0;
+  278   3                                              slope_flag = 2;         
+  279   3                              }
+  280   2                              break;
+  281   2                              
+  282   2                      case 2: //坡后半段
+  283   2      //                              Target_speed1 = 60 -abs(v_angle)*0.155- cha_err1*0.24;
+  284   2      //                              Target_speed2 = 60 -abs(v_angle)*0.155+ cha_err1*0.24;
+  285   2                              Ordinary_trace();
+  286   2                              
+  287   2                              roundcount =(ctimer_count_read(CTIM0_P34)+ctimer_count_read(CTIM3_P04))*0.1;
+  288   2                              roundcount2 = roundcount2 + roundcount;
+  289   2                              
+  290   2                              if(roundcount2>3000) //出坡
+  291   2                              {
+  292   3                                              slope_flag = 0;
+  293   3                                              roundcount2 = 0;
+  294   3                                              obstacle_number++;
+  295   3                                              obstacle_flag = 0;      
+  296   3                                              BEEP = 0;
+  297   3                              }
+  298   2                              break;
+  299   2              }
+  300   1      }
+  301          
+  302          
+  303          
+  304          void Obstacle_Deal()
+  305          {   
+  306   1          if(obstacle_number>=obstacle_number_MAX)
+  307   1              {
+  308   2                obstacle_flag = 0;
+  309   2              }
+  310   1          
+  311   1              else if(obstacle_flag == 1 && obstacle_number == 0)
+  312   1              {
+  313   2                      if (obstacle1_type == -1)
+  314   2                      {
+  315   3                              Slope();
+  316   3                      }
+C251 COMPILER V5.60.0,  round                                                              23/07/23  00:26:14  PAGE 6   
+
+  317   2                      else if (obstacle1_type == 1)
+  318   2                      {
+  319   3                              Obstacle();
+  320   3                      }
+  321   2              }
+  322   1                      
+  323   1              else if(obstacle_flag == 1 && obstacle_number == 1)
+  324   1              {
+  325   2                      if (obstacle2_type == -1)
+  326   2                      {
+  327   3                              Slope();
+  328   3                      }
+  329   2                      else if (obstacle2_type == 1)
+  330   2                      {
+  331   3                              Obstacle();
+  332   3                      }
+  333   2              }
+  334   1              
+  335   1              else if(obstacle_flag == 1 && obstacle_number == 2)
+  336   1              {
+  337   2                      if (obstacle3_type == -1)
+  338   2                      {
+  339   3                              Slope();
+  340   3                      }
+  341   2                      else if (obstacle3_type == 1)
+  342   2                      {
+  343   3                              Obstacle();
+  344   3                      }
+  345   2              }
+  346   1          
+  347   1      }
+  348          
+  349          
+  350          void Obstacle()
+  351          {
+  352   1              roundcount =(ctimer_count_read(CTIM0_P34)+ctimer_count_read(CTIM3_P04))*0.1;
+  353   1              roundcount2 = roundcount2 + roundcount;
+  354   1              
+  355   1              switch(obstacle_flag)
+  356   1              {
+  357   2                      case 1: //避让驶出
+  358   2                      BEEP = 1;
+  359   2                                      Target_speed1 = 50 - cha_err1*0.2; 
+  360   2                                      Target_speed2 = 50 + cha_err1*0.2;
+  361   2                                      cha_err1 = 70;
+  362   2                                      mpu660_angle(); 
+  363   2                                      if(roundcount2>3000 || abs(angle)>50)   
+  364   2                                      {   
+  365   3                          BEEP = 0;
+  366   3                                              roundcount3 = roundcount2;
+  367   3                                              angle = 0;
+  368   3                                              obstacle_flag = 2;
+  369   3                                      }
+  370   2                                      break;
+  371   2                      
+  372   2                      case 2: //完毕驶回
+  373   2                                      Target_speed1 = 100 - cha_err1*0.12; 
+  374   2                                      Target_speed2 = 100 + cha_err1*0.12;
+  375   2                                      cha_err1 = -60;
+  376   2                                      mpu660_angle(); 
+  377   2                                      if( (roundcount2>=roundcount3+1000 && g_ValueOfAD[0]+g_ValueOfAD[5]>=30) ||  abs(angle)>90 )
+  378   2                                      {
+  379   3                                              BEEP = 1;
+  380   3                                              obstacle_number++;
+  381   3                                              angle = 0;
+  382   3                                              roundcount2 = 0;
+C251 COMPILER V5.60.0,  round                                                              23/07/23  00:26:14  PAGE 7   
+
+  383   3                                              roundcount3 = 0;
+  384   3                                              obstacle_flag = 0;                                      
+  385   3                                              //obstacle_flag = 3;    //调试用
+  386   3                                      }
+  387   2                                      break;
+  388   2                      
+  389   2                      case 3: //调试用
+  390   2                                      Target_speed1 = 0; 
+  391   2                                      Target_speed2 = 0;
+  392   2                                      
+  393   2                                      break;
+  394   2              }
+  395   1                                      
+  396   1      }
+  397          
+  398          
+  399          
+  400          void Cross()
+  401          {               
+  402   1              roundcount =(ctimer_count_read(CTIM0_P34)+ctimer_count_read(CTIM3_P04))*0.1;
+  403   1              roundcount2 = roundcount2 + roundcount;
+  404   1              if(roundcount2<=1000)
+  405   1              {   
+  406   2                      BEEP = 1;
+  407   2                      cha_err1 = (1.1*g_fDirectionError[0] * g_dirControl_P + (g_fDirectionError[0] - last_err1) * g_dirContr
+             -ol_D*1.4)+v_angle*0.15; //
+  408   2                      last_err1 =g_fDirectionError[0];
+  409   2                      Target_speed1 = 155- abs(v_angle)*0.1-abs(y_v_angle)*0.5- cha_err1*0.1;
+  410   2                      Target_speed2 =  155 - abs(v_angle)*0.1-abs(y_v_angle)*0.5+ cha_err1*0.1;
+  411   2              }
+  412   1              else
+  413   1              {
+  414   2                      roundcount2 = 0;
+  415   2                      cross_flag = 0;
+  416   2              }
+  417   1      }
+  418          
+
+
+Module Information          Static   Overlayable
+------------------------------------------------
+  code size            =    ------     ------
+  ecode size           =      2744     ------
+  data size            =    ------     ------
+  idata size           =    ------     ------
+  pdata size           =    ------     ------
+  xdata size           =    ------     ------
+  xdata-const size     =    ------     ------
+  edata size           =        52     ------
+  bit size             =    ------     ------
+  ebit size            =    ------     ------
+  bitaddressable size  =    ------     ------
+  ebitaddressable size =    ------     ------
+  far data size        =    ------     ------
+  huge data size       =    ------     ------
+  const size           =    ------     ------
+  hconst size          =       152     ------
+End of Module Information.
+
+
+C251 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
